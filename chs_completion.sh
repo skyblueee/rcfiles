@@ -47,7 +47,8 @@ _filedir_xspec()
     _expand || return 0
 
     # get first exclusion compspec that matches this command
-    xspec=$( awk "/^complete[ \t]+.*[ \t]${1##*/}([ \t]|\$)/ { print \$0; exit }" \
+    # xspec=$( awk "/^complete[ \t]+.*[ \t]${1##*/}([ \t]|\$)/ { print \$0; exit }" \
+    xspec=$( awk "/${1##*/}([ \t]|\$)/ { print \$2; exit }" \
         "$BASH_COMPLETION" )
     # prune to leave nothing but the -X spec
     xspec=${xspec#*-X }
@@ -64,6 +65,7 @@ _filedir_xspec()
         done
         }
         ))
+
 
     # Munge xspec to contain uppercase version too
     eval xspec="${xspec}"

@@ -11,7 +11,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
-Plugin 'skybluee/novel.vim'
+Plugin 'skyblueee/novel.vim'
 
 call vundle#end()            " vundle_required
 filetype plugin indent on    " vundle_required
