@@ -65,6 +65,9 @@ set shiftwidth=4
 set noexpandtab
 set autoindent
 
+" to have Vim jump to the last position when reopening a file
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
 "==|dict|================================================================================="
 function! Mydict()
     let expl=system('sdcv -n ' .
