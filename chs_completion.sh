@@ -6,21 +6,13 @@ _filedir()
     _tilde "$cur" || return 0
 
     local -a toks
-    local quoted tmp
+    local quoted x tmp
 
     _quote_readline_by_ref "$cur" quoted
-    toks=( ${toks[@]-} $(
-        compgen -d -- "$quoted" | {
-            while read -r tmp; do
-                # TODO: I have removed a "[ -n $tmp ] &&" before 'printf ..',
-                #       and everything works again. If this bug suddenly
-                #       appears again (i.e. "cd /b<TAB>" becomes "cd /"),
-                #       remember to check for other similar conditionals (here
-                #       and _filedir_xspec()). --David
-                printf '%s\n' $tmp
-            done
-        }
-    ))
+    x=$( compgen -d -- "$quoted" ) &&
+    while read -r tmp; do
+        toks+=( "$tmp" )
+	done <<< "$x"
 
     if [[ "$1" != -d ]]; then
         # Munge xspec to contain uppercase version too
@@ -30,7 +22,8 @@ _filedir()
         toks=( ${toks[@]-} $( compgen -f -X "$xspec" -- $quoted) )
     fi
     # [ ${#toks[@]} -ne 0 ] && _compopt_o_filenames
-    [ ${#toks[@]} -ne 0 ] && compopt -o filenames
+    # [ ${#toks[@]} -ne 0 ] && compopt -o filenames
+	compopt -o filenames
 
 	chs=($(chsdir "x$1" "$cur"))
 	COMPREPLY=( "${COMPREPLY[@]}" "${toks[@]}" "${chs[@]}" )
@@ -87,7 +80,8 @@ _filedir_xspec()
         ))
 
     # [ ${#toks[@]} -ne 0 ] && _compopt_o_filenames
-    [ ${#toks[@]} -ne 0 ] && compopt -o filenames
+    # [ ${#toks[@]} -ne 0 ] && compopt -o filenames
+	compopt -o filenames
 
     chs=($(chsdir "x$1" "$cur"))
     COMPREPLY=( "${toks[@]}" "${chs[@]}" )
