@@ -113,6 +113,5 @@ fi
 
 PATH=$PATH:$HOME/bin:$HOME/rcfiles
 . ~/rcfiles/chs_completion.sh
-alias v='vim'
 alias pycharm='~/bin/pycharm-2017.1.3/bin/pycharm.sh'
 alias idea='~/bin/idea-IU-171.4424.56/bin/idea.sh'
