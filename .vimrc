@@ -12,6 +12,7 @@ Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle, vundle_required
 "---------------------------------------
 Plugin 'scrooloose/nerdtree' " :NERDTreeToggle :NERDTreeFind and press ? for help
 Plugin 'majutsushi/tagbar'	 " :Tagbar and press ? for help
+Plugin 'bling/vim-bufferline'
 Plugin 'kien/ctrlp.vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'skyblueee/visualmarks' " press mm to mark and F2 to circle them
@@ -108,6 +109,9 @@ let g:tagbar_compact = 1
 let g:tagbar_foldlevel = 2
 let g:tagbar_autoshowtag = 1
 " let g:tagbar_autopreview = 1
+
+"==|bufferline|================================================================================="
+set updatetime=500
 
 "==|YouCompleteMe|==========================================================================="
 let g:ycm_complete_in_comments = 1
