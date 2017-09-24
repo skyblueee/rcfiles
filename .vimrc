@@ -10,9 +10,8 @@ call vundle#begin()
 "---------------------------------------
 Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle, vundle_required
 "---------------------------------------
-Plugin 'scrooloose/nerdtree' " :NERDTree and press ? for help
+Plugin 'scrooloose/nerdtree' " :NERDTreeToggle :NERDTreeFind and press ? for help
 Plugin 'majutsushi/tagbar'	 " :Tagbar and press ? for help
-Plugin 'fholgado/minibufexpl.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'skyblueee/visualmarks' " press mm to mark and F2 to circle them
@@ -23,11 +22,13 @@ Plugin 'jiangmiao/auto-pairs'
 "---------------------------------------
 Plugin 'nvie/vim-flake8'     " flake8 installed required
 Plugin 'rkulla/pydiction' " just press Tab to complete python files
+Plugin 'fs111/pydoc.vim'  " just press K(or <leader>pw) in python files
 Plugin 'vim-syntastic/syntastic'
 "---------------------------------------
 Plugin 'vim-scripts/TaskList.vim' " todo: not that good
 Plugin 'tpope/vim-fugitive'
 Plugin 'skyblueee/Conque-Shell'
+Plugin 'yianwillis/vimcdoc'
 "---------------------------------------
 call vundle#end()            " vundle_required
 filetype plugin indent on    " vundle_required
@@ -66,14 +67,13 @@ set autoindent
 " to have Vim jump to the last position when reopening a file
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 "---------------------------------------
-" to highlight the tailing spaces, <leader><space> to remove them.
+" to highlight the tailing spaces.
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
-nnoremap <leader><space> :%s/\s\+$//<cr>
 
 "==|GUI|================================================================================="
 set guioptions-=T
@@ -94,6 +94,13 @@ function! MaximizeWindow()
 	silent !wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
 endfunction
 
+"==|NERDTree|================================================================================="
+nnoremap <leader>f :NERDTreeToggle<CR>
+let NERDTreeShowBookmarks = 1
+let NERDTreeCascadeSingleChildDir = 1
+let NERDTreeNaturalSort = 1
+let NERDTreeChDirMode = 1
+
 "==|Tagbar|================================================================================="
 let g:tagbar_autoclose = 1
 let g:tagbar_autofocus = 1
@@ -101,11 +108,6 @@ let g:tagbar_compact = 1
 let g:tagbar_foldlevel = 2
 let g:tagbar_autoshowtag = 1
 " let g:tagbar_autopreview = 1
-
-"==|MiniBufExpl|============================================================================="
-let g:miniBufExplMaxSize = 1
-let g:miniBufExplHideWhenDiff = 1
-let g:miniBufExplShowBufNumbers = 1
 
 "==|YouCompleteMe|==========================================================================="
 let g:ycm_complete_in_comments = 1
@@ -141,6 +143,9 @@ let g:ack_autoclose = 1
 "==|Pydiction|================================================================================="
 let g:pydiction_location = '~/.vim/bundle/pydiction/complete-dict'
 
+"==|Pydoc|================================================================================="
+let g:pydoc_window_lines=0.7
+
 "==|flake8|================================================================================="
 " files that contain this line are skipped:: # flake8: noqa
 " lines that contain a ``# noqa`` comment at the end will not issue warnings.
@@ -164,7 +169,7 @@ let g:tlWindowPosition = 1
 let g:tlTokenList = ["todo", "TODO", "fixme", "FIXME"]
 
 "==|ConqueTerm|=========================================================================="
-nnoremap <leader>b :ConqueTermVSplit bash<CR>
+nnoremap <leader>s :ConqueTermVSplit bash<CR>
 
 "==|dict|================================================================================="
 function! Mydict()
@@ -207,4 +212,6 @@ nnoremap <F3> <Esc>ggVG"+y
 " copy from sys stack
 nnoremap <F4> "+p
 inoremap <F4> <Esc>"+pa
+
+nnoremap <leader><SPACE>  <ESC>o<ESC>
 
