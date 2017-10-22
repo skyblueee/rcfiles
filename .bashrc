@@ -115,3 +115,5 @@ PATH=$PATH:$HOME/bin:$HOME/rcfiles
 . ~/rcfiles/chs_completion.sh
 alias pycharm='~/bin/pycharm-2017.1.3/bin/pycharm.sh'
 alias idea='~/bin/idea-IU-171.4424.56/bin/idea.sh'
+alias docx2txt='~/bin/docx2txt-1.4/docx2txt.sh'
+alias git='LC_ALL=C git'

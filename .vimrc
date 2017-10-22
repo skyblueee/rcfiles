@@ -26,7 +26,6 @@ Plugin 'rkulla/pydiction' " just press Tab to complete python files
 Plugin 'fs111/pydoc.vim'  " just press K(or <leader>pw) in python files
 Plugin 'vim-syntastic/syntastic'
 "---------------------------------------
-Plugin 'vim-scripts/TaskList.vim' " todo: not that good
 Plugin 'tpope/vim-fugitive'
 Plugin 'skyblueee/Conque-Shell'
 Plugin 'yianwillis/vimcdoc'
@@ -56,13 +55,14 @@ set backspace=indent,eol,start
 set whichwrap=b,s,<,>,[,],~
 "---------------------------------------
 set fencs=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936 " set file encoding check and support
+set encoding=utf-8
 "---------------------------------------
 set completeopt=menuone,longest,preview
 set diffopt=filler,vertical
 "---------------------------------------
 set tabstop=4
 set shiftwidth=4
-set noexpandtab
+set expandtab
 set autoindent
 "---------------------------------------
 " to have Vim jump to the last position when reopening a file
@@ -100,7 +100,7 @@ nnoremap <leader>f :NERDTreeToggle<CR>
 let NERDTreeShowBookmarks = 1
 let NERDTreeCascadeSingleChildDir = 1
 let NERDTreeNaturalSort = 1
-let NERDTreeChDirMode = 1
+let NERDTreeChDirMode = 2
 
 "==|Tagbar|================================================================================="
 let g:tagbar_autoclose = 1
@@ -111,7 +111,7 @@ let g:tagbar_autoshowtag = 1
 " let g:tagbar_autopreview = 1
 
 "==|bufferline|================================================================================="
-set updatetime=500
+set updatetime=5000
 
 "==|YouCompleteMe|==========================================================================="
 let g:ycm_complete_in_comments = 1
@@ -166,11 +166,6 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-
-"==|TaskList|============================================================================="
-"Usage: <leader>t to get tasklist and q to close it.
-let g:tlWindowPosition = 1
-let g:tlTokenList = ["todo", "TODO", "fixme", "FIXME"]
 
 "==|ConqueTerm|=========================================================================="
 nnoremap <leader>s :ConqueTermVSplit bash<CR>
