@@ -1,6 +1,6 @@
 set nocompatible              " be iMproved, vundle_required
 
-"==|Vundle|=============================================================================="
+"==|Vundle|=====================================================================
 filetype off                  " vundle_required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -10,8 +10,8 @@ call vundle#begin()
 "---------------------------------------
 Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle, vundle_required
 "---------------------------------------
-Plugin 'scrooloose/nerdtree' " :NERDTreeToggle :NERDTreeFind and press ? for help
-Plugin 'majutsushi/tagbar'	 " :Tagbar and press ? for help
+Plugin 'scrooloose/nerdtree' " :NERDTreeToggle :NERDTreeFind and ? for help
+Plugin 'majutsushi/tagbar'	 " :Tagbar and ? for help
 Plugin 'bling/vim-bufferline'
 Plugin 'kien/ctrlp.vim'
 Plugin 'mileszs/ack.vim'
@@ -35,7 +35,7 @@ filetype plugin indent on    " vundle_required
 syntax enable
 syntax on
 
-"==|ALL|================================================================================="
+"==|ALL|========================================================================
 set mouse=a " enable mouse
 set linebreak " can not break word when line break
 set ruler " show row and column in the bottom
@@ -54,7 +54,8 @@ set backspace=indent,eol,start
 "---------------------------------------
 set whichwrap=b,s,<,>,[,],~
 "---------------------------------------
-set fencs=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936 " set file encoding check and support
+" set file encoding check and support
+set fencs=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set encoding=utf-8
 "---------------------------------------
 set completeopt=menuone,longest,preview
@@ -66,7 +67,9 @@ set expandtab
 set autoindent
 "---------------------------------------
 " to have Vim jump to the last position when reopening a file
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$")
+            \ | exe "normal! g'\""
+            \ | endif
 "---------------------------------------
 " to highlight the tailing spaces.
 highlight ExtraWhitespace ctermbg=red guibg=red
@@ -76,7 +79,7 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
-"==|GUI|================================================================================="
+"==|GUI|========================================================================
 set guioptions-=T
 if has('gui_running')
 	"colorscheme desert
@@ -95,14 +98,14 @@ function! MaximizeWindow()
 	silent !wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
 endfunction
 
-"==|NERDTree|================================================================================="
+"==|NERDTree|===================================================================
 nnoremap <leader>f :NERDTreeToggle<CR>
 let NERDTreeShowBookmarks = 1
 let NERDTreeCascadeSingleChildDir = 1
 let NERDTreeNaturalSort = 1
 let NERDTreeChDirMode = 2
 
-"==|Tagbar|================================================================================="
+"==|Tagbar|=====================================================================
 let g:tagbar_autoclose = 1
 let g:tagbar_autofocus = 1
 let g:tagbar_compact = 1
@@ -110,54 +113,54 @@ let g:tagbar_foldlevel = 2
 let g:tagbar_autoshowtag = 1
 " let g:tagbar_autopreview = 1
 
-"==|bufferline|================================================================================="
+"==|bufferline|=================================================================
 set updatetime=5000
 
-"==|YouCompleteMe|==========================================================================="
+"==|YouCompleteMe|==============================================================
 let g:ycm_complete_in_comments = 1
 "let g:ycm_add_preview_to_completeopt = 1
 "let g:ycm_autoclose_preview_window_after_completion = 1
 "let g:ycm_key_list_stop_completion = ['<C-y>']
 "let g:ycm_key_invoke_completion = '<C-Space>'
 "let g:ycm_semantic_triggers =  {
-"			\   'c' : ['->', '.'],
-"			\   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
-"			\             're!\[.*\]\s'],
-"			\   'ocaml' : ['.', '#'],
-"			\   'cpp,objcpp' : ['->', '.', '::'],
-"			\   'perl' : ['->'],
-"			\   'php' : ['->', '::'],
-"			\   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
-"			\   'ruby' : ['.', '::'],
-"			\   'lua' : ['.', ':'],
-"			\   'erlang' : [':'],
-"			\ }
+"  \  'c' : ['->', '.'],
+"  \  'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
+"  \            're!\[.*\]\s'],
+"  \  'ocaml' : ['.', '#'],
+"  \  'cpp,objcpp' : ['->', '.', '::'],
+"  \  'perl' : ['->'],
+"  \  'php' : ['->', '::'],
+"  \  'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+"  \  'ruby' : ['.', '::'],
+"  \  'lua' : ['.', ':'],
+"  \  'erlang' : [':'],
+"  \ }
 
-"==|CtrlP|================================================================================="
-" Usage: press <c-p> and type something, use <c-j> and <c-k> to navigate and select one.
+"==|CtrlP|======================================================================
+" Usage: press <c-p> and type sth, <c-j> and <c-k> to navigate and select one.
 let g:loaded_ctrlp = 0 "set to 1 to disable the plugin
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_regexp = 0  "Set this to 1 to set regexp search as the default
 
-"==|Ack|================================================================================="
+"==|Ack|========================================================================
 nnoremap <leader>a <ESC>:Ack!<Space>
 let g:ack_autoclose = 1
 
-"==|Pydiction|================================================================================="
+"==|Pydiction|==================================================================
 let g:pydiction_location = '~/.vim/bundle/pydiction/complete-dict'
 
-"==|Pydoc|================================================================================="
+"==|Pydoc|======================================================================
 let g:pydoc_window_lines=0.7
 
-"==|flake8|================================================================================="
+"==|flake8|=====================================================================
 " files that contain this line are skipped:: # flake8: noqa
 " lines that contain a ``# noqa`` comment at the end will not issue warnings.
-" you can ignore specific errors on a line with ``# noqa: <error>``, e.g., ``# noqa: E234``
+" ignore specific errors on a line with ``# noqa: <error>``(``# noqa: E234``)
 " extendable through ``flake8.extension`` and ``flake8.formatting`` entry points
 autocmd FileType python map <buffer> <F7> :call Flake8()<CR>
 
-"==|Syntastic|================================================================================="
+"==|Syntastic|==================================================================
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -167,10 +170,10 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-"==|ConqueTerm|=========================================================================="
+"==|ConqueTerm|=================================================================
 nnoremap <leader>s :ConqueTermVSplit bash<CR>
 
-"==|dict|================================================================================="
+"==|dict|=======================================================================
 function! Mydict()
     let expl=system('sdcv --utf8-output -n ' .
 		\ expand("<cword>"))
@@ -184,7 +187,7 @@ function! Mydict()
 endfunction
 nnoremap <C-K> :call Mydict()<CR>
 
-"==|Ranger|==============================================================================="
+"==|Ranger|=====================================================================
 function! Ranger()
 	silent !ranger --choosefile=/tmp/chosen
 	if filereadable('/tmp/chosen')
@@ -195,7 +198,7 @@ function! Ranger()
 endfun
 nnoremap <leader>r :call Ranger()<cr>
 
-"==|Self|================================================================================="
+"==|Self|=======================================================================
 nnoremap <C-H>     <C-W>h
 nnoremap <C-L>     <C-W>l
 
@@ -214,3 +217,5 @@ inoremap <F4> <Esc>"+pa
 
 nnoremap <leader><SPACE>  <ESC>o<ESC>
 
+set cursorline cursorcolumn
+set colorcolumn=80
