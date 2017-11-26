@@ -111,9 +111,34 @@ if ! shopt -oq posix; then
   fi
 fi
 
+#===User========================================================================
+
+# path alias
 PATH=$PATH:$HOME/bin:$HOME/rcfiles
-. ~/rcfiles/chs_completion.sh
 alias pycharm='~/bin/pycharm-2017.1.3/bin/pycharm.sh'
 alias idea='~/bin/idea-IU-171.4424.56/bin/idea.sh'
 alias docx2txt='~/bin/docx2txt-1.4/docx2txt.sh'
+
+# chinese completion
+. ~/rcfiles/chs_completion.sh
+
+# option alias
+alias grep='grep --color=auto'
 alias git='LC_ALL=C git'
+
+# Automatically change the directory in bash after closing ranger
+# copied from /usr/share/doc/ranger/examples/bash_automatic_cd.sh
+# This is a bash function for .bashrc to automatically change the directory to
+# the last visited one after ranger quits.
+# To undo the effect of this function, you can type "cd -" to return to the
+# original directory.
+function ranger-cd {
+    tempfile="$(mktemp -t tmp.XXXXXX)"
+    /usr/bin/ranger --choosedir="$tempfile" "${@:-$(pwd)}"
+    test -f "$tempfile" &&
+    if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
+        cd -- "$(cat "$tempfile")"
+    fi
+    rm -f -- "$tempfile"
+}
+bind '"\C-o":"ranger-cd\C-m"' # This binds Ctrl-O to ranger-cd
