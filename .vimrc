@@ -10,7 +10,7 @@ call vundle#begin()
 "---------------------------------------
 Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle, vundle_required
 "---------------------------------------
-Plugin 'scrooloose/nerdtree' " :NERDTreeToggle :NERDTreeFind and ? for help
+Plugin 'skyblueee/nerdtree' " :NERDTreeToggle :NERDTreeFind and ? for help
 Plugin 'majutsushi/tagbar'	 " :Tagbar and ? for help
 Plugin 'bling/vim-bufferline'
 Plugin 'kien/ctrlp.vim'
