@@ -87,5 +87,6 @@ _filedir_xspec()
     COMPREPLY=( "${toks[@]}" "${chs[@]}" )
 }
 
+PATH=$PATH:$HOME/rcfiles
 complete -o filenames -F _filedir_xspec file
 
