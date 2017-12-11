@@ -118,6 +118,7 @@ set updatetime=5000
 
 "==|YouCompleteMe|==============================================================
 let g:ycm_complete_in_comments = 1
+let g:ycm_global_ycm_extra_conf = '~/rcfiles/.ycm_extra_conf.py'
 "let g:ycm_add_preview_to_completeopt = 1
 "let g:ycm_autoclose_preview_window_after_completion = 1
 "let g:ycm_key_list_stop_completion = ['<C-y>']
