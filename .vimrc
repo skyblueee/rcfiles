@@ -17,12 +17,13 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'skyblueee/visualmarks' " press mm to mark and F2 to circle them
 Plugin 'Valloric/YouCompleteMe' " extra compile needed
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 "---------------------------------------
 Plugin 'godlygeek/tabular'
 Plugin 'jiangmiao/auto-pairs'
 "---------------------------------------
 Plugin 'nvie/vim-flake8'     " flake8 installed required
-Plugin 'rkulla/pydiction' " just press Tab to complete python files
 Plugin 'fs111/pydoc.vim'  " just press K(or <leader>pw) in python files
 Plugin 'vim-syntastic/syntastic'
 "---------------------------------------
@@ -179,6 +180,12 @@ let g:ycm_global_ycm_extra_conf = '~/rcfiles/.ycm_extra_conf.py' " default ''
 "let g:ycm_disable_for_files_larger_than_kb = 1000 " default 1000
 "let g:ycm_python_binary_path = '' " default 0
 
+"==|UltiSnips|==================================================================
+let g:UltiSnipsExpandTrigger = '<C-o>' " Open it! default '<TAB>'
+"let g:UltiSnipsListSnippets = '<C-TAB>' " default '<C-TAB>'
+"let g:UltiSnipsJumpForwardTrigger = '<C-j>' " default '<C-j>'
+"let g:UltiSnipsJumpBackwardTrigger = '<C-k>' " default '<C-k>'
+
 "==|CtrlP|======================================================================
 " Usage: press <c-p> and type sth, <c-j> and <c-k> to navigate and select one.
 let g:loaded_ctrlp = 0 "set to 1 to disable the plugin
@@ -189,9 +196,6 @@ let g:ctrlp_regexp = 0  "Set this to 1 to set regexp search as the default
 "==|Ack|========================================================================
 nnoremap <leader>a <ESC>:Ack!<Space>
 let g:ack_autoclose = 1
-
-"==|Pydiction|==================================================================
-let g:pydiction_location = '~/.vim/bundle/pydiction/complete-dict'
 
 "==|Pydoc|======================================================================
 let g:pydoc_window_lines=0.7
