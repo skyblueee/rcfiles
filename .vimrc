@@ -13,6 +13,7 @@ Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle, vundle_required
 Plugin 'skyblueee/nerdtree' " :NERDTreeToggle :NERDTreeFind and ? for help
 Plugin 'majutsushi/tagbar'	 " :Tagbar and ? for help
 Plugin 'bling/vim-bufferline'
+Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'skyblueee/visualmarks' " press mm to mark and F2 to circle them
@@ -112,10 +113,36 @@ let g:tagbar_autofocus = 1
 let g:tagbar_compact = 1
 let g:tagbar_foldlevel = 2
 let g:tagbar_autoshowtag = 1
-" let g:tagbar_autopreview = 1
+"let g:tagbar_autopreview = 1
 
 "==|bufferline|=================================================================
 set updatetime=5000
+
+"==|rainbow_parentheses|========================================================
+" delete black from default
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+let g:rbpt_max = 16
+let g:rbpt_loadcmd_toggle = 0
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 
 "==|YouCompleteMe|==============================================================
 "let g:ycm_min_num_of_chars_for_completion = 1 " default: 2
