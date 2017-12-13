@@ -117,12 +117,49 @@ let g:tagbar_autoshowtag = 1
 set updatetime=5000
 
 "==|YouCompleteMe|==============================================================
-let g:ycm_complete_in_comments = 1
-let g:ycm_global_ycm_extra_conf = '~/rcfiles/.ycm_extra_conf.py'
-"let g:ycm_add_preview_to_completeopt = 1
-"let g:ycm_autoclose_preview_window_after_completion = 1
-"let g:ycm_key_list_stop_completion = ['<C-y>']
-"let g:ycm_key_invoke_completion = '<C-Space>'
+"let g:ycm_min_num_of_chars_for_completion = 1 " default: 2
+"let g:ycm_min_num_identifier_candidate_chars = 0
+"let g:ycm_max_num_candidates = 50 " 0 or >100 not recommended
+"let g:ycm_max_num_identifier_candidates = 10
+"let g:ycm_auto_trigger = 1
+"let g:ycm_filetype_whitelist = { '*': 1 }
+"let g:ycm_filetype_blacklist = { [see help file] }
+"let g:ycm_filetype_specific_completion_to_disable = { [see help file] }
+"let g:ycm_show_diagnostics_ui = 1 " default 1
+"let g:ycm_error_symbol = '>>'
+"let g:ycm_warning_symbol = '>>'
+"let g:ycm_enable_diagnostic_signs = 1 " default 1
+"let g:ycm_enable_diagnostic_highlighting = 1 " default 1
+"let g:ycm_echo_current_diagnostic = 1 " default 1
+"let g:ycm_filter_diagnostics = {} " default {}
+"let g:ycm_always_populate_location_list = 0 " default 0
+"let g:ycm_open_loclist_on_ycm_diags = 1 " default 1
+let g:ycm_complete_in_comments = 1 " default 0
+"let g:ycm_complete_in_strings = 1 " default 1
+"let g:ycm_collect_identifiers_from_comments_and_strings = 0 " default 0
+"let g:ycm_collect_identifiers_from_tags_files = 0 " default 0
+"let g:ycm_seed_identifiers_with_syntax = 0 " default 0
+"let g:ycm_extra_conf_vim_data = [] " default []
+"let g:ycm_server_python_interpreter = '' " default ''
+"let g:ycm_keep_logfiles = 0 " default 0
+"let g:ycm_log_level = 'debug' " debug/info(default)/warning/error/critical
+"let g:ycm_auto_start_csharp_server = 1 " default 1
+"let g:ycm_auto_stop_csharp_server = 1 " default 1
+"let g:ycm_csharp_server_port = 0 " default 0
+"let g:ycm_csharp_insert_namespace_expr = '' " default ''
+"let g:ycm_add_preview_to_completeopt = 1 " default 0
+let g:ycm_autoclose_preview_window_after_completion = 1 " default 0
+"let g:ycm_autoclose_preview_window_after_insertion = 0 " default 0
+"let g:ycm_max_diagnostics_to_display = 10 " default 30
+"let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
+"let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>']
+"let g:ycm_key_list_stop_completion = ['<C-y>'] " default ['<C-y>']
+"let g:ycm_key_invoke_completion = '<C-Space>' " default <C-Space>
+"let g:ycm_key_detailed_diagnostics = '<leader>d'
+let g:ycm_global_ycm_extra_conf = '~/rcfiles/.ycm_extra_conf.py' " default ''
+"let g:ycm_confirm_extra_conf = 1 " default 1
+"let g:ycm_extra_conf_globlist = [] " default []
+"let g:ycm_filepath_completion_use_working_dir = 0 " default 0
 "let g:ycm_semantic_triggers =  {
 "  \  'c' : ['->', '.'],
 "  \  'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
@@ -136,6 +173,11 @@ let g:ycm_global_ycm_extra_conf = '~/rcfiles/.ycm_extra_conf.py'
 "  \  'lua' : ['.', ':'],
 "  \  'erlang' : [':'],
 "  \ }
+"let g:ycm_cache_omnifunc = 1 " default 0
+"let g:ycm_use_ultisnips_completer = 1 " default 1
+"let g:ycm_goto_buffer_command = 'same-buffer' " default 'same-buffer'
+"let g:ycm_disable_for_files_larger_than_kb = 1000 " default 1000
+"let g:ycm_python_binary_path = '' " default 0
 
 "==|CtrlP|======================================================================
 " Usage: press <c-p> and type sth, <c-j> and <c-k> to navigate and select one.
