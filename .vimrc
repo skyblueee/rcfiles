@@ -16,6 +16,7 @@ Plugin 'bling/vim-bufferline'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'mileszs/ack.vim' " :Ack and ? for help
+Plugin 'easymotion/vim-easymotion' " <leader><leader>fFwWbBsjk
 Plugin 'skyblueee/visualmarks' " press mm to mark and F2 to circle them
 Plugin 'Valloric/YouCompleteMe' " extra compile needed
 Plugin 'SirVer/ultisnips'

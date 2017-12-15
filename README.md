@@ -21,10 +21,14 @@ Press `<Ctrl-o>` to open ranger, and press `q` to leave you in the proper direct
 ## Vim
 ### Window navigation
 * `<C-h>`/`<C-l>` to navigate left/right among windows.
-* `<C-_array_>` to navigate up/down/left/right among windows.
+* `<C-*arrow*>` to navigate up/down/left/right among windows.
 ### Buffer navigation
 *vim-bufferline* is used to show buffer numbers in the status bar. Use `:b<num>` to navigate among buffers.
 ### Easy motion
+*vim-easymotion* is used to move very quikly and pricisely.
+* `<leader><leader>f/F/s` for characters.
+* `<leader><leader>w/W/b/B/e/E` for words.
+* `<leader><leader>j/k` for lines.
 `mm` to mark the current line, and `<F2>` to toggle among the hilighted marks (supplied by *visualmarks*).
 ### Quick filesystem navigation
 *NERDTree* is used to navigate in filesystem.
