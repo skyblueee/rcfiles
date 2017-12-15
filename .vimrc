@@ -15,7 +15,7 @@ Plugin 'majutsushi/tagbar'	 " :Tagbar and ? for help
 Plugin 'bling/vim-bufferline'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'kien/ctrlp.vim'
-Plugin 'mileszs/ack.vim'
+Plugin 'mileszs/ack.vim' " :Ack and ? for help
 Plugin 'skyblueee/visualmarks' " press mm to mark and F2 to circle them
 Plugin 'Valloric/YouCompleteMe' " extra compile needed
 Plugin 'SirVer/ultisnips'
@@ -24,11 +24,9 @@ Plugin 'honza/vim-snippets'
 Plugin 'godlygeek/tabular'
 Plugin 'jiangmiao/auto-pairs'
 "---------------------------------------
-Plugin 'nvie/vim-flake8'     " flake8 installed required
 Plugin 'fs111/pydoc.vim'  " just press K(or <leader>pw) in python files
 Plugin 'vim-syntastic/syntastic'
 "---------------------------------------
-Plugin 'tpope/vim-fugitive'
 Plugin 'skyblueee/Conque-Shell'
 Plugin 'yianwillis/vimcdoc'
 "---------------------------------------
@@ -113,7 +111,6 @@ let g:tagbar_autofocus = 1
 let g:tagbar_compact = 1
 let g:tagbar_foldlevel = 2
 let g:tagbar_autoshowtag = 1
-"let g:tagbar_autopreview = 1
 
 "==|bufferline|=================================================================
 set updatetime=5000
@@ -214,15 +211,21 @@ let g:UltiSnipsExpandTrigger = '<C-o>' " Open it! default '<TAB>'
 "let g:UltiSnipsJumpBackwardTrigger = '<C-k>' " default '<C-k>'
 
 "==|CtrlP|======================================================================
-" Usage: press <c-p> and type sth, <c-j> and <c-k> to navigate and select one.
-let g:loaded_ctrlp = 0 "set to 1 to disable the plugin
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_regexp = 0  "Set this to 1 to set regexp search as the default
+" Usage: <c-p> and type sth, <c-j> and <c-k> to navigate and <Enter> to open.
+"        <c-z> to mark/unmark a file and <c-o> to open marked ones.
+"        <c-n> and <c-p> to browse input history.
+"        <c-d> to toggle between full-path/filename-only mode.
+"        <c-r> to toggle between string/regexp mode.
+"        <c-f> and <c-b> to circle among search file/buffer/MRU mode.
+"        <ESC> to quit.
+"let g:loaded_ctrlp = 0 " set to 1 to disable the plugin
+let g:ctrlp_regexp = 1 " default 0
+"let g:ctrlp_show_hidden = 0 " default 0
 
 "==|Ack|========================================================================
-nnoremap <leader>a <ESC>:Ack!<Space>
-let g:ack_autoclose = 1
+let g:ackhighlight = 1 " default 0
+let g:ack_autoclose = 1 " default 0
+let g:ackpreview = 1 " default 0
 
 "==|Pydoc|======================================================================
 let g:pydoc_window_lines=0.7
