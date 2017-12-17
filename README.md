@@ -63,7 +63,7 @@ Press `<Ctrl-o>` to open ranger, and press `q` to leave you in the proper direct
 #### YCM
 *YCM* can do many of them (differ according to filetypes). `:YcmCompleter` gives a list of the commands you can call for the current completer.
 * GoTo
-    * `:YcmCompleter GoTo` performs the most sensible GoTo operation. GoToDefinition -> GoToDeclaration -> GoToInclude.
+    * `:YcmCompleter GoTo` or `<C-]` performs the most sensible GoTo operation. GoToDefinition -> GoToDeclaration -> GoToInclude.
     * `:YcmCompleter GoToReferences` finds all the references and populates a quickfix list.
 * Get
     * `:YcmCompleter GetType` echos the type of the variable or method, and where it differs, the derived type.

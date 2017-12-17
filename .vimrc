@@ -203,7 +203,7 @@ let g:ycm_global_ycm_extra_conf = '~/rcfiles/.ycm_extra_conf.py' " default ''
 "let g:ycm_use_ultisnips_completer = 1 " default 1
 "let g:ycm_goto_buffer_command = 'same-buffer' " default 'same-buffer'
 "let g:ycm_disable_for_files_larger_than_kb = 1000 " default 1000
-"let g:ycm_python_binary_path = '' " default 0
+au BufEnter *.h,*.c,*.cpp,*.py nnoremap <C-]> :YcmCompleter GoTo<CR>
 
 "==|UltiSnips|==================================================================
 let g:UltiSnipsExpandTrigger = '<C-o>' " Open it! default '<TAB>'
@@ -231,14 +231,10 @@ let g:ackpreview = 1 " default 0
 "==|Pydoc|======================================================================
 let g:pydoc_window_lines=0.7
 
-"==|flake8|=====================================================================
+"==|Syntastic|==================================================================
 " files that contain this line are skipped:: # flake8: noqa
 " lines that contain a ``# noqa`` comment at the end will not issue warnings.
 " ignore specific errors on a line with ``# noqa: <error>``(``# noqa: E234``)
-" extendable through ``flake8.extension`` and ``flake8.formatting`` entry points
-autocmd FileType python map <buffer> <F7> :call Flake8()<CR>
-
-"==|Syntastic|==================================================================
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
