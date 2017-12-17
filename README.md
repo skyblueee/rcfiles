@@ -88,5 +88,19 @@ Press `<Ctrl-o>` to open ranger, and press `q` to leave you in the proper direct
 ### Syntax check
 *YCM* (C-family) and *Syntastic* (python) can check the syntax, then give signs and location-list automaticly.
 * `:lopen [height]` opens the location-list.
+### Debug
+#### Vdebug
+*Vdebug* is used to debug python files. Get a better debugging time while using it with *terminator*. I also remap the keys to be similar with Pycharm.
+* `<C-F5>` to start a debugging server, `<S-F5>` to end.
+* `<F2>` to toggle a line breakpoint.
+* `<F8>` to step over, `<F7>` to step into, and `<C-F7>` to step out.
+* `<C-F9>` to eval under cursor, `<leader>e` to eval visual.
+* `<F4>` to run to cursor.
+* `:VdebugTrace <expr>` to trace an expression.
+* `:Breakpoint condition <expr>` to add a conditional breakpoint.
+* `:BreakpointWindow` to toggle the BreakpointWindow.
+* `:BreakpointRemove <id>` to delete a breakpoint.
+* `pydbgp -d localhost:9000 file.py` to connect the server and begin debugging.
+
 ### Tabularize
 *tabular* is used to tabularize something. Select lines and `:Tabularize /=/` ('=' can be replaced by [-|%] and stuff).

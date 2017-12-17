@@ -113,11 +113,11 @@ fi
 
 #===User========================================================================
 
-# path alias
-PATH=$PATH:$HOME/bin
+# app alias
 alias pycharm='~/bin/pycharm-2017.1.3/bin/pycharm.sh'
 alias idea='~/bin/idea-IU-171.4424.56/bin/idea.sh'
 alias docx2txt='~/bin/docx2txt-1.4/docx2txt.sh'
+alias pydbgp='~/bin/Komodo-PRD-11.0.1-90797-linux-x86_64/pydbgp'
 
 # chinese completion
 . ~/rcfiles/chs_completion.sh

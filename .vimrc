@@ -1,6 +1,6 @@
 set nocompatible              " be iMproved, vundle_required
 
-"==|Vundle|=====================================================================
+"==|Vundle|====================================================================
 filetype off                  " vundle_required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -26,6 +26,7 @@ Plugin 'godlygeek/tabular'
 Plugin 'jiangmiao/auto-pairs'
 "---------------------------------------
 Plugin 'fs111/pydoc.vim'  " just press K(or <leader>pw) in python files
+Plugin 'joonty/vdebug'
 Plugin 'vim-syntastic/syntastic'
 "---------------------------------------
 Plugin 'skyblueee/Conque-Shell'
@@ -36,7 +37,7 @@ filetype plugin indent on    " vundle_required
 syntax enable
 syntax on
 
-"==|ALL|========================================================================
+"==|ALL|=======================================================================
 set mouse=a " enable mouse
 set linebreak " can not break word when line break
 set ruler " show row and column in the bottom
@@ -80,7 +81,7 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
-"==|GUI|========================================================================
+"==|GUI|=======================================================================
 set guioptions-=T
 if has('gui_running')
 	"colorscheme desert
@@ -99,24 +100,24 @@ function! MaximizeWindow()
 	silent !wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
 endfunction
 
-"==|NERDTree|===================================================================
+"==|NERDTree|==================================================================
 nnoremap <leader>f :NERDTreeToggle<CR>
 let NERDTreeShowBookmarks = 1
 let NERDTreeCascadeSingleChildDir = 1
 let NERDTreeNaturalSort = 1
 let NERDTreeChDirMode = 2
 
-"==|Tagbar|=====================================================================
+"==|Tagbar|====================================================================
 let g:tagbar_autoclose = 1
 let g:tagbar_autofocus = 1
 let g:tagbar_compact = 1
 let g:tagbar_foldlevel = 2
 let g:tagbar_autoshowtag = 1
 
-"==|bufferline|=================================================================
+"==|bufferline|================================================================
 set updatetime=5000
 
-"==|rainbow_parentheses|========================================================
+"==|rainbow_parentheses|=======================================================
 " delete black from default
 let g:rbpt_colorpairs = [
     \ ['brown',       'RoyalBlue3'],
@@ -142,7 +143,7 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
-"==|YouCompleteMe|==============================================================
+"==|YouCompleteMe|=============================================================
 "let g:ycm_min_num_of_chars_for_completion = 1 " default: 2
 "let g:ycm_min_num_identifier_candidate_chars = 0
 "let g:ycm_max_num_candidates = 50 " 0 or >100 not recommended
@@ -187,31 +188,32 @@ let g:ycm_global_ycm_extra_conf = '~/rcfiles/.ycm_extra_conf.py' " default ''
 "let g:ycm_extra_conf_globlist = [] " default []
 "let g:ycm_filepath_completion_use_working_dir = 0 " default 0
 "let g:ycm_semantic_triggers =  {
-"  \  'c' : ['->', '.'],
-"  \  'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
-"  \            're!\[.*\]\s'],
-"  \  'ocaml' : ['.', '#'],
-"  \  'cpp,objcpp' : ['->', '.', '::'],
-"  \  'perl' : ['->'],
-"  \  'php' : ['->', '::'],
-"  \  'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
-"  \  'ruby' : ['.', '::'],
-"  \  'lua' : ['.', ':'],
-"  \  'erlang' : [':'],
-"  \ }
+"  \ 'c' : ['->', '.'],
+"  \ 'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
+"  \           're!\[.*\]\s'],
+"  \ 'ocaml' : ['.', '#'],
+"  \ 'cpp,objcpp' : ['->', '.', '::'],
+"  \ 'perl' : ['->'],
+"  \ 'php' : ['->', '::'],
+"  \ 'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+"  \ 'ruby' : ['.', '::'],
+"  \ 'lua' : ['.', ':'],
+"  \ 'erlang' : [':'],
+"  \}
 "let g:ycm_cache_omnifunc = 1 " default 0
 "let g:ycm_use_ultisnips_completer = 1 " default 1
 "let g:ycm_goto_buffer_command = 'same-buffer' " default 'same-buffer'
 "let g:ycm_disable_for_files_larger_than_kb = 1000 " default 1000
-au BufEnter *.h,*.c,*.cpp,*.py nnoremap <C-]> :YcmCompleter GoTo<CR>
+au BufEnter *.h,*.c,*.cpp,*.py nmap <C-]> :YcmCompleter GoTo<CR>
+au BufLeave *.h,*.c,*.cpp,*.py unmap <C-]>
 
-"==|UltiSnips|==================================================================
+"==|UltiSnips|=================================================================
 let g:UltiSnipsExpandTrigger = '<C-o>' " Open it! default '<TAB>'
 "let g:UltiSnipsListSnippets = '<C-TAB>' " default '<C-TAB>'
 "let g:UltiSnipsJumpForwardTrigger = '<C-j>' " default '<C-j>'
 "let g:UltiSnipsJumpBackwardTrigger = '<C-k>' " default '<C-k>'
 
-"==|CtrlP|======================================================================
+"==|CtrlP|=====================================================================
 " Usage: <c-p> and type sth, <c-j> and <c-k> to navigate and <Enter> to open.
 "        <c-z> to mark/unmark a file and <c-o> to open marked ones.
 "        <c-n> and <c-p> to browse input history.
@@ -223,15 +225,15 @@ let g:UltiSnipsExpandTrigger = '<C-o>' " Open it! default '<TAB>'
 let g:ctrlp_regexp = 1 " default 0
 "let g:ctrlp_show_hidden = 0 " default 0
 
-"==|Ack|========================================================================
+"==|Ack|=======================================================================
 let g:ackhighlight = 1 " default 0
 let g:ack_autoclose = 1 " default 0
 let g:ackpreview = 1 " default 0
 
-"==|Pydoc|======================================================================
+"==|Pydoc|=====================================================================
 let g:pydoc_window_lines=0.7
 
-"==|Syntastic|==================================================================
+"==|Syntastic|=================================================================
 " files that contain this line are skipped:: # flake8: noqa
 " lines that contain a ``# noqa`` comment at the end will not issue warnings.
 " ignore specific errors on a line with ``# noqa: <error>``(``# noqa: E234``)
@@ -241,13 +243,45 @@ set statusline+=%*
 "---------------------------------------
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
-"==|ConqueTerm|=================================================================
+"==|Vdebug|====================================================================
+" make vdebug keys like Pycharm
+let g:vdebug_keymap = {
+    \    "run" : "<C-F5>",
+    \    "set_breakpoint" : "<F2>",
+    \    "step_over" : "<F8>",
+    \    "step_into" : "<F7>",
+    \    "step_out" : "<C-F7>",
+    \    "run_to_cursor" : "<F4>",
+    \    "eval_under_cursor" : "<C-F9>",
+    \    "eval_visual" : "<leader>e",
+    \    "close" : "<S-F5>",
+    \    "detach" : "<S-F6>",
+    \    "get_context" : "<F11>",
+    \}
+let g:vdebug_options= {
+    \    "port" : 9000,
+    \    "server" : '',
+    \    "timeout" : 20,
+    \    "on_close" : 'detach',
+    \    "break_on_open" : 1,
+    \    "ide_key" : '',
+    \    "path_maps" : {},
+    \    "debug_window_level" : 0,
+    \    "debug_file_level" : 0,
+    \    "debug_file" : "",
+    \    "watch_window_style" : 'compact',
+    \    "marker_default" : '*',
+    \    "marker_closed_tree" : '▸',
+    \    "marker_open_tree" : '▾'
+    \}
+
+"==|ConqueTerm|================================================================
 nnoremap <leader>s :ConqueTermVSplit bash<CR>
 
-"==|dict|=======================================================================
+"==|dict|======================================================================
 function! Mydict()
     let expl=system('sdcv --utf8-output -n ' .
 		\ expand("<cword>"))
@@ -261,7 +295,7 @@ function! Mydict()
 endfunction
 nnoremap <C-K> :call Mydict()<CR>
 
-"==|Ranger|=====================================================================
+"==|Ranger|====================================================================
 function! Ranger()
 	silent !ranger --choosefile=/tmp/chosen
 	if filereadable('/tmp/chosen')
@@ -272,7 +306,7 @@ function! Ranger()
 endfun
 nnoremap <leader>r :call Ranger()<cr>
 
-"==|Self|=======================================================================
+"==|Self|======================================================================
 nnoremap <C-H>     <C-W>h
 nnoremap <C-L>     <C-W>l
 
@@ -283,11 +317,6 @@ nnoremap <C-Right> <C-W>l
 
 nnoremap <UP> gk
 nnoremap <Down> gj
-" yank all
-nnoremap <F3> <Esc>ggVG"+y
-" copy from sys stack
-nnoremap <F4> "+p
-inoremap <F4> <Esc>"+pa
 
 nnoremap <leader><SPACE>  <ESC>o<ESC>
 
