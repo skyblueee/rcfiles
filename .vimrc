@@ -14,6 +14,7 @@ Plugin 'skyblueee/nerdtree' " :NERDTreeToggle :NERDTreeFind and ? for help
 Plugin 'majutsushi/tagbar'	 " :Tagbar and ? for help
 Plugin 'bling/vim-bufferline'
 Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'kannokanno/previm' " :PrevimOpen in markdown files.
 Plugin 'kien/ctrlp.vim'
 Plugin 'mileszs/ack.vim' " :Ack and ? for help
 Plugin 'easymotion/vim-easymotion' " <leader><leader>fFwWbBsjk
@@ -142,6 +143,11 @@ au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+
+"==|Previm|=============================================================
+let g:previm_open_cmd = 'firefox&'
+let g:previm_enable_realtime = 1 " default 0
+let g:previm_show_header = 0 " default 1
 
 "==|YouCompleteMe|=============================================================
 "let g:ycm_min_num_of_chars_for_completion = 1 " default: 2

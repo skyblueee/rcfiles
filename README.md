@@ -101,6 +101,7 @@ Press `<Ctrl-o>` to open ranger, and press `q` to leave you in the proper direct
 * `:BreakpointWindow` to toggle the BreakpointWindow.
 * `:BreakpointRemove <id>` to delete a breakpoint.
 * `pydbgp -d localhost:9000 file.py` to connect the server and begin debugging.
-
 ### Tabularize
 *tabular* is used to tabularize something. Select lines and `:Tabularize /=/` ('=' can be replaced by [-|%] and stuff).
+### Markdown
+*Previm* is used to preview markdown files in your browser. `:PrevimOpen` to open it. It will auto update while you are typing.
