@@ -44,7 +44,8 @@ set linebreak " can not break word when line break
 set ruler " show row and column in the bottom
 set showcmd " show cmd when typing
 set number " show row number at left
-set statusline=[%F]%y%r%m%*%=[%l/%L,%c][%p%%] " status line
+set statusline=[%n][%F]%y%r%m%*[%{''.(&fenc!=''?&fenc:&enc).''}]
+            \%=[%b/0x%B][%l/%L,%c][%p%%] " status line
 set laststatus=2 " always show the status line
 set wildmenu " complete in cmd
 set showmatch " show the matching part of the pair for [] {} and ()
