@@ -146,7 +146,7 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
 "==|Previm|=============================================================
-let g:previm_open_cmd = 'firefox&'
+let g:previm_open_cmd = 'firefox'
 let g:previm_enable_realtime = 1 " default 0
 let g:previm_show_header = 0 " default 1
 
