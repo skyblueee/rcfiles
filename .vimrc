@@ -14,6 +14,7 @@ Plugin 'skyblueee/nerdtree' " :NERDTreeToggle :NERDTreeFind and ? for help
 Plugin 'majutsushi/tagbar'	 " :Tagbar and ? for help
 Plugin 'bling/vim-bufferline'
 Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'nathanaelkane/vim-indent-guides' " :IndentGuidesToggle or <leader>ig
 Plugin 'kannokanno/previm' " :PrevimOpen in markdown files.
 Plugin 'kien/ctrlp.vim'
 Plugin 'mileszs/ack.vim' " :Ack and ? for help
@@ -145,7 +146,14 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
-"==|Previm|=============================================================
+"==|vim-indent-guides|=========================================================
+let g:indent_guides_enable_on_vim_startup = 1 " default 0
+let g:indent_guides_guide_size = 1 " default 0
+let g:indent_guides_start_level = 2 " default 1
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree'] " default ['help']
+nmap <silent> <Leader>ig <Plug>IndentGuidesToggle " as default
+
+"==|previm|====================================================================
 let g:previm_open_cmd = 'firefox'
 let g:previm_enable_realtime = 1 " default 0
 let g:previm_show_header = 0 " default 1
@@ -327,5 +335,5 @@ nnoremap <Down> gj
 
 nnoremap <leader><SPACE>  <ESC>o<ESC>
 
-set cursorline cursorcolumn
+set cursorline " cursorcolumn
 set colorcolumn=80
