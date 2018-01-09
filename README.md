@@ -3,14 +3,6 @@ This is the rcfiles of my `bash` and `vim`. It contains some comfortable setting
 
 *NOTE*: It only supply settings, not including the softwares (e.g. ranger/pycharm) or plugins (e.g. NERDTree/YCM). You should be able to install them by yourself.
 
-# Install
-```bash
-$cd
-$git clone http://github.com/skyblueee/rcfiles.git
-$./install.sh
-```
-Open vim and `:PluginInstall` or `:PluginUpdate` (Vundle should has been ready in your vim).
-
 # Usage
 ## Bash
 ### Easy Chinese Completion
