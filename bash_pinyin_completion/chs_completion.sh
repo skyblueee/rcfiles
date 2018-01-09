@@ -87,6 +87,6 @@ _filedir_xspec()
     COMPREPLY=( "${toks[@]}" "${chs[@]}" )
 }
 
-PATH=$PATH:$HOME/rcfiles
+PATH=$PATH:$HOME/rcfiles/bash_pinyin_completion
 complete -o filenames -F _filedir_xspec file
 

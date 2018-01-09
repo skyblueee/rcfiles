@@ -29,8 +29,6 @@
 #                   参考 http://code.google.com/p/easyscripts/issues/detail?id=1
 #   2011-08-02修订  识别目录缩写,如 ~/
 #
-# 安装:
-#    直接执行 sh install.sh 进行安装;
 #
 # 如需模糊拼音支持，在系统环境变量中增加匹配的列表，对 n/l 进行模糊匹配
 # export CHSDIR="{ 'n':'l' }"
