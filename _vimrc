@@ -50,6 +50,7 @@ set statusline=[%n][%F]%y%r%m%*[%{''.(&fenc!=''?&fenc:&enc).''}]
 set laststatus=2 " always show the status line
 set wildmenu " complete in cmd
 set showmatch " show the matching part of the pair for [] {} and ()
+set scrolloff=3
 "---------------------------------------
 set incsearch
 set hlsearch
@@ -329,6 +330,8 @@ nnoremap <C-Down>  <C-W>j
 nnoremap <C-Up>    <C-W>k
 nnoremap <C-Left>  <C-W>h
 nnoremap <C-Right> <C-W>l
+
+inoremap <C-l> <Right>
 
 nnoremap <UP> gk
 nnoremap <Down> gj

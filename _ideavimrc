@@ -1,0 +1,38 @@
+"==|global|====================================================================
+let mapleader='\'
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set showmode
+"set number
+"set relativenumber
+set scrolloff=3
+set history=100000
+
+"set matchpairs+=<:>,=:;
+inoremap <C-l> <Right>
+
+"==|windows|===================================================================
+nnoremap <C-H>     <C-W>h
+nnoremap <C-L>     <C-W>l
+
+nnoremap <C-Down>  <C-W>j
+nnoremap <C-Up>    <C-W>k
+nnoremap <C-Left>  <C-W>h
+nnoremap <C-Right> <C-W>l
+
+nnoremap <C-H>     <C-W>h
+nnoremap <C-L>     <C-W>l
+
+"==|tabs|======================================================================
+nnoremap <leader>tn gt
+nnoremap <leader>tp gT
+
+"==|goto|======================================================================
+noremap <leader>ga :action GotoAction<CR>
+noremap <leader>gc :action GotoClass<CR>
+noremap <leader>gd :action GotoDeclaration<CR>
+noremap <leader>gi :action GotoImplementation<CR>
+noremap <leader>gs :action GotoSuperMethod<CR>
+noremap <leader>gt :action GotoTest<CR>

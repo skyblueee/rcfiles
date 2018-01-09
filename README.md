@@ -46,6 +46,8 @@ Press `<Ctrl-o>` to open ranger, and press `q` to leave you in the proper direct
 * use `<C-o>` to open a snip, and `<C-j>`, `<C-k>` to navigate in it.
 #### Pairs Completion
 *auto-pairs* is used for complete about paires (paretheses and quotations).  When you inside `()`/`[]`/`{}`/`''`/`""`, press the latter part to go out, and when you delete the former part you also delete the latter one.
+
+Use `<C-l>` in insert mode to move quickly right out of paires.
 ### Dictionary/Pydoc
 * `K` to get python docstrings (supplied by *pydoc.vim*) in python files.
 * `<C-K>` to get translation (*sdcv* required).
