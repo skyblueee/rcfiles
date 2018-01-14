@@ -36,3 +36,4 @@ noremap <leader>gd :action GotoDeclaration<CR>
 noremap <leader>gi :action GotoImplementation<CR>
 noremap <leader>gs :action GotoSuperMethod<CR>
 noremap <leader>gt :action GotoTest<CR>
+noremap <c-p>      :action SearchEverywhere<CR>
