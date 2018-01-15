@@ -83,7 +83,7 @@ match ExtraWhitespace /\s\+$/
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
+autocmd BufWritePre * %s/\s\+$//e
 
 "==|GUI|=======================================================================
 set guioptions-=T
@@ -322,6 +322,10 @@ function! Ranger()
 endfun
 nnoremap <leader>r :call Ranger()<cr>
 
+"==|FileType|==================================================================
+autocmd BufNewFile *.py 0r ~/rcfiles/vim_template/py_header
+autocmd BufNewFile *.py exe "1," . line("$") . "g/_date_/s/_date_/" .strftime("%Y-%m-%d")
+autocmd BufNewFile *.py exe "normal! G"
 "==|Self|======================================================================
 nnoremap <C-H>     <C-W>h
 nnoremap <C-L>     <C-W>l
