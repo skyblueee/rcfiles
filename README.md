@@ -80,7 +80,7 @@ Use `<C-l>` in insert mode to move quickly right out of paires.
 * `o` to toggle fold, `x` to zoom in/out.
 * `/` to search, `<Space>` to show prototype, `P` to preview, `p`/`<Enter>` to jump to definition.
 ### Syntax check
-*YCM* (C-family) and *Syntastic* (python) can check the syntax, then give signs and location-list automaticly.
+*YCM* (C-family) and *ale* (python) can check the syntax, then give signs and location-list automaticly.
 * `:lopen [height]` opens the location-list.
 ### Debug
 #### Vdebug

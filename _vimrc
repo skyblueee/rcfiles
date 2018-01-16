@@ -13,6 +13,7 @@ Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle, vundle_required
 Plugin 'skyblueee/nerdtree' " :NERDTreeToggle :NERDTreeFind and ? for help
 Plugin 'majutsushi/tagbar'	 " :Tagbar and ? for help
 Plugin 'bling/vim-bufferline'
+Plugin 'liuchengxu/eleline.vim'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'nathanaelkane/vim-indent-guides' " :IndentGuidesToggle or <leader>ig
 Plugin 'kannokanno/previm' " :PrevimOpen in markdown files.
@@ -26,12 +27,15 @@ Plugin 'honza/vim-snippets'
 "---------------------------------------
 Plugin 'godlygeek/tabular'
 Plugin 'jiangmiao/auto-pairs'
+Plugin 'skywind3000/asyncrun.vim'
 "---------------------------------------
 Plugin 'fs111/pydoc.vim'  " just press K(or <leader>pw) in python files
+Plugin 'w0rp/ale'
 Plugin 'joonty/vdebug'
-Plugin 'vim-syntastic/syntastic'
+"Plugin 'vim-syntastic/syntastic'
 "---------------------------------------
 Plugin 'skyblueee/Conque-Shell'
+Plugin 'liuchengxu/space-vim-dark'
 Plugin 'yianwillis/vimcdoc'
 "---------------------------------------
 call vundle#end()            " vundle_required
@@ -253,14 +257,19 @@ let g:pydoc_window_lines=0.7
 " files that contain this line are skipped:: # flake8: noqa
 " lines that contain a ``# noqa`` comment at the end will not issue warnings.
 " ignore specific errors on a line with ``# noqa: <error>``(``# noqa: E234``)
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-"---------------------------------------
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" "---------------------------------------
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 0
+" let g:syntastic_check_on_wq = 0
+
+"==|space-vim-dark|============================================================
+let g:space_vim_dark_background = 233 " 233(darkest)-238(lightest)
+colorscheme space-vim-dark
+hi Comment cterm=italic
 
 "==|Vdebug|====================================================================
 " make vdebug keys like Pycharm
@@ -300,10 +309,10 @@ nnoremap <leader>s :ConqueTermVSplit bash<CR>
 "==|dict|======================================================================
 function! Mydict()
     let expl=system('sdcv --utf8-output -n ' .
-		\ expand("<cword>"))
+	    \ expand("<cword>"))
     windo if
-		\ expand("%"=="dict-tmp") |
-		\ q! | endif
+	    \ expand("%"=="dict-tmp") |
+	    \ q! | endif
     15sp dict-tmp
     setlocal buftype=nofile bufhidden=hide noswapfile
     1s/^/\=expl/
@@ -313,12 +322,12 @@ nnoremap <C-K> :call Mydict()<CR>
 
 "==|Ranger|====================================================================
 function! Ranger()
-	silent !ranger --choosefile=/tmp/chosen
-	if filereadable('/tmp/chosen')
-		exec 'edit ' . system('cat /tmp/chosen')
-		call system('rm /tmp/chosen')
-	endif
-	redraw!
+    silent !ranger --choosefile=/tmp/chosen
+    if filereadable('/tmp/chosen')
+        exec 'edit ' . system('cat /tmp/chosen')
+        call system('rm /tmp/chosen')
+    endif
+    redraw!
 endfun
 nnoremap <leader>r :call Ranger()<cr>
 
@@ -326,6 +335,9 @@ nnoremap <leader>r :call Ranger()<cr>
 autocmd BufNewFile *.py 0r ~/rcfiles/vim_template/py_header
 autocmd BufNewFile *.py exe "1," . line("$") . "g/_date_/s/_date_/" .strftime("%Y-%m-%d")
 autocmd BufNewFile *.py exe "normal! G"
+" to format python file
+autocmd FileType python nnoremap <leader>= :0,$!yapf<CR>
+
 "==|Self|======================================================================
 nnoremap <C-H>     <C-W>h
 nnoremap <C-L>     <C-W>l
@@ -343,4 +355,4 @@ nnoremap <Down> gj
 nnoremap <leader><SPACE>  <ESC>o<ESC>
 
 set cursorline " cursorcolumn
-set colorcolumn=80
+set colorcolumn=120
