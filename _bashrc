@@ -118,7 +118,6 @@ alias pycharm='~/bin/JetBrains/pycharm/bin/pycharm.sh > /dev/null &'
 alias idea='~/bin/JetBrains/idea/bin/idea.sh > /dev/null &'
 alias clion='~/bin/JetBrains/clion/bin/clion.sh > /dev/null &'
 alias docx2txt='~/bin/docx2txt-1.4/docx2txt.sh'
-alias pydbgp='~/bin/Komodo-PRD-11.0.1-90797-linux-x86_64/pydbgp'
 
 # chinese completion
 . ~/rcfiles/bash_pinyin_completion/chs_completion.sh

@@ -11,15 +11,14 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle, vundle_required
 "---------------------------------------
 Plugin 'skyblueee/nerdtree' " :NERDTreeToggle :NERDTreeFind and ? for help
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'majutsushi/tagbar'	 " :Tagbar and ? for help
-Plugin 'bling/vim-bufferline'
-Plugin 'liuchengxu/eleline.vim'
-Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'nathanaelkane/vim-indent-guides' " :IndentGuidesToggle or <leader>ig
+Plugin 'vim-airline/vim-airline' " show infos
 Plugin 'kannokanno/previm' " :PrevimOpen in markdown files.
 Plugin 'kien/ctrlp.vim'
 Plugin 'mileszs/ack.vim' " :Ack and ? for help
-Plugin 'easymotion/vim-easymotion' " <leader><leader>fFwWbBsjk
+Plugin 'easymotion/vim-easymotion' " <leader><leader>swafFjk
+Plugin 'terryma/vim-expand-region' " v vv vvv
 Plugin 'skyblueee/visualmarks' " press mm to mark and F2 to circle them
 Plugin 'Valloric/YouCompleteMe' " extra compile needed
 Plugin 'SirVer/ultisnips'
@@ -31,11 +30,15 @@ Plugin 'skywind3000/asyncrun.vim'
 "---------------------------------------
 Plugin 'fs111/pydoc.vim'  " just press K(or <leader>pw) in python files
 Plugin 'w0rp/ale'
-Plugin 'joonty/vdebug'
-"Plugin 'vim-syntastic/syntastic'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'airblade/vim-gitgutter'
+"---------------------------------------
+Plugin 'vimwiki/vimwiki'
 "---------------------------------------
 Plugin 'skyblueee/Conque-Shell'
 Plugin 'liuchengxu/space-vim-dark'
+Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'nathanaelkane/vim-indent-guides' " :IndentGuidesToggle or <leader>ig
 Plugin 'yianwillis/vimcdoc'
 "---------------------------------------
 call vundle#end()            " vundle_required
@@ -43,14 +46,54 @@ filetype plugin indent on    " vundle_required
 syntax enable
 syntax on
 
+"==|Self|======================================================================
+let mapleader = "\<SPACE>"
+"noremap <ESC> <ESC>:noh<CR><ESC>
+
+" Windows navigating
+nnoremap <C-H>     <C-W>h
+nnoremap <C-L>     <C-W>l
+
+nnoremap <C-Down>  <C-W>j
+nnoremap <C-Up>    <C-W>k
+nnoremap <C-Left>  <C-W>h
+nnoremap <C-Right> <C-W>l
+
+" Buffer navigating
+nmap <tab>     :bn<CR>
+nmap <leader>1 :b1<CR>
+nmap <leader>2 :b2<CR>
+nmap <leader>3 :b3<CR>
+nmap <leader>4 :b4<CR>
+nmap <leader>5 :b5<CR>
+nmap <leader>6 :b6<CR>
+nmap <leader>7 :b7<CR>
+nmap <leader>8 :b8<CR>
+nmap <leader>9 :b9<CR>
+
+" Quick move
+inoremap <C-l> <Right>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+
+nnoremap <UP> gk
+nnoremap <Down> gj
+
+" Appearance
+set cursorline
+" set cursorcolumn
+set colorcolumn=120
+
+" some other
+nnoremap <leader>p "+p
+nnoremap <leader>y "+y
+
 "==|ALL|=======================================================================
 set mouse=a " enable mouse
 set linebreak " can not break word when line break
 set ruler " show row and column in the bottom
 set showcmd " show cmd when typing
 set number " show row number at left
-set statusline=[%n][%F]%y%r%m%*[%{''.(&fenc!=''?&fenc:&enc).''}]
-            \%=[%b/0x%B][%l/%L,%c][%p%%] " status line
 set laststatus=2 " always show the status line
 set wildmenu " complete in cmd
 set showmatch " show the matching part of the pair for [] {} and ()
@@ -92,20 +135,20 @@ autocmd BufWritePre * %s/\s\+$//e
 "==|GUI|=======================================================================
 set guioptions-=T
 if has('gui_running')
-	"colorscheme desert
-	colorscheme elflord
+    "colorscheme desert
+    colorscheme elflord
 endif
 "---------------------------------------
 if has('win32')
-	au GUIEnter * simalt ~x
+    au GUIEnter * simalt ~x
 else
-	au GUIEnter * call MaximizeWindow()
+    au GUIEnter * call MaximizeWindow()
 endif
 "---------------------------------------
 " apt-get install wmctrl
 function! MaximizeWindow()
-	silent !sleep 0.1
-	silent !wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
+    silent !sleep 0.1
+    silent !wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
 endfunction
 
 "==|NERDTree|==================================================================
@@ -114,6 +157,20 @@ let NERDTreeShowBookmarks = 1
 let NERDTreeCascadeSingleChildDir = 1
 let NERDTreeNaturalSort = 1
 let NERDTreeChDirMode = 2
+
+"==|nerdtree-git-plugin|=======================================================
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ 'Ignored'   : '☒',
+    \ "Unknown"   : "?"
+    \ }
 
 "==|Tagbar|====================================================================
 let g:tagbar_autoclose = 1
@@ -125,25 +182,33 @@ let g:tagbar_autoshowtag = 1
 "==|bufferline|================================================================
 set updatetime=5000
 
+"==|vim-airline|===============================================================
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+" let g:airline_section_c       (bufferline or filename)
+let g:airline_section_c = '%<%F%m%r%h%w'
+" let g:airline_section_z       (percentage, line number, column number)
+let g:airline_section_z = '(%b/0x%B)[%l/%L,%c][%p%%] %(%{strftime("%H:%M")}%)'
+
 "==|rainbow_parentheses|=======================================================
 " delete black from default
 let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
+            \ ['brown',       'RoyalBlue3'],
+            \ ['Darkblue',    'SeaGreen3'],
+            \ ['darkgray',    'DarkOrchid3'],
+            \ ['darkgreen',   'firebrick3'],
+            \ ['darkcyan',    'RoyalBlue3'],
+            \ ['darkred',     'SeaGreen3'],
+            \ ['darkmagenta', 'DarkOrchid3'],
+            \ ['brown',       'firebrick3'],
+            \ ['gray',        'RoyalBlue3'],
+            \ ['darkmagenta', 'DarkOrchid3'],
+            \ ['Darkblue',    'firebrick3'],
+            \ ['darkgreen',   'RoyalBlue3'],
+            \ ['darkcyan',    'SeaGreen3'],
+            \ ['darkred',     'DarkOrchid3'],
+            \ ['red',         'firebrick3'],
+            \ ]
 let g:rbpt_max = 16
 let g:rbpt_loadcmd_toggle = 0
 au VimEnter * RainbowParenthesesToggle
@@ -156,12 +221,24 @@ let g:indent_guides_enable_on_vim_startup = 1 " default 0
 let g:indent_guides_guide_size = 1 " default 0
 let g:indent_guides_start_level = 2 " default 1
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree'] " default ['help']
-nmap <silent> <Leader>ig <Plug>IndentGuidesToggle " as default
+" nmap <silent> <Leader>ig <Plug>IndentGuidesToggle
 
 "==|previm|====================================================================
 let g:previm_open_cmd = 'firefox'
 let g:previm_enable_realtime = 1 " default 0
 let g:previm_show_header = 0 " default 1
+
+"==|vim-easymotion|============================================================
+" single character move
+nmap <leader><leader>s <Plug>(easymotion-s)
+" word move
+nmap <leader><leader>w <Plug>(easymotion-bd-w)
+" over window move
+nmap <leader><leader>a <Plug>(easymotion-overwin-w)
+
+"==|vim-expand-region|=========================================================
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
 
 "==|YouCompleteMe|=============================================================
 "let g:ycm_min_num_of_chars_for_completion = 1 " default: 2
@@ -253,68 +330,55 @@ let g:ackpreview = 1 " default 0
 "==|Pydoc|=====================================================================
 let g:pydoc_window_lines=0.7
 
-"==|Syntastic|=================================================================
-" files that contain this line are skipped:: # flake8: noqa
-" lines that contain a ``# noqa`` comment at the end will not issue warnings.
-" ignore specific errors on a line with ``# noqa: <error>``(``# noqa: E234``)
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-" "---------------------------------------
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 0
-" let g:syntastic_check_on_wq = 0
-
 "==|space-vim-dark|============================================================
 let g:space_vim_dark_background = 233 " 233(darkest)-238(lightest)
 colorscheme space-vim-dark
 hi Comment cterm=italic
 
-"==|Vdebug|====================================================================
-" make vdebug keys like Pycharm
-let g:vdebug_keymap = {
-    \    "run" : "<C-F5>",
-    \    "set_breakpoint" : "<F2>",
-    \    "step_over" : "<F8>",
-    \    "step_into" : "<F7>",
-    \    "step_out" : "<C-F7>",
-    \    "run_to_cursor" : "<F4>",
-    \    "eval_under_cursor" : "<C-F9>",
-    \    "eval_visual" : "<leader>e",
-    \    "close" : "<S-F5>",
-    \    "detach" : "<S-F6>",
-    \    "get_context" : "<F11>",
-    \}
-let g:vdebug_options= {
-    \    "port" : 9000,
-    \    "server" : '',
-    \    "timeout" : 20,
-    \    "on_close" : 'detach',
-    \    "break_on_open" : 1,
-    \    "ide_key" : '',
-    \    "path_maps" : {},
-    \    "debug_window_level" : 0,
-    \    "debug_file_level" : 0,
-    \    "debug_file" : "",
-    \    "watch_window_style" : 'compact',
-    \    "marker_default" : '*',
-    \    "marker_closed_tree" : '▸',
-    \    "marker_open_tree" : '▾'
-    \}
+"==|ale|=======================================================================
+"let g:ale_enabled = 0 " default 1
+"let b:ale_enabled = 0 " default 1
+"let g:ale_pattern_options_enabled " default !empty(g:ale_pattern_options)
+"let g:ale_pattern_options = {'\.min.js$': {'ale_enabled': 0}}
+"
+"let g:airline#extensions#ale#enabled = 0 " default 1
+"let g:ale_command_wrapper = '' " default ''
+"let g:ale_completion_enabled = 1 " default 0
+let  g:ale_echo_msg_format = '%code%: %s [%linter%][%severity%]'
+"let b:ale_echo_msg_format = '%code%: %s [%linter%][%severity%]'
+"let g:ale_fix_on_save = 1 " default 0
+"let b:ale_fix_on_save = 1 " default 0
+"let g:ale_keep_list_window_open = 0 " default 0
+"let g:ale_linters_explicit = 0 " default 1
+let g:ale_sign_error = '•' " '✹●' default '>>'
+"let g:ale_sign_warning = '--' " '▶' default '--'
+"let g:ale_sign_info = " default g:ale_sign_warning
+"let g:ale_sign_style_error = " default g:ale_sign_error
+"let g:ale_sign_style_warning = " default g:ale_sign_warning
+"let g:ale_sign_offset = 1000000 " default 1000000
+"let g:ale_type_map = {} " default {}
+"let b:ale_type_map = {} " default {}
 
-"==|ConqueTerm|================================================================
-nnoremap <leader>s :ConqueTermVSplit bash<CR>
+nmap <silent> <leader>k <Plug>(ale_previous_wrap)
+nmap <silent> <leader>j <Plug>(ale_next_wrap)
+
+"==|nerdcommenter|=============================================================
+let g:NERDSpaceDelims = 1
+" let g:NERDDefaultAlign = 'left'
+
+"==|Conque-Shell|================================================================
+nnoremap <leader>sh :ConqueTermVSplit bash<CR>
 
 "==|dict|======================================================================
 function! Mydict()
     let expl=system('sdcv --utf8-output -n ' .
-	    \ expand("<cword>"))
+                \ expand("<cword>"))
     windo if
-	    \ expand("%"=="dict-tmp") |
-	    \ q! | endif
+                \ expand("%"=="dict-tmp") |
+                \ q! | endif
     15sp dict-tmp
-    setlocal buftype=nofile bufhidden=hide noswapfile
+    setlocal buftype=nofile bufhidden=delete noswapfile modifiable
+    nnoremap <buffer> q :q<CR>
     1s/^/\=expl/
     1
 endfunction
@@ -332,27 +396,9 @@ endfun
 nnoremap <leader>r :call Ranger()<cr>
 
 "==|FileType|==================================================================
+"--Python--
 autocmd BufNewFile *.py 0r ~/rcfiles/vim_template/py_header
 autocmd BufNewFile *.py exe "1," . line("$") . "g/_date_/s/_date_/" .strftime("%Y-%m-%d")
 autocmd BufNewFile *.py exe "normal! G"
-" to format python file
+" to format python file  todo: use ale to auto do
 autocmd FileType python nnoremap <leader>= :0,$!yapf<CR>
-
-"==|Self|======================================================================
-nnoremap <C-H>     <C-W>h
-nnoremap <C-L>     <C-W>l
-
-nnoremap <C-Down>  <C-W>j
-nnoremap <C-Up>    <C-W>k
-nnoremap <C-Left>  <C-W>h
-nnoremap <C-Right> <C-W>l
-
-inoremap <C-l> <Right>
-
-nnoremap <UP> gk
-nnoremap <Down> gj
-
-nnoremap <leader><SPACE>  <ESC>o<ESC>
-
-set cursorline " cursorcolumn
-set colorcolumn=120
