@@ -10,9 +10,9 @@ _filedir()
 
     _quote_readline_by_ref "$cur" quoted
     x=$( compgen -d -- "$quoted" ) &&
-    while read -r tmp; do
-        toks+=( "$tmp" )
-	done <<< "$x"
+        while read -r tmp; do
+            toks+=( "$tmp" )
+        done <<< "$x"
 
     if [[ "$1" != -d ]]; then
         # Munge xspec to contain uppercase version too
@@ -23,10 +23,10 @@ _filedir()
     fi
     # [ ${#toks[@]} -ne 0 ] && _compopt_o_filenames
     # [ ${#toks[@]} -ne 0 ] && compopt -o filenames
-	compopt -o filenames
+    compopt -o filenames
 
-	chs=($(chsdir "x$1" "$cur"))
-	COMPREPLY=( "${COMPREPLY[@]}" "${toks[@]}" "${chs[@]}" )
+    chs=($(chsdir "x$1" "$cur"))
+    COMPREPLY=( "${COMPREPLY[@]}" "${toks[@]}" "${chs[@]}" )
 }
 
 _filedir_xspec()
@@ -56,7 +56,7 @@ _filedir_xspec()
             # see long TODO comment in _filedir() --David
             printf '%s\n' $tmp
         done
-        }
+    }
         ))
 
 
@@ -76,12 +76,12 @@ _filedir_xspec()
         while read -r tmp; do
             [ -n $tmp ] && printf '%s\n' $tmp
         done
-        }
+    }
         ))
 
     # [ ${#toks[@]} -ne 0 ] && _compopt_o_filenames
     # [ ${#toks[@]} -ne 0 ] && compopt -o filenames
-	compopt -o filenames
+    compopt -o filenames
 
     chs=($(chsdir "x$1" "$cur"))
     COMPREPLY=( "${toks[@]}" "${chs[@]}" )

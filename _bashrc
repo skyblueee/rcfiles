@@ -126,6 +126,9 @@ alias docx2txt='~/bin/docx2txt-1.4/docx2txt.sh'
 alias grep='grep --color=auto'
 alias git='LC_ALL=C git'
 
+# thefuck
+alias fuck='eval $(thefuck $(fc -ln -1)); history -r'
+
 # Automatically change the directory in bash after closing ranger
 # copied from /usr/share/doc/ranger/examples/bash_automatic_cd.sh
 # This is a bash function for .bashrc to automatically change the directory to
