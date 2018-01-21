@@ -120,7 +120,7 @@ alias clion='~/bin/JetBrains/clion/bin/clion.sh > /dev/null &'
 alias docx2txt='~/bin/docx2txt-1.4/docx2txt.sh'
 
 # chinese completion
-. ~/rcfiles/bash_pinyin_completion/chs_completion.sh
+source ~/bin/pinyin_completion/chs_completion.sh
 
 # option alias
 alias grep='grep --color=auto'
