@@ -122,6 +122,9 @@ alias docx2txt='~/bin/docx2txt-1.4/docx2txt.sh'
 # chinese completion
 source ~/bin/pinyin_completion/chs_completion.sh
 
+# fuzzy completion
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
 # option alias
 alias grep='grep --color=auto'
 alias git='LC_ALL=C git'
