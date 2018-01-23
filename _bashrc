@@ -118,12 +118,16 @@ alias pycharm='~/bin/JetBrains/pycharm/bin/pycharm.sh > /dev/null &'
 alias idea='~/bin/JetBrains/idea/bin/idea.sh > /dev/null &'
 alias clion='~/bin/JetBrains/clion/bin/clion.sh > /dev/null &'
 alias docx2txt='~/bin/docx2txt-1.4/docx2txt.sh'
+alias typora='typora_fun(){ ~/bin/Typora-linux-x64/Typora $1 & }; typora_fun $1'
 
 # chinese completion
 source ~/bin/pinyin_completion/chs_completion.sh
 
 # fuzzy completion
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# map CapsLock to Ctrl
+xmodmap ~/rcfiles/_xmodmaprc
 
 # option alias
 alias grep='grep --color=auto'
