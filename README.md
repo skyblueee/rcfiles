@@ -1,4 +1,7 @@
+[TOC]
+
 # Introduction
+
 This is the rcfiles of my `bash` and `vim`. It contains some comfortable settings for them. See the Usage section for detail.
 
 *NOTE*: It only supply settings, not including the softwares (e.g. ranger/pycharm) or plugins (e.g. NERDTree/YCM). You should be able to install them by yourself.
@@ -24,7 +27,7 @@ Press `<Ctrl-o>` to open ranger, and press `q` to leave you in the proper direct
 *vim-airline* shows buffer numbers in a tabline.
 
 1. `<TAB>` to navigate among buffers.
-1. `<leader><num>` or `:b<num><CR>` to go to buffer<num>.
+2. `<leader><num>` or `:b<num><CR>` to go to buffer<num>.
 
 ### Easy motion
 *vim-easymotion* is used to move very quikly and pricisely.
@@ -47,7 +50,7 @@ Todo: conflict with cursorline and gitgutter.
 * `:Bookmark` to add a bookmark.
 * `?` for more help.
 * `q` to quit.
-*CtrlP* is used to search and open files.
+  *CtrlP* is used to search and open files.
 * `<C-p>` and type sth, `<C-j>` and `<C-k>` to navigate and `<Enter>` to open.
 * `<C-z>` to mark/unmark a file and `<C-o>` to open marked ones.
 * `<C-n>` and `<C-p>` to browse input history.
@@ -55,7 +58,7 @@ Todo: conflict with cursorline and gitgutter.
 * `<C-r>` to toggle between string/regexp mode.
 * `<C-f>` and `<C-b>` to find MRU mode.
 * `<ESC>` to quit.
-`<leader>r` to use ranger.
+  `<leader>r` to use ranger.
 
 ### Completion
 #### Identifer Completion
@@ -109,7 +112,6 @@ Use `<C-l>` in insert mode to move quickly right out of paires.
 * `:lopen [height]` opens the location-list.
 
 ### Debug
-####
 Use *q* to debug python files. (For an IDE, use Pycharm)
 
 Install q with `pip install -U q`.
@@ -123,8 +125,8 @@ Note: Some alternatives to the TMPDIR variable are TEMP, TEMPDIR and TMP
     ```python
     import q; q(foo)
     ```
-1. To print the value of something in the middle of an expression, insert
-"q()", "q/", or "q|".  For example, given this statement:
+2. To print the value of something in the middle of an expression, insert
+  "q()", "q/", or "q|".  For example, given this statement:
     ```python
     file.write(prefix + (sep or '').join(items))
     ```
@@ -134,12 +136,12 @@ Note: Some alternatives to the TMPDIR variable are TEMP, TEMPDIR and TMP
     file.write(q/prefix + (sep or '').join(items))  # prints prefix
     file.write(q|prefix + (sep or '').join(items))  # prints the arg to write
     ```
-1. To trace a function's arguments and return value, insert this above the def:
+3. To trace a function's arguments and return value, insert this above the def:
     ```python
     import q
     @q
     ```
-1. To start an interactive console at any point in your code, call q.d():
+4. To start an interactive console at any point in your code, call q.d():
 
     ```python
     import q; q.d()
@@ -158,4 +160,4 @@ Select lines and `:Tabularize /=/` ('=' can be replaced by [-|%] and stuff).
 * `v` and use *vim-easymotion*
 
 ### Markdown
-*Previm* is used to preview markdown files in your browser. `:PrevimOpen` to open it. It will auto update while you are typing.
+*mathjax-support-for-mkdp* and *markdown-preview.vim* is used to preview markdown files in your browser. `:MarkdownPreview` to open it. It will auto update while you are typing.

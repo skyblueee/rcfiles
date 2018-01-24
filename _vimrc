@@ -14,7 +14,6 @@ Plugin 'skyblueee/nerdtree' " :NERDTreeToggle :NERDTreeFind and ? for help
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'majutsushi/tagbar'	 " :Tagbar and ? for help
 Plugin 'vim-airline/vim-airline' " show infos
-Plugin 'kannokanno/previm' " :PrevimOpen in markdown files.
 Plugin 'kien/ctrlp.vim'
 Plugin 'mileszs/ack.vim' " :Ack and ? for help
 Plugin 'easymotion/vim-easymotion' " <leader><leader>swafFjk
@@ -32,8 +31,14 @@ Plugin 'fs111/pydoc.vim'  " just press K(or <leader>pw) in python files
 Plugin 'w0rp/ale'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-fugitive'
 "---------------------------------------
 Plugin 'vimwiki/vimwiki'
+Plugin 'iamcco/mathjax-support-for-mkdp'
+Plugin 'iamcco/markdown-preview.vim'
+"Plugin 'vim-latex/vim-latex'
+Plugin 'lervag/vimtex'
+Plugin 'xuhdev/vim-latex-live-preview'
 "---------------------------------------
 Plugin 'skyblueee/Conque-Shell'
 Plugin 'liuchengxu/space-vim-dark'
@@ -48,7 +53,6 @@ syntax on
 
 "==|Self|======================================================================
 let mapleader = "\<SPACE>"
-"noremap <ESC> <ESC>:noh<CR><ESC>
 
 " Windows navigating
 nnoremap <C-H>     <C-W>h
@@ -81,8 +85,9 @@ nnoremap <Down> gj
 
 " Appearance
 set cursorline
-" set cursorcolumn
 set colorcolumn=120
+
+nnoremap <C-\> :noh<CR>
 
 " some other
 nnoremap <leader>p "+p
@@ -189,6 +194,7 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline_section_c = '%<%F%m%r%h%w'
 " let g:airline_section_z       (percentage, line number, column number)
 let g:airline_section_z = '(%b/0x%B)[%l/%L,%c][%p%%] %(%{strftime("%H:%M")}%)'
+let g:airline_symbols_ascii = 1
 
 "==|rainbow_parentheses|=======================================================
 " delete black from default
@@ -222,11 +228,6 @@ let g:indent_guides_guide_size = 1 " default 0
 let g:indent_guides_start_level = 2 " default 1
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree'] " default ['help']
 " nmap <silent> <Leader>ig <Plug>IndentGuidesToggle
-
-"==|previm|====================================================================
-let g:previm_open_cmd = 'firefox'
-let g:previm_enable_realtime = 1 " default 0
-let g:previm_show_header = 0 " default 1
 
 "==|vim-easymotion|============================================================
 " single character move
@@ -366,7 +367,7 @@ nmap <silent> <leader>j <Plug>(ale_next_wrap)
 let g:NERDSpaceDelims = 1
 " let g:NERDDefaultAlign = 'left'
 
-"==|Conque-Shell|================================================================
+"==|Conque-Shell|==============================================================
 nnoremap <leader>sh :ConqueTermVSplit bash<CR>
 
 "==|dict|======================================================================
