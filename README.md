@@ -158,6 +158,16 @@ Select lines and `:Tabularize /=/` ('=' can be replaced by [-|%] and stuff).
 ### Quick selection
 * `v`,`vv`,`vvv` from *vim-expand-region*
 * `v` and use *vim-easymotion*
+* text object in *targets.vim*:
+    * i( i) ib i[ i] it i{ i} iB i< i>
+    * a( a) ab a[ a] at a{ a} aB a< a>
+    * I( I) Ib I[ I] It I{ I} IB I< I>
+    * A( A) Ab A[ A] At A{ A} AB A< A>
+    * [count][iaIA][ln][()b[]t{}B<>]
+    * [iaIA]['"`]
+    * [count][iaI][ln]['"`]
+    * [count][iaIA][ln][, . ; : + - = ~ _ * # / | \ & $ ~]
+    * [count][iaIA][ln]a    (arguments surrounded by braces and commas)
 
 ### Markdown
 *mathjax-support-for-mkdp* and *markdown-preview.vim* is used to preview markdown files in your browser. `:MarkdownPreview` to open it. It will auto update while you are typing.

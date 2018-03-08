@@ -25,6 +25,7 @@ Plugin 'honza/vim-snippets'
 "---------------------------------------
 Plugin 'godlygeek/tabular'
 Plugin 'jiangmiao/auto-pairs'
+Plugin 'wellle/targets.vim'
 Plugin 'skywind3000/asyncrun.vim'
 "---------------------------------------
 Plugin 'fs111/pydoc.vim'  " just press K(or <leader>pw) in python files
@@ -364,7 +365,6 @@ nmap <silent> <leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <leader>j <Plug>(ale_next_wrap)
 
 "==|nerdcommenter|=============================================================
-let g:NERDSpaceDelims = 1
 " let g:NERDDefaultAlign = 'left'
 
 "==|Conque-Shell|==============================================================
@@ -403,3 +403,18 @@ autocmd BufNewFile *.py exe "1," . line("$") . "g/_date_/s/_date_/" .strftime("%
 autocmd BufNewFile *.py exe "normal! G"
 " to format python file  todo: use ale to auto do
 autocmd FileType python nnoremap <leader>= :0,$!yapf<CR>
+autocmd FileType python nnoremap <F5> :AsyncRun make<CR>
+function! QuickfixToggle()
+    let has_quickfix = 0
+    for winnr in range(1, winnr('$'))
+        if getwinvar(winnr, '&syntax') == 'qf'
+            let has_quickfix = 1
+        endif
+    endfor
+    if has_quickfix == 1
+        exec 'cclose'
+    else
+        exec 'copen'
+    endif
+endfun
+autocmd FileType python nnoremap <F6> :call QuickfixToggle()<CR>
