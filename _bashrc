@@ -112,6 +112,7 @@ if ! shopt -oq posix; then
 fi
 
 #===User========================================================================
+export EDITOR='vim'
 
 # app alias
 alias pycharm='~/bin/JetBrains/pycharm/bin/pycharm.sh > /dev/null &'
@@ -119,15 +120,22 @@ alias idea='~/bin/JetBrains/idea/bin/idea.sh > /dev/null &'
 alias clion='~/bin/JetBrains/clion/bin/clion.sh > /dev/null &'
 alias docx2txt='~/bin/docx2txt-1.4/docx2txt.sh'
 alias typora='typora_fun(){ ~/bin/Typora-linux-x64/Typora $1 & }; typora_fun $1'
+alias mux='tmuxinator'
 
 # chinese completion
 source ~/bin/pinyin_completion/chs_completion.sh
 
+# tmux completion
+source ~/rcfiles/tmuxinator_completion.bash
+
 # fuzzy completion
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+# autojump
+. /usr/share/autojump/autojump.sh
+
 # map CapsLock to Ctrl
-xmodmap ~/rcfiles/_xmodmaprc
+# xmodmap ~/rcfiles/_xmodmaprc
 
 # option alias
 alias grep='grep --color=auto'
@@ -152,3 +160,4 @@ function ranger-cd {
     rm -f -- "$tempfile"
 }
 bind '"\C-o":"ranger-cd\C-m"' # This binds Ctrl-O to ranger-cd
+

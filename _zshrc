@@ -1,0 +1,48 @@
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+export ZSH=~/bin/oh-my-zsh # Path to your oh-my-zsh installation.
+#ZSH_CUSTOM=/path/to/new-custom-folder
+ZSH_THEME="gallois" # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+#ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+#CASE_SENSITIVE="true"  # use case-sensitive completion.
+HYPHEN_INSENSITIVE="true" # hyphen-insensitive completion. CASE_SENSITIVE must be false. _ and - will be interchangeable.
+#DISABLE_AUTO_UPDATE="true" # auto-update checks.
+#export UPDATE_ZSH_DAYS=13 # how often to auto-update (in days).
+#DISABLE_AUTO_TITLE="true" # auto-setting terminal title.
+ENABLE_CORRECTION="true" # command auto-correction.
+#COMPLETION_WAITING_DOTS="true" # display red dots whilst waiting for completion.
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+HIST_STAMPS="yyyy-mm-dd"
+
+
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(
+  git
+  sudo
+  autojump
+  last-working-dir
+  extract
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+)
+source $ZSH/oh-my-zsh.sh
+# User configuration
+PROMPT='%{$fg[red]%}%n@%m%{$fg[white]%}:%{$fg[cyan]%}%~% %(?.%{$fg[green]%}.%{$fg[red]%})%B$%b '
+
+# export MANPATH="/usr/local/man:$MANPATH"
+# export LANG=zh_CN.UTF-8
+# export ARCHFLAGS="-arch x86_64"
+# export SSH_KEY_PATH="~/.ssh/rsa_id"
+setopt AUTO_CD
+bindkey -v
+bindkey '^R' history-incremental-search-backward
+bindkey '^S' history-incremental-search-forward
+bindkey '^P' history-search-backward
+bindkey '^N' history-search-forward
