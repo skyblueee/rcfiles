@@ -134,8 +134,11 @@ source ~/rcfiles/tmuxinator_completion.bash
 # autojump
 . /usr/share/autojump/autojump.sh
 
+# python startup
+export PYTHONSTARTUP=~/rcfiles/pythonrc.py
+
 # map CapsLock to Ctrl
-# xmodmap ~/rcfiles/_xmodmaprc
+xmodmap ~/rcfiles/_xmodmaprc
 
 # option alias
 alias grep='grep --color=auto'

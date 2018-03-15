@@ -363,9 +363,11 @@ let g:ale_sign_error = '•' " '✹●' default '>>'
 "let g:ale_sign_offset = 1000000 " default 1000000
 "let g:ale_type_map = {} " default {}
 "let b:ale_type_map = {} " default {}
-let g:ale_python_pylint_executable = 'pylint3'
+let g:ale_python_pylint_executable = 'python3'
 let g:ale_python_pylint_options = '--rcfile ~/rcfiles/pylint.rc'
 let g:ale_python_pylint_use_global = 1
+let g:ale_python_flake8_executable = 'python3'
+let g:ale_python_flake8_options = '-m flake8'
 let g:ale_python_flake8_use_global = 1
 nmap <silent> <leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <leader>j <Plug>(ale_next_wrap)
