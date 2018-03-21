@@ -334,6 +334,7 @@ let g:ackpreview = 1 " default 0
 
 "==|Pydoc|=====================================================================
 let g:pydoc_window_lines=0.7
+let g:pydoc_cmd = 'python3 -m pydoc'
 
 "==|space-vim-dark|============================================================
 let g:space_vim_dark_background = 233 " 233(darkest)-238(lightest)

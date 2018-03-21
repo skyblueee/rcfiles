@@ -121,6 +121,8 @@ alias clion='~/bin/JetBrains/clion/bin/clion.sh > /dev/null &'
 alias docx2txt='~/bin/docx2txt-1.4/docx2txt.sh'
 alias typora='typora_fun(){ ~/bin/Typora-linux-x64/Typora $1 & }; typora_fun $1'
 alias mux='tmuxinator'
+alias ip3='ipython3'
+alias checksec='~/bin/checksec.sh/checksec'
 
 # chinese completion
 source ~/bin/pinyin_completion/chs_completion.sh
