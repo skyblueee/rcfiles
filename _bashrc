@@ -123,6 +123,16 @@ alias typora='typora_fun(){ ~/bin/Typora-linux-x64/Typora $1 & }; typora_fun $1'
 alias mux='tmuxinator'
 alias ip3='ipython3'
 alias checksec='~/bin/checksec.sh/checksec'
+alias mancpp='cppman'
+alias manasm='~/bin/go/bin/cgasm'
+alias du='ncdu'
+alias fuck='eval $(thefuck $(fc -ln -1)); history -r'
+alias grep='grep --color=auto'
+alias git='LC_ALL=C git'
+alias ll='ls -lh'
+
+# golang
+export GOPATH=~/bin/go
 
 # chinese completion
 source ~/bin/pinyin_completion/chs_completion.sh
@@ -142,12 +152,17 @@ export PYTHONSTARTUP=~/rcfiles/pythonrc.py
 # map CapsLock to Ctrl
 xmodmap ~/rcfiles/_xmodmaprc
 
-# option alias
-alias grep='grep --color=auto'
-alias git='LC_ALL=C git'
-
-# thefuck
-alias fuck='eval $(thefuck $(fc -ln -1)); history -r'
+# cheat
+export DEFAULT_CHEAT_DIR='~/rcfiles/cheat_sheets/'
+export CHEATCOLORS=true
+function _cheat_autocomplete {
+    sheets=$(cheat -l | cut -d' ' -f1)
+    COMPREPLY=()
+    if [ $COMP_CWORD = 1 ]; then
+	COMPREPLY=(`compgen -W "$sheets" -- $2`)
+    fi
+}
+complete -F _cheat_autocomplete cheat
 
 # Automatically change the directory in bash after closing ranger
 # copied from /usr/share/doc/ranger/examples/bash_automatic_cd.sh
