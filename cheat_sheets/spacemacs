@@ -1,0 +1,47 @@
+spc-spc   : 跳出命令列表，可运行命令，也可以查找快捷键
+spc-h-spc : 查找包的用途与定义
+
+查找-预览-跳转： SPC s s 或者 SPC s S
+全局替换：*
+
+打开最近buffer     : spc b b
+打开项目文件       : spc p f
+打开当前目录下文件 : spc f j
+
+4.5 Configuration layers and Package discovery
+
+By using helm-spacemacs-help with SPC h SPC you can quickly search for a package and get the name of the layers using it.
+
+You can also easily go to the README.org of a layer or go to the initialization function of a package.
+
+4.6 Key bindings discovery
+
+Thanks to which-key, whenever a prefix command is pressed (like SPC) a buffer appears after one second listing the possible keys for this prefix.
+
+It is also possible to search for specific key bindings by pressing:
+
+SPC ?
+
+To narrow the bindings list to those prefixed with SPC, type a pattern like this regular expression:
+
+SPC\ b
+
+which would list all buffer related bindings. Note: You are at the HELM-Descbind prompt, the pattern consists of 6 letters: uppercase SPC, a backslash, an actual space and a lowercase b.
+
+4.7 Describe functions
+
+SPC h d f : describe-function
+SPC h d k : describe-key
+SPC h d m : describe-mode
+SPC h d v : describe-variable
+
+1.1 文件导航
+
+    spc-f-j 开发 neotree
+    spc-tab 切换到上一个 buffer
+    spc-f-f 打开文件 spc-p-f fuzzfind 类似于 ctrlp spc-s-g-p grep 搜索项目 spc-s-a-p ag 搜索项目
+
+1.3 Markdown Writing
+
+    spc-spc-markdown-generate-to 回车即可生成本文的 Toc(Table Of Content)
+    spc-b-i 打开 buffer 的 imenu（类似于 Vim 的 Tagbar 插件），enter 跳转

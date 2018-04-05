@@ -120,6 +120,10 @@ alias idea='~/bin/JetBrains/idea/bin/idea.sh > /dev/null &'
 alias clion='~/bin/JetBrains/clion/bin/clion.sh > /dev/null &'
 alias docx2txt='~/bin/docx2txt-1.4/docx2txt.sh'
 alias typora='typora_fun(){ ~/bin/Typora-linux-x64/Typora $1 & }; typora_fun $1'
+alias gdb='gdb -q'
+alias emacs='emacs_nw() { emacs -nw $* & }; emacs_nw'
+#alias gdb-emacs='gdb_emacs() { emacs -l ~/rcfiles/_emacs -nw --eval "(gdb \"gdb -q --annotate=3 -i=mi $*\")"; }; gdb_emacs'
+#alias gdb-emacs='gdb_emacs() { emacs -nw --eval "(gdb \"gdb -q --annotate=3 -i=mi $*\")"; }; gdb_emacs'
 alias mux='tmuxinator'
 alias ip3='ipython3'
 alias checksec='~/bin/checksec.sh/checksec'
@@ -130,6 +134,15 @@ alias fuck='eval $(thefuck $(fc -ln -1)); history -r'
 alias grep='grep --color=auto'
 alias git='LC_ALL=C git'
 alias ll='ls -lh'
+
+# ctf tools
+alias ctf-stegsolve='stegsolve_fun(){ java -jar ~/bin/ctf-tools/Stegsolve.jar & }; stegsolve_fun'
+alias ctf-str2hex='~/bin/ctf-tools/str2hex.py'
+alias ctf-hex2str='~/bin/ctf-tools/hex2str.py'
+alias ctf-b64decode='~/bin/ctf-tools/b64decode.py'
+alias ctf-b64encode='~/bin/ctf-tools/b64encode.py'
+alias ctf-xxencode='~/bin/ctf-tools/xxencode.py'
+alias ctf-jpgeofx='~/bin/ctf-tools/jpegeofx.py'
 
 # golang
 export GOPATH=~/bin/go

@@ -1,0 +1,74 @@
+# 移动
+
+  字符移动                C-f/b
+  行间移动                C-n/p
+  单词移动                A-f/b
+  句子移动                A-a/e
+  段落移动                A-{/}
+  函数移动                C-A-a/e
+  滚屏翻页                C/A-v
+
+  行首行尾                C-a/e
+  文首文尾                A-</>
+
+# 其他
+
+  数字前缀                C-u <num> <other key>
+  取消当前                C-g
+
+# 编辑
+
+  启动选择            CTRL-@
+  剪切选区            CTRL-w
+  复制选区            ALT-w
+  粘贴召回            CTRL-y
+  遍历粘贴            CTRL-y ALT-y
+  删字删行            CTRL-d/k
+  删词删句            ALT-d/k
+  撤销编辑            CTRL-x u
+  缩进选区            TAB
+  Replace             ALT-% (ALT-SHIFT-5)
+
+# 文档
+
+  打开           CTRL-x CTRL-f
+  退出           CTRL-x CTRL-c
+  搜索           CTRL-s
+  保存           CTRL-x CTRL-s
+  另存           CTRL-x CTRL-w
+  Highlight all text  CTRL-x h
+  Directory listing   CTRL-x d
+  Font size bigger    CTRL-x CTRL-+
+  Font size smaller   CTRL-x CTRL--
+  Cancel a command    CTRL-g
+
+# Buffers
+
+  Split screen vertically                         CTRL-x 2
+  Split screen vertically with 5 row height       CTRL-u 5 CTRL-x 2
+  Split screen horizontally                       CTRL-x 3
+  Split screen horizontally with 24 column width  CTRL-u 24 CTRL-x 3
+  Revert to single screen                         CTRL-x 1
+  Hide the current screen                         CTRL-x 0
+  Move to the next screen                         CTRL-x o
+  Kill the current buffer                         CTRL-x k
+  Select a buffer                                 CTRL-x b
+  Run command in the scratch buffer               CTRL-x CTRL-e
+
+# Other stuff
+
+  Open a shell         ALT-x eshell
+  Goto a line number   ALT-x goto-line
+  Word wrap            ALT-x toggle-word-wrap
+  Spell checking       ALT-x flyspell-mode
+  Line numbers         ALT-x linum-mode
+  Toggle line wrap     ALT-x visual-line-mode
+  Compile some code    ALT-x compile
+  List packages        ALT-x package-list-packages
+
+# Line numbers
+
+  To add line numbers and enable moving to a line with CTRL-l:
+
+    (global-set-key "\C-l" 'goto-line)
+    (add-hook 'find-file-hook (lambda () (linum-mode 1)))

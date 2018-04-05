@@ -1,0 +1,22 @@
+gdb your-executable              # start the debugger
+b some-method, break some-method # set a breakpoint
+r, run                           # run the program
+n, next                          # step over
+s, step                          # step into
+bt, backtrace                    # print stacktrace
+p length=strlen(string)          # evaluate expressions and print
+l, list                          # list surrounding source code
+c, continue                      # continue
+q, quit                          # exit
+
+## tui
+gdb -tui your-executable
+窗口切换             ： c-x o
+查看指令（汇编窗口） ： layout split
+重绘界面             ： c-l
+
+## peda
+命令列表：peda
+
+## cdbg
+
