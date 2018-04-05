@@ -1,47 +1,51 @@
-spc-spc   : 跳出命令列表，可运行命令，也可以查找快捷键
-spc-h-spc : 查找包的用途与定义
+跳出命令列表，运行命令，查找快捷键 : spc-spc
+查找按键绑定                       : SPC ?
+查找包的用途与定义                 : spc-h-spc
+查看函数说明                       : SPC h d f
+查看按键说明                       : SPC h d k
+查看模式说明                       : SPC h d m
+查看变量说明                       : SPC h d v
 
-查找-预览-跳转： SPC s s 或者 SPC s S
-全局替换：*
+查找-预览-跳转     : SPC s s 或者 SPC s S
+全局替换           : *
 
-打开最近buffer     : spc b b
-打开项目文件       : spc p f
-打开当前目录下文件 : spc f j
+打开最近buffer   : spc b b/a
+buffer切换       : spc tab 或者 spc b n/p
+列出目录树       : spc f j/t
+打开项目文件     : spc p f
 
-4.5 Configuration layers and Package discovery
+放大缩小字体     : spc z x
 
-By using helm-spacemacs-help with SPC h SPC you can quickly search for a package and get the name of the layers using it.
+注释/取消注释    : spc c l
 
-You can also easily go to the README.org of a layer or go to the initialization function of a package.
+搜索项目 grep  : spc-s-g-p
 
-4.6 Key bindings discovery
+文件系统 : dired-mode下?可以查看详细命令
+    复制 : C
+    移动 : M
+    新建 : +
+    删除 : D
+    标记删除 : d
+    取消标记 : u
 
-Thanks to which-key, whenever a prefix command is pressed (like SPC) a buffer appears after one second listing the possible keys for this prefix.
+跳转到函数定义   : gd
 
-It is also possible to search for specific key bindings by pressing:
+* org-mode
+一般来讲，spacemacs中用_,_代替emacs的c-a
+** 链接
+暂存链接      : c-c l
+放置/修改链接 : c-c c-l
+打开链接      : c-c c-o
 
-SPC ?
+** 日程计划
+添加同级TODO : C-S-<Enter>
+切换TODO状态 : S-left/right 全局列表中直接用t切换
+计划视图     : , a
+开始时间     : c-c c-s    start
+结束时间     : c-c c-d    deadline
 
-To narrow the bindings list to those prefixed with SPC, type a pattern like this regular expression:
 
-SPC\ b
+** 源代码
+插入代码块 : <s <tab>
+块内切换mode : c-c '  ;; 开启新的Buffer直接用相应Major Mode编辑块的内容
 
-which would list all buffer related bindings. Note: You are at the HELM-Descbind prompt, the pattern consists of 6 letters: uppercase SPC, a backslash, an actual space and a lowercase b.
-
-4.7 Describe functions
-
-SPC h d f : describe-function
-SPC h d k : describe-key
-SPC h d m : describe-mode
-SPC h d v : describe-variable
-
-1.1 文件导航
-
-    spc-f-j 开发 neotree
-    spc-tab 切换到上一个 buffer
-    spc-f-f 打开文件 spc-p-f fuzzfind 类似于 ctrlp spc-s-g-p grep 搜索项目 spc-s-a-p ag 搜索项目
-
-1.3 Markdown Writing
-
-    spc-spc-markdown-generate-to 回车即可生成本文的 Toc(Table Of Content)
-    spc-b-i 打开 buffer 的 imenu（类似于 Vim 的 Tagbar 插件），enter 跳转
