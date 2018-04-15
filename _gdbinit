@@ -1,1 +1,4 @@
-source ~/bin/peda/peda.py
+#source ~/bin/peda/peda.py
+#source ~/bin/peda-heap/peda.py
+source ~/bin/gef/gef.py
+#source ~/.local/lib/python3.6/site-packages/voltron/entry.py

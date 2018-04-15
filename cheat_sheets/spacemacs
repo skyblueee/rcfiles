@@ -1,3 +1,5 @@
+* 內建帮助
+
 跳出命令列表，运行命令，查找快捷键 : spc-spc
 查找按键绑定                       : SPC ?
 查找包的用途与定义                 : spc-h-spc
@@ -6,32 +8,42 @@
 查看模式说明                       : SPC h d m
 查看变量说明                       : SPC h d v
 
+* 快速浏览
+
 查找-预览-跳转     : SPC s s 或者 SPC s S
 全局替换           : *
+放大缩小字体     : spc z x
+跳转到函数定义   : gd
 
 打开最近buffer   : spc b b/a
 buffer切换       : spc tab 或者 spc b n/p
 列出目录树       : spc f j/t
 打开项目文件     : spc p f
 
-放大缩小字体     : spc z x
 
 注释/取消注释    : spc c l
 
 搜索项目 grep  : spc-s-g-p
 
-文件系统 : dired-mode下?可以查看详细命令
-    复制 : C
-    移动 : M
-    新建 : +
-    删除 : D
-    标记删除 : d
-    取消标记 : u
+* 文件系统
 
-跳转到函数定义   : gd
+dired-mode下?可以查看详细命令
+
+复制     : C
+移动     : M
+新建     : +
+删除     : D
+标记删除 : d
+取消标记 : u
+
 
 * org-mode
 一般来讲，spacemacs中用_,_代替emacs的c-a
+
+** 级别
+新建同级标题  : c-enter
+改变标题级别  : < / >
+
 ** 链接
 暂存链接      : c-c l
 放置/修改链接 : c-c c-l
@@ -44,8 +56,17 @@ buffer切换       : spc tab 或者 spc b n/p
 开始时间     : c-c c-s    start
 结束时间     : c-c c-d    deadline
 
-
 ** 源代码
 插入代码块 : <s <tab>
 块内切换mode : c-c '  ;; 开启新的Buffer直接用相应Major Mode编辑块的内容
 
+
+* 待消化
+
+(colors :variables
+        colors-enable-rainbow-identifiers t)
+# NOTICE: 这一段在0.200版本已经失效，需要用 `colors-colorize-identifiers 'all` 来替代
+它可以将同一个文件里的所有同名的符号都标成同样的颜色
+
+spacemacs可以方便的对Python进行调试。怎么做呢，首先你在你的Python文件里定义一个函数，然后如果你想单独测试一下这个函数怎么办？只需要在想要运行的函数里按下： SPC m s F ,就能自动打开一个 IPython 进程，并且直接集成到spacemacs窗口里，直接用就好了！最关键的是，你还可以修改了之后再执行一下这个，新函数会被自动注入到IPython调试窗口里。
+如果你想发送你选定的部分，先直接选定要发送的部分，然后执行 “SPC m s S”即可。

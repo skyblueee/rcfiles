@@ -156,6 +156,9 @@ source ~/rcfiles/tmuxinator_completion.bash
 # fuzzy completion
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+# bazel completion
+source /usr/local/lib/bazel/bin/bazel-complete.bash
+
 # autojump
 . /usr/share/autojump/autojump.sh
 

@@ -188,9 +188,6 @@ let g:tagbar_compact = 1
 let g:tagbar_foldlevel = 2
 let g:tagbar_autoshowtag = 1
 
-"==|bufferline|================================================================
-set updatetime=5000
-
 "==|vim-airline|===============================================================
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1

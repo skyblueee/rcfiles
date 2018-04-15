@@ -453,6 +453,15 @@ before packages are loaded."
                                "~/org/home.org"))
   (require 'sdcv-mode) ;;<c-c> d查词典
 
+  ;; (use-package buffer-line
+  ;;   :load-path "~/rcfiles/lisp/buffer-line"
+  ;;   :init
+  ;;   (setq buffer-line-place 'echo-area)    ; Acceptable value: `nil' or `echo-area', `mode-line'
+  ;;   (setq buffer-line-mode-line-limit 60)  ; In case of `mode-line'.
+  ;;   ;;(bind-key ",,b" #'buffer-line/next-buffer evil-motion-state-map)
+  ;;   :config
+  ;;   (buffer-line-mode 1))
+
   ;;org-mode export to latex
   (require 'ox-latex)
   (setq org-export-latex-listings t)
