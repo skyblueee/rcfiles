@@ -14,7 +14,9 @@ Plugin 'skyblueee/nerdtree' " :NERDTreeToggle :NERDTreeFind and ? for help
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'majutsushi/tagbar'	 " :Tagbar and ? for help
 Plugin 'vim-airline/vim-airline' " show infos
-Plugin 'kien/ctrlp.vim'
+"Plugin 'junegunn/fzf.vim'
+"Plugin 'Shougo/denite.nvim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'mileszs/ack.vim' " :Ack and ? for help
 Plugin 'easymotion/vim-easymotion' " <leader><leader>swafFjk
 Plugin 'terryma/vim-expand-region' " v vv vvv
@@ -76,7 +78,8 @@ nmap <leader>8 :b8<CR>
 nmap <leader>9 :b9<CR>
 
 " Quick move
-inoremap <C-l> <Right>
+inoremap <C-f> <Right>
+inoremap <C-b> <Left>
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 
@@ -321,7 +324,7 @@ let g:UltiSnipsExpandTrigger = '<C-o>' " Open it! default '<TAB>'
 "        <c-f> and <c-b> to circle among search file/buffer/MRU mode.
 "        <ESC> to quit.
 "let g:loaded_ctrlp = 0 " set to 1 to disable the plugin
-let g:ctrlp_regexp = 1 " default 0
+"let g:ctrlp_regexp = 1 " default 0
 "let g:ctrlp_show_hidden = 0 " default 0
 
 "==|Ack|=======================================================================
@@ -392,7 +395,7 @@ nnoremap <C-K> :call Mydict()<CR>
 function! Ranger()
     silent !ranger --choosefile=/tmp/chosen
     if filereadable('/tmp/chosen')
-        exec 'edit ' . system('cat /tmp/chosen')
+        exe 'edit ' . system('cat /tmp/chosen')
         call system('rm /tmp/chosen')
     endif
     redraw!
@@ -406,7 +409,7 @@ autocmd BufNewFile *.py exe "1," . line("$") . "g/_date_/s/_date_/" .strftime("%
 autocmd BufNewFile *.py exe "normal! G"
 " to format python file  todo: use ale to auto do
 autocmd FileType python nnoremap <leader>= :0,$!yapf<CR>
-autocmd FileType python nnoremap <F5> :AsyncRun make<CR>
+autocmd FileType python nnoremap <F5> :exe 'AsyncRun -raw ' . expand("%:p")
 function! QuickfixToggle()
     let has_quickfix = 0
     for winnr in range(1, winnr('$'))
@@ -415,9 +418,9 @@ function! QuickfixToggle()
         endif
     endfor
     if has_quickfix == 1
-        exec 'cclose'
+        exe 'cclose'
     else
-        exec 'copen'
+        exe 'copen'
     endif
 endfun
 autocmd FileType python nnoremap <F6> :call QuickfixToggle()<CR>

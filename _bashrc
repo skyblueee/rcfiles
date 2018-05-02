@@ -134,6 +134,8 @@ alias fuck='eval $(thefuck $(fc -ln -1)); history -r'
 alias grep='grep --color=auto'
 alias git='LC_ALL=C git'
 alias ll='ls -lh'
+alias idaq='~/bin/IDA_Pro_v6.4_Linux_and_Hex-Rays_Decompiler_ARM_x86_x64/idaq'
+alias idaq64='~/bin/IDA_Pro_v6.4_Linux_and_Hex-Rays_Decompiler_ARM_x86_x64/idaq64'
 
 # ctf tools
 alias ctf-stegsolve='stegsolve_fun(){ java -jar ~/bin/ctf-tools/Stegsolve.jar & }; stegsolve_fun'
