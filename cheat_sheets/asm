@@ -1,0 +1,3 @@
+# AT&T 和 Intel 语法对比
+- opcode source dest          |    opcode dest source
+- mov eax [ecx+ebx*4+5000]    |    mov 5000(%ecx, %ebx, 4), %eax

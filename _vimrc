@@ -1,57 +1,62 @@
 set nocompatible              " be iMproved, vundle_required
 
-"==|Vundle|====================================================================
-filetype off                  " vundle_required
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-" call vundle#begin('~/some/path/here')
+"==|vim-plug|====================================================================
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+if has('win32') || has('win64')
+    call plug#begin('~/vimfiles/bundle')
+else
+    call plug#begin('~/.vim/bundle')
+endif
 "---------------------------------------
-Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle, vundle_required
+Plug 'junegunn/vim-plug'
+" :NERDTreeToggle :NERDTreeFind and ? for help
+Plug 'skyblueee/nerdtree', {'on': 'NERDTreeToggle'}
+Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
+Plug 'vim-airline/vim-airline' " show infos
+Plug 'tpope/vim-unimpaired'
+"Plug 'junegunn/fzf.vim'
+Plug 'Shougo/denite.nvim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'mileszs/ack.vim' " :Ack and ? for help
+Plug 'easymotion/vim-easymotion' " <leader><leader>swafFjk
+Plug 'terryma/vim-expand-region' " v vv vvv
+Plug 'skyblueee/visualmarks' " press mm to mark and F2 to circle them
+Plug 'Valloric/YouCompleteMe', {'for': ['python', 'c', 'cpp']}
+Plug 'SirVer/ultisnips', {'for': ['python', 'c', 'cpp']}
+Plug 'honza/vim-snippets', {'for': ['python', 'c', 'cpp']}
 "---------------------------------------
-Plugin 'skyblueee/nerdtree' " :NERDTreeToggle :NERDTreeFind and ? for help
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'majutsushi/tagbar'	 " :Tagbar and ? for help
-Plugin 'vim-airline/vim-airline' " show infos
-"Plugin 'junegunn/fzf.vim'
-"Plugin 'Shougo/denite.nvim'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'mileszs/ack.vim' " :Ack and ? for help
-Plugin 'easymotion/vim-easymotion' " <leader><leader>swafFjk
-Plugin 'terryma/vim-expand-region' " v vv vvv
-Plugin 'skyblueee/visualmarks' " press mm to mark and F2 to circle them
-Plugin 'Valloric/YouCompleteMe' " extra compile needed
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
+Plug 'godlygeek/tabular', {'on': 'Tabularize'}
+Plug 'jiangmiao/auto-pairs'
+Plug 'ludovicchabant/vim-gutentags', {'for': ['python', 'c', 'cpp']}
+Plug 'wellle/targets.vim'
+Plug 'skywind3000/asyncrun.vim', {'for': ['python', 'c', 'cpp']}
+Plug 'skywind3000/quickmenu.vim'
 "---------------------------------------
-Plugin 'godlygeek/tabular'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'wellle/targets.vim'
-Plugin 'skywind3000/asyncrun.vim'
+Plug 'fs111/pydoc.vim', {'for': 'python'}  " just press K(or <leader>pw) in python files
+Plug 'w0rp/ale'
+Plug 'scrooloose/nerdcommenter'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
 "---------------------------------------
-Plugin 'fs111/pydoc.vim'  " just press K(or <leader>pw) in python files
-Plugin 'w0rp/ale'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'tpope/vim-fugitive'
+Plug 'vimwiki/vimwiki', {'for': 'wiki'}
+Plug 'iamcco/mathjax-support-for-mkdp', {'for': 'markdown'}
+Plug 'iamcco/markdown-preview.vim', {'for': 'markdown'}
+"Plug 'vim-latex/vim-latex'
+Plug 'lervag/vimtex', {'for': 'tex'}
+Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
 "---------------------------------------
-Plugin 'vimwiki/vimwiki'
-Plugin 'iamcco/mathjax-support-for-mkdp'
-Plugin 'iamcco/markdown-preview.vim'
-"Plugin 'vim-latex/vim-latex'
-Plugin 'lervag/vimtex'
-Plugin 'xuhdev/vim-latex-live-preview'
+Plug 'liuchengxu/space-vim-dark'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'nathanaelkane/vim-indent-guides' " :IndentGuidesToggle or <leader>ig
+Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
+Plug 'yianwillis/vimcdoc'
 "---------------------------------------
-Plugin 'liuchengxu/space-vim-dark'
-Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'nathanaelkane/vim-indent-guides' " :IndentGuidesToggle or <leader>ig
-Plugin 'yianwillis/vimcdoc'
-"---------------------------------------
-call vundle#end()            " vundle_required
-filetype plugin indent on    " vundle_required
-syntax enable
-syntax on
+call plug#end()
 
 "==|Self|======================================================================
 let mapleader = "\<SPACE>"
@@ -77,6 +82,8 @@ nmap <leader>7 :b7<CR>
 nmap <leader>8 :b8<CR>
 nmap <leader>9 :b9<CR>
 
+set switchbuf=useopen
+
 " Quick move
 inoremap <C-f> <Right>
 inoremap <C-b> <Left>
@@ -94,7 +101,7 @@ nnoremap <C-\> :noh<CR>
 
 " some other
 nnoremap <leader>p "+p
-nnoremap <leader>y "+y
+vnoremap <leader>y "+y
 
 "==|ALL|=======================================================================
 set mouse=a " enable mouse
@@ -147,7 +154,7 @@ if has('gui_running')
     colorscheme elflord
 endif
 "---------------------------------------
-if has('win32')
+if has('win32') || has('win64')
     au GUIEnter * simalt ~x
 else
     au GUIEnter * call MaximizeWindow()
@@ -247,14 +254,14 @@ vmap <C-v> <Plug>(expand_region_shrink)
 
 "==|YouCompleteMe|=============================================================
 "let g:ycm_min_num_of_chars_for_completion = 1 " default: 2
-"let g:ycm_min_num_identifier_candidate_chars = 0
+let g:ycm_min_num_identifier_candidate_chars = 2
 "let g:ycm_max_num_candidates = 50 " 0 or >100 not recommended
 "let g:ycm_max_num_identifier_candidates = 10
 "let g:ycm_auto_trigger = 1
 "let g:ycm_filetype_whitelist = { '*': 1 }
 "let g:ycm_filetype_blacklist = { [see help file] }
 "let g:ycm_filetype_specific_completion_to_disable = { [see help file] }
-"let g:ycm_show_diagnostics_ui = 1 " default 1
+let g:ycm_show_diagnostics_ui = 0 " default 1
 "let g:ycm_error_symbol = '>>'
 "let g:ycm_warning_symbol = '>>'
 "let g:ycm_enable_diagnostic_signs = 1 " default 1
@@ -265,7 +272,7 @@ vmap <C-v> <Plug>(expand_region_shrink)
 "let g:ycm_open_loclist_on_ycm_diags = 1 " default 1
 let g:ycm_complete_in_comments = 1 " default 0
 "let g:ycm_complete_in_strings = 1 " default 1
-"let g:ycm_collect_identifiers_from_comments_and_strings = 0 " default 0
+let g:ycm_collect_identifiers_from_comments_and_strings = 1 " default 0
 "let g:ycm_collect_identifiers_from_tags_files = 0 " default 0
 "let g:ycm_seed_identifiers_with_syntax = 0 " default 0
 "let g:ycm_extra_conf_vim_data = [] " default []
@@ -336,6 +343,26 @@ let g:ackpreview = 1 " default 0
 let g:pydoc_window_lines=0.7
 let g:pydoc_cmd = 'python3 -m pydoc'
 
+"==|Gutentags|=================================================================
+" 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+" 所生成的数据文件的名称
+let g:gutentags_ctags_tagfile = '.tags'
+" 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+let s:vim_tags = expand('~/.cache/tags')
+let g:gutentags_cache_dir = s:vim_tags
+" 配置 ctags 的参数
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+" 检测 ~/.cache/tags 不存在就新建
+if !isdirectory(s:vim_tags)
+   silent! call mkdir(s:vim_tags, 'p')
+endif
+
+"==|AsyncRun|==================================================================
+nnoremap <silent> <F5> :AsyncRun -cwd=<root> make <cr>
+
 "==|space-vim-dark|============================================================
 let g:space_vim_dark_background = 233 " 233(darkest)-238(lightest)
 colorscheme space-vim-dark
@@ -352,6 +379,8 @@ hi Comment cterm=italic
 "let g:ale_completion_enabled = 1 " default 0
 let  g:ale_echo_msg_format = '%code%: %s [%linter%][%severity%]'
 "let b:ale_echo_msg_format = '%code%: %s [%linter%][%severity%]'
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
 "let g:ale_fix_on_save = 1 " default 0
 "let b:ale_fix_on_save = 1 " default 0
 "let g:ale_keep_list_window_open = 0 " default 0
@@ -374,7 +403,7 @@ nmap <silent> <leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <leader>j <Plug>(ale_next_wrap)
 
 "==|nerdcommenter|=============================================================
-" let g:NERDDefaultAlign = 'left'
+let g:NERDDefaultAlign = 'left'
 
 "==|dict|======================================================================
 function! Mydict()

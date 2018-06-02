@@ -1,0 +1,30 @@
+# ndarray的属性：
+    1. ndim
+    2. shape
+    3. size
+    4. dtype
+    5. itemsize
+    6. nbytes
+    7. T
+    8. real
+    9. imag
+    10. flat
+# np.dtype是一个结构体类，常用于创建自定义的异构数据结构体。
+# 改变数组维数：
+    1. ravel()
+    2. flatten()
+    3. 直接修改shape属性
+# 拼接：np.stack(), np.concatenate()
+# 拆分：np.split()
+# 转换成list：ndarray.tolist()
+# 数据类型转换：ndarray.astype()
+# 文件读写
+    1. CVS: loadtxt()，savetxt()
+    2.
+# 统计
+    1. 加权平均：average()
+    2. 极差（最大-最小）：ptp()
+    3. 中位数：median()
+    4. 方差：var()
+# 排序
+    1. msort()

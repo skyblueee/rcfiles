@@ -1,0 +1,45 @@
+  Begin org-mode                               ALT-x org-mode
+  Save                                         CTRL-x CTRL-s
+  Export                                       CTRL-c CTRL-e
+
+# To-Do Lists
+
+  Mark list item as TODO                       ** TODO
+  Cycle through workflow                       >/<
+  Show only outstanding TODO                   items CTRL-c CTRL-v
+
+# Tables
+
+  Table column separator                       Vertical/pipe character
+  Move column                                  ALT-left_arrow/right_arrow
+  Move row                                     ALT-up_arrow/down_arrow
+
+# Styles
+
+  *bold* /italic/ _underlined_ =code= ~verbatim~ +strike-through+
+
+# Heading
+
+  Header         -*- mode: org -*-
+
+# 引用环境
+
+  前面若干个空格，：后面加1个空格
+
+# 水平线：  >=5个-
+
+# 源代码环境
+  1. 行号：用-n指定显示行号，+n从上一个环境继续开始行号，后面可以加数字表示初始值
+  2. 引用：(ref:a)  [[(a)]]   [[(b)][line (b)]]
+      #+BEGIN_SRC cpp -n 20 -r
+      int a;            (ref:a)
+      int b;            (ref:b)
+      #+END_SRC
+
+# .emacs
+
+  To make org-mode automatically wrap lines:
+
+    (add-hook 'org-mode-hook
+              '(lambda ()
+                 (visual-line-mode 1)))
