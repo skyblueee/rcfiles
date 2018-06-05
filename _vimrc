@@ -377,6 +377,7 @@ hi Comment cterm=italic
 "let g:airline#extensions#ale#enabled = 0 " default 1
 "let g:ale_command_wrapper = '' " default ''
 "let g:ale_completion_enabled = 1 " default 0
+let  g:ale_echo_cursor = 0  " tmp setting for cursor invisible
 let  g:ale_echo_msg_format = '%code%: %s [%linter%][%severity%]'
 "let b:ale_echo_msg_format = '%code%: %s [%linter%][%severity%]'
 let g:ale_lint_on_text_changed = 'normal'
