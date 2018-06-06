@@ -9,7 +9,13 @@
     8. real
     9. imag
     10. flat
+# 创建数组
+    1. np.fill() 函数用于快速将数组中所有值赋值为一个标量。速度比array.flat=scalar快。
+    2. 创建array()时指定初值list
+    3. ones(), zeros(), eye()
 # np.dtype是一个结构体类，常用于创建自定义的异构数据结构体。
+# 修剪：clip()函数将数组中大于上限的值都赋值为上限，小于下限的值都赋值为下限。
+# 筛选：compress()函数将数组中满足条件的部分筛选出来。
 # 改变数组维数：
     1. ravel()
     2. flatten()
@@ -28,3 +34,14 @@
     4. 方差：var()
 # 排序
     1. msort()
+# 多项式
+    1. 拟合：polyfit()
+    2. 求值：polyval()
+    3. 求根：roots()
+    4. 求导：polyder()
+# 卷积
+    1. convolve()
+# 避免循环
+    1. 矢量化：np.vectorize(func)将作用于标量的函数进行矢量化，返回的函数可以作用于数组。
+# 判断正负：sign()
+# 判断两个array相等：np.array_equal(arrya1, array2)
