@@ -140,6 +140,7 @@ alias idaq64='~/bin/IDA_Pro_v6.4_Linux_and_Hex-Rays_Decompiler_ARM_x86_x64/idaq6
 alias ctf-stegsolve='stegsolve_fun(){ java -jar ~/bin/ctf-tools/Stegsolve.jar & }; stegsolve_fun'
 alias ctf-str2hex='~/bin/ctf-tools/str2hex.py'
 alias ctf-hex2str='~/bin/ctf-tools/hex2str.py'
+alias ctf-dec2str='~/bin/ctf-tools/dec2str.py'
 alias ctf-b64decode='~/bin/ctf-tools/b64decode.py'
 alias ctf-b64encode='~/bin/ctf-tools/b64encode.py'
 alias ctf-xxencode='~/bin/ctf-tools/xxencode.py'
