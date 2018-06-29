@@ -21,7 +21,7 @@ Plug 'vim-airline/vim-airline' " show infos
 Plug 'tpope/vim-unimpaired'
 "Plug 'junegunn/fzf.vim'
 Plug 'Shougo/denite.nvim'
-Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mileszs/ack.vim' " :Ack and ? for help
 Plug 'easymotion/vim-easymotion' " <leader><leader>swafFjk
 Plug 'terryma/vim-expand-region' " v vv vvv
@@ -439,7 +439,7 @@ autocmd BufNewFile *.py exe "1," . line("$") . "g/_date_/s/_date_/" .strftime("%
 autocmd BufNewFile *.py exe "normal! G"
 " to format python file  todo: use ale to auto do
 autocmd FileType python nnoremap <leader>= :0,$!yapf<CR>
-autocmd FileType python nnoremap <F5> :exe 'AsyncRun -raw ' . expand("%:p")
+autocmd FileType python nnoremap <F5> :exe 'AsyncRun -raw ' . expand("%:p")<CR>
 function! QuickfixToggle()
     let has_quickfix = 0
     for winnr in range(1, winnr('$'))
