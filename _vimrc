@@ -17,17 +17,19 @@ Plug 'junegunn/vim-plug'
 " :NERDTreeToggle :NERDTreeFind and ? for help
 Plug 'skyblueee/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
-Plug 'vim-airline/vim-airline' " show infos
 Plug 'tpope/vim-unimpaired'
-"Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'  " <leader>fla for file/line/ag
 Plug 'Shougo/denite.nvim'
-"Plug 'ctrlpvim/ctrlp.vim'
-Plug 'mileszs/ack.vim' " :Ack and ? for help
 Plug 'easymotion/vim-easymotion' " <leader><leader>swafFjk
+Plug 'justinmk/vim-sneak'
 Plug 'terryma/vim-expand-region' " v vv vvv
+Plug 'tpope/vim-surround'  "ds/cs
 Plug 'skyblueee/visualmarks' " press mm to mark and F2 to circle them
-Plug 'Valloric/YouCompleteMe', {'for': ['python', 'c', 'cpp']}
-Plug 'SirVer/ultisnips', {'for': ['python', 'c', 'cpp']}
+Plug 'SirVer/ultisnips', {'for': ['python', 'c', 'cpp']}  " must before CompleteParameter.vim
+Plug 'Valloric/YouCompleteMe', {'for': ['python', 'c', 'cpp'], 'do': './install.py --clang-completer'}
+Plug 'tenfyzhong/CompleteParameter.vim'
+Plug 'Shougo/echodoc.vim'
 Plug 'honza/vim-snippets', {'for': ['python', 'c', 'cpp']}
 "---------------------------------------
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
@@ -55,6 +57,7 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'nathanaelkane/vim-indent-guides' " :IndentGuidesToggle or <leader>ig
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
 Plug 'yianwillis/vimcdoc'
+Plug 'vim-airline/vim-airline' " show infos
 "---------------------------------------
 call plug#end()
 
@@ -71,16 +74,16 @@ nnoremap <C-Left>  <C-W>h
 nnoremap <C-Right> <C-W>l
 
 " Buffer navigating
-nmap <tab>     :bn<CR>
-nmap <leader>1 :b1<CR>
-nmap <leader>2 :b2<CR>
-nmap <leader>3 :b3<CR>
-nmap <leader>4 :b4<CR>
-nmap <leader>5 :b5<CR>
-nmap <leader>6 :b6<CR>
-nmap <leader>7 :b7<CR>
-nmap <leader>8 :b8<CR>
-nmap <leader>9 :b9<CR>
+nnoremap <leader><tab>  :bn<CR>
+nnoremap <leader>1 :b1<CR>
+nnoremap <leader>2 :b2<CR>
+nnoremap <leader>3 :b3<CR>
+nnoremap <leader>4 :b4<CR>
+nnoremap <leader>5 :b5<CR>
+nnoremap <leader>6 :b6<CR>
+nnoremap <leader>7 :b7<CR>
+nnoremap <leader>8 :b8<CR>
+nnoremap <leader>9 :b9<CR>
 
 set switchbuf=useopen
 
@@ -171,11 +174,21 @@ function! MaximizeWindow()
 endfunction
 
 "==|NERDTree|==================================================================
-nnoremap <leader>f :NERDTreeToggle<CR>
+nnoremap <leader>F :NERDTreeToggle<CR>
 let NERDTreeShowBookmarks = 1
 let NERDTreeCascadeSingleChildDir = 1
 let NERDTreeNaturalSort = 1
 let NERDTreeChDirMode = 2
+
+"==|fzf|=======================================================================
+nnoremap <leader>f :FZF!<CR>
+command! -bang -nargs=* Ag
+    \ call fzf#vim#ag(<q-args>,
+    \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+    \                         : fzf#vim#with_preview('right:50%:hidden','?'),
+    \                 <bang>0)
+nnoremap <leader>a :Ag<CR>
+nnoremap <leader>l :BLines<CR>
 
 "==|nerdtree-git-plugin|=======================================================
 let g:NERDTreeIndicatorMapCustom = {
@@ -248,28 +261,29 @@ nmap <leader><leader>w <Plug>(easymotion-bd-w)
 " over window move
 nmap <leader><leader>a <Plug>(easymotion-overwin-w)
 
+"==|vim-sneak|============================================================
+let g:sneak#prompt = 'sneak..>'
+let g:sneak#target_labels = ";abcdefghigklmnopqrstuvwxyz/"
+let g:sneak#label = 1
+map f <Plug>Sneak_s
+
 "==|vim-expand-region|=========================================================
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
 "==|YouCompleteMe|=============================================================
-"let g:ycm_min_num_of_chars_for_completion = 1 " default: 2
 let g:ycm_min_num_identifier_candidate_chars = 2
-"let g:ycm_max_num_candidates = 50 " 0 or >100 not recommended
-"let g:ycm_max_num_identifier_candidates = 10
 "let g:ycm_auto_trigger = 1
-"let g:ycm_filetype_whitelist = { '*': 1 }
+let g:ycm_filetype_whitelist = {
+            \ 'c': 1,
+            \ 'cpp': 1,
+            \ 'python': 1,
+            \ 'perl': 1,
+            \ 'sh': 1,
+            \ }
 "let g:ycm_filetype_blacklist = { [see help file] }
 "let g:ycm_filetype_specific_completion_to_disable = { [see help file] }
 let g:ycm_show_diagnostics_ui = 0 " default 1
-"let g:ycm_error_symbol = '>>'
-"let g:ycm_warning_symbol = '>>'
-"let g:ycm_enable_diagnostic_signs = 1 " default 1
-"let g:ycm_enable_diagnostic_highlighting = 1 " default 1
-"let g:ycm_echo_current_diagnostic = 1 " default 1
-"let g:ycm_filter_diagnostics = {} " default {}
-"let g:ycm_always_populate_location_list = 0 " default 0
-"let g:ycm_open_loclist_on_ycm_diags = 1 " default 1
 let g:ycm_complete_in_comments = 1 " default 0
 "let g:ycm_complete_in_strings = 1 " default 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1 " default 0
@@ -286,29 +300,18 @@ let g:ycm_collect_identifiers_from_comments_and_strings = 1 " default 0
 "let g:ycm_add_preview_to_completeopt = 1 " default 0
 let g:ycm_autoclose_preview_window_after_completion = 1 " default 0
 "let g:ycm_autoclose_preview_window_after_insertion = 0 " default 0
-"let g:ycm_max_diagnostics_to_display = 10 " default 30
 "let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
 "let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>']
 "let g:ycm_key_list_stop_completion = ['<C-y>'] " default ['<C-y>']
-"let g:ycm_key_invoke_completion = '<C-Space>' " default <C-Space>
-"let g:ycm_key_detailed_diagnostics = '<leader>d'
+"let g:ycm_key_invoke_completion = '<C-z>' " default <C-Space>
 let g:ycm_global_ycm_extra_conf = '~/rcfiles/_ycm_extra_conf.py' " default ''
 "let g:ycm_confirm_extra_conf = 1 " default 1
 "let g:ycm_extra_conf_globlist = [] " default []
 "let g:ycm_filepath_completion_use_working_dir = 0 " default 0
-"let g:ycm_semantic_triggers =  {
-"  \ 'c' : ['->', '.'],
-"  \ 'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
-"  \           're!\[.*\]\s'],
-"  \ 'ocaml' : ['.', '#'],
-"  \ 'cpp,objcpp' : ['->', '.', '::'],
-"  \ 'perl' : ['->'],
-"  \ 'php' : ['->', '::'],
-"  \ 'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
-"  \ 'ruby' : ['.', '::'],
-"  \ 'lua' : ['.', ':'],
-"  \ 'erlang' : [':'],
-"  \}
+let g:ycm_semantic_triggers =  {
+            \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+            \ 'cs,lua,javascript': ['re!\w{2}'],
+            \ }
 "let g:ycm_cache_omnifunc = 1 " default 0
 "let g:ycm_use_ultisnips_completer = 1 " default 1
 "let g:ycm_goto_buffer_command = 'same-buffer' " default 'same-buffer'
@@ -316,28 +319,26 @@ let g:ycm_global_ycm_extra_conf = '~/rcfiles/_ycm_extra_conf.py' " default ''
 au BufEnter *.h,*.c,*.cpp,*.py nmap <C-]> :YcmCompleter GoTo<CR>
 au BufLeave *.h,*.c,*.cpp,*.py unmap <C-]>
 
+"==|CompleteParameter|=========================================================
+inoremap <silent><expr> ( complete_parameter#pre_complete("()")
+smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+
+"==|echodoc.vim|===============================================================
+set noshowmode
+let g:echodoc#enable_at_startup = 1
+
 "==|UltiSnips|=================================================================
 let g:UltiSnipsExpandTrigger = '<C-o>' " Open it! default '<TAB>'
 "let g:UltiSnipsListSnippets = '<C-TAB>' " default '<C-TAB>'
 "let g:UltiSnipsJumpForwardTrigger = '<C-j>' " default '<C-j>'
 "let g:UltiSnipsJumpBackwardTrigger = '<C-k>' " default '<C-k>'
 
-"==|CtrlP|=====================================================================
-" Usage: <c-p> and type sth, <c-j> and <c-k> to navigate and <Enter> to open.
-"        <c-z> to mark/unmark a file and <c-o> to open marked ones.
-"        <c-n> and <c-p> to browse input history.
-"        <c-d> to toggle between full-path/filename-only mode.
-"        <c-r> to toggle between string/regexp mode.
-"        <c-f> and <c-b> to circle among search file/buffer/MRU mode.
-"        <ESC> to quit.
-"let g:loaded_ctrlp = 0 " set to 1 to disable the plugin
-"let g:ctrlp_regexp = 1 " default 0
-"let g:ctrlp_show_hidden = 0 " default 0
-
-"==|Ack|=======================================================================
-let g:ackhighlight = 1 " default 0
-let g:ack_autoclose = 1 " default 0
-let g:ackpreview = 1 " default 0
+"==|auto-pairs|================================================================
+let g:AutoPairs = {'[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
+inoremap <buffer><silent> ) <C-R>=AutoPairsInsert(')')<CR>
 
 "==|Pydoc|=====================================================================
 let g:pydoc_window_lines=0.7
@@ -377,7 +378,7 @@ hi Comment cterm=italic
 "let g:airline#extensions#ale#enabled = 0 " default 1
 "let g:ale_command_wrapper = '' " default ''
 "let g:ale_completion_enabled = 1 " default 0
-let  g:ale_echo_cursor = 0  " tmp setting for cursor invisible
+"let  g:ale_echo_cursor = 0  " tmp setting for cursor invisible
 let  g:ale_echo_msg_format = '%code%: %s [%linter%][%severity%]'
 "let b:ale_echo_msg_format = '%code%: %s [%linter%][%severity%]'
 let g:ale_lint_on_text_changed = 'normal'

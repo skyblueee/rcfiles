@@ -26,21 +26,26 @@ Press `<Ctrl-o>` to open ranger, and press `q` to leave you in the proper direct
 ### Buffer navigation
 *vim-airline* shows buffer numbers in a tabline.
 
-1. `<TAB>` to navigate among buffers.
+1. `<leader><TAB>` to navigate among buffers.
 2. `<leader><num>` or `:b<num><CR>` to go to buffer<num>.
 
-### Easy motion
-*vim-easymotion* is used to move very quikly and pricisely.
+### 快速移动
+*vim-easymotion*
 * `<leader><leader>f/F/s` for characters.
 * `<leader><leader>w/W/b/B/e/E` for words.
 * `<leader><leader>j/k` for lines.
-* `<leader><leader>a` for over window motion.
+* `<leader><leader>a` 可以跨窗口移动.
+
+*vim-sneak*
+* `f` 后输入两个字符进行查找移动。
+* `;/,` 用于向前向后移动。
+* 开启了label-mode，移动过程中可以输入label快速移动（类似于easymotion）。
 
 `mm` to mark the current line, and `<F2>` to toggle among the hilighted marks (supplied by *visualmarks*).
 Todo: conflict with cursorline and gitgutter.
 
 ### Insert motion
-* `<C-j/k/l>` to move quickly in insert mode.
+* `<C-j/k/f>` to move quickly in insert mode.
 
 ### Quick filesystem navigation
 *NERDTree* is used to navigate in filesystem.
@@ -50,25 +55,24 @@ Todo: conflict with cursorline and gitgutter.
 * `:Bookmark` to add a bookmark.
 * `?` for more help.
 * `q` to quit.
-  *CtrlP* is used to search and open files.
-* `<C-p>` and type sth, `<C-j>` and `<C-k>` to navigate and `<Enter>` to open.
-* `<C-z>` to mark/unmark a file and `<C-o>` to open marked ones.
-* `<C-n>` and `<C-p>` to browse input history.
-* `<C-d>` to toggle between full-path/filename-only mode.
-* `<C-r>` to toggle between string/regexp mode.
-* `<C-f>` and `<C-b>` to find MRU mode.
-* `<ESC>` to quit.
-  `<leader>r` to use ranger.
+
+*fzf.vim* is used to search and open files/buffers.
+* `<leader>f` to find files.
+* `<leader>a` to find contents in current project.
+* `<leader>l` to find lines in current buffer.
+
+`<leader>r` to use ranger.
 
 ### Completion
 #### Identifer Completion
-*YCM*, *UltiSnips* and *vim-snippets* are used for auto-completion in C-family and python files.
+*YCM*, *cmp*, *UltiSnips* and *vim-snippets* are used for auto-completion in C-family and python files.
 * just type to get hints and use `<TAB>`, `<C-y>`, `<C-n>` to circle among them.
 * use `<C-o>` to open a snip, and `<C-j>`, `<C-k>` to navigate in it.
+
 #### Pairs Completion
 *auto-pairs* is used for complete about paires (paretheses and quotations).  When you inside `()`/`[]`/`{}`/`''`/`""`, press the latter part to go out, and when you delete the former part you also delete the latter one.
 
-Use `<C-l>` in insert mode to move quickly right out of paires.
+Use `<C-f>`/`<C-j>` in insert mode to move quickly right out of paires.
 
 ### Dictionary/Pydoc
 * `K` to get python docstrings (supplied by *pydoc.vim*) in python files.
@@ -93,13 +97,6 @@ Use `<C-l>` in insert mode to move quickly right out of paires.
     * `:YcmCompleter FixIt` makes changes to correct diagnostics on the buffer line.
 * RefactorRename (now JavaScript only)
     * `:YcmCompleter RefactorRename <new_name>` performs a semantic rename in involved file*s*.
-#### Ack
-*ack.vim* is to search certain patterns in a file or directory.
-* `:Ack[!] [options] [{pattern}] [{directory}]` to get a list.
-* `:AckHelp[!] [options] {pattern}` to search the vim doc files.
-* `-i` to ignore case, and `-w` to search whole word.
-* `o` to go to the match.
-* `q` to quit.
 #### Tagbar
 *Tagbar* is to preview and jump to tags. (Maybe you will like to mark current line for coming back)
 * `:Tagbar` to open it, `q` to quit(also the preview window), `?` for detail help.
