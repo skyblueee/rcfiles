@@ -2,9 +2,9 @@ set nocompatible              " be iMproved, vundle_required
 
 "==|vim-plug|====================================================================
 if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 if has('win32') || has('win64')
@@ -14,50 +14,55 @@ else
 endif
 "---------------------------------------
 Plug 'junegunn/vim-plug'
-" :NERDTreeToggle :NERDTreeFind and ? for help
-Plug 'skyblueee/nerdtree', {'on': 'NERDTreeToggle'}
-Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
-Plug 'tpope/vim-unimpaired'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+"---------------------------------------fast move/select
+Plug 'Shougo/denite.nvim', {'for': ''}
+Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 Plug 'junegunn/fzf.vim'  " <leader>fla for file/line/ag
-Plug 'Shougo/denite.nvim'
+Plug 'Yggdroot/LeaderF', {'do': './install.sh'}
 Plug 'easymotion/vim-easymotion' " <leader><leader>swafFjk
-Plug 'justinmk/vim-sneak'
+Plug 'justinmk/vim-sneak'  " fxx
 Plug 'terryma/vim-expand-region' " v vv vvv
 Plug 'tpope/vim-surround'  "ds/cs
 Plug 'skyblueee/visualmarks' " press mm to mark and F2 to circle them
-Plug 'SirVer/ultisnips', {'for': ['python', 'c', 'cpp']}  " must before CompleteParameter.vim
+"---------------------------------------补全
+Plug 'jiangmiao/auto-pairs'
+Plug 'honza/vim-snippets', {'for': ['python', 'c', 'cpp', 'sh']}
+Plug 'SirVer/ultisnips', {'for': ['python', 'c', 'cpp', 'sh']}  " must before CompleteParameter.vim
 Plug 'Valloric/YouCompleteMe', {'for': ['python', 'c', 'cpp'], 'do': './install.py --clang-completer'}
 Plug 'tenfyzhong/CompleteParameter.vim'
-Plug 'Shougo/echodoc.vim'
-Plug 'honza/vim-snippets', {'for': ['python', 'c', 'cpp']}
-"---------------------------------------
+"---------------------------------------文本对象
+Plug 'wellle/targets.vim'  " i) a, i', i*, a_, a$
+Plug 'kana/vim-textobj-user'  " Create your own text objects, required by the followings.
+Plug 'kana/vim-textobj-function', {'for': ['c', 'cpp', 'vim', 'java']}  " aF if
+Plug 'kana/vim-textobj-indent', {'for': ['python']}  " ai ii
+Plug 'bps/vim-textobj-python', {'for': ['python']}  " af, if, ac, ic, aC, [pf ]pf
+"---------------------------------------语法
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
-Plug 'jiangmiao/auto-pairs'
+Plug 'scrooloose/nerdcommenter'
 Plug 'ludovicchabant/vim-gutentags', {'for': ['python', 'c', 'cpp']}
-Plug 'wellle/targets.vim'
 Plug 'skywind3000/asyncrun.vim', {'for': ['python', 'c', 'cpp']}
-Plug 'skywind3000/quickmenu.vim'
-"---------------------------------------
 Plug 'fs111/pydoc.vim', {'for': 'python'}  " just press K(or <leader>pw) in python files
 Plug 'w0rp/ale'
-Plug 'scrooloose/nerdcommenter'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 "---------------------------------------
 Plug 'vimwiki/vimwiki', {'for': 'wiki'}
 Plug 'iamcco/mathjax-support-for-mkdp', {'for': 'markdown'}
-Plug 'iamcco/markdown-preview.vim', {'for': 'markdown'}
-"Plug 'vim-latex/vim-latex'
+Plug 'iamcco/markdown-preview.vim', {'for': 'markdown'}  " MarkdownPreview
+"Plug 'vim-latex/vim-latex', {'for': 'tex'}
 Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
-"---------------------------------------
+"---------------------------------------UI
 Plug 'liuchengxu/space-vim-dark'
 Plug 'kien/rainbow_parentheses.vim'
-Plug 'nathanaelkane/vim-indent-guides' " :IndentGuidesToggle or <leader>ig
+Plug 'nathanaelkane/vim-indent-guides' " :IndentGuidesToggle
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
+Plug 'Shougo/echodoc.vim', {'for': ['c', 'cpp', 'python']}
 Plug 'yianwillis/vimcdoc'
 Plug 'vim-airline/vim-airline' " show infos
+Plug 'skyblueee/nerdtree', {'on': 'NERDTreeToggle'}
+Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
+Plug 'skywind3000/quickmenu.vim'  "<F12>
 "---------------------------------------
 call plug#end()
 
@@ -181,12 +186,14 @@ let NERDTreeNaturalSort = 1
 let NERDTreeChDirMode = 2
 
 "==|fzf|=======================================================================
-nnoremap <leader>f :FZF!<CR>
+command! -bang -nargs=? -complete=dir Files
+            \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 command! -bang -nargs=* Ag
-    \ call fzf#vim#ag(<q-args>,
-    \                 <bang>0 ? fzf#vim#with_preview('up:60%')
-    \                         : fzf#vim#with_preview('right:50%:hidden','?'),
-    \                 <bang>0)
+            \ call fzf#vim#ag(<q-args>,
+            \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+            \                         : fzf#vim#with_preview('right:50%:hidden','?'),
+            \                 <bang>0)
+nnoremap <leader>f :Files!<CR>
 nnoremap <leader>a :Ag<CR>
 nnoremap <leader>l :BLines<CR>
 
@@ -203,13 +210,6 @@ let g:NERDTreeIndicatorMapCustom = {
     \ 'Ignored'   : '☒',
     \ "Unknown"   : "?"
     \ }
-
-"==|Tagbar|====================================================================
-let g:tagbar_autoclose = 1
-let g:tagbar_autofocus = 1
-let g:tagbar_compact = 1
-let g:tagbar_foldlevel = 2
-let g:tagbar_autoshowtag = 1
 
 "==|vim-airline|===============================================================
 let g:airline#extensions#tabline#enabled = 1
@@ -251,7 +251,6 @@ let g:indent_guides_enable_on_vim_startup = 1 " default 0
 let g:indent_guides_guide_size = 1 " default 0
 let g:indent_guides_start_level = 2 " default 1
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree'] " default ['help']
-" nmap <silent> <Leader>ig <Plug>IndentGuidesToggle
 
 "==|vim-easymotion|============================================================
 " single character move
@@ -362,7 +361,67 @@ if !isdirectory(s:vim_tags)
 endif
 
 "==|AsyncRun|==================================================================
-nnoremap <silent> <F5> :AsyncRun -cwd=<root> make <cr>
+let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '.gitignore', 'build.xml']
+let g:asyncrun_bell = 1
+let g:asyncrun_trim = 1
+let g:asyncrun_open = 9
+
+"==|quickmenu|==================================================================
+let g:quickmenu_options = "HL"
+let g:quickmenu_padding_left = 1
+let g:quickmenu_padding_right = 1
+call g:quickmenu#reset()
+call g:quickmenu#header('')
+"----------------------------------------
+call g:quickmenu#append('# Window', '')
+call g:quickmenu#append('NERDTreeToggle', 'NERDTreeToggle', '<leader>f')
+function! Ranger()
+    silent !ranger --choosefile=/tmp/chosen
+    if filereadable('/tmp/chosen')
+        exe 'edit ' . system('cat /tmp/chosen')
+        call system('rm /tmp/chosen')
+    endif
+    redraw!
+endfun
+nnoremap <leader>r :call Ranger()<cr>
+call g:quickmenu#append('Ranger', 'call Ranger()', '<leader>r')
+"----------------------------------------
+call g:quickmenu#append("# FZF", '')
+call g:quickmenu#append("Files", 'Files', "<leader>f: use fzf's *Files* on current project")
+call g:quickmenu#append("Ag", 'Lines', "<leader>a: use fzf's *Ag* on current project")
+call g:quickmenu#append("BLines", 'BLines', "<leader>l: use fzf's *BLines* on current buffer")
+call g:quickmenu#append("Lines", 'Lines', "use fzf's *Lines* on opened buffers")
+call g:quickmenu#append("Tags", 'LeaderfBufTagAll', "use *LeaderfBufTagAll* on opened buffers")
+call g:quickmenu#append("Functions", 'LeaderfFunctionAll', "use *LeaderfFunction* on opened buffers")
+"----------------------------------------
+call g:quickmenu#append("# AsyncRun", '', '', 'c,cpp,python,sh')
+call g:quickmenu#append("Run file", 'AsyncRun -raw ' . expand("%:p"), "run current script", 'python,sh')
+call g:quickmenu#append("make", 'AsyncRun -cwd=<root> make', "*make* on current project", 'c,cpp')
+call g:quickmenu#append("make run", 'AsyncRun -cwd=<root> make run', "*make run* on current project", 'c,cpp')
+call g:quickmenu#append("make test", 'AsyncRun -cwd=<root> make test', "*make test* on current project", 'c,cpp')
+"----------------------------------------
+call g:quickmenu#append("# Git", '')
+call g:quickmenu#append("Diff", 'Gvdiff', "use fugitive's *Gvdiff* on current document")
+call g:quickmenu#append("Status", 'Gstatus', "use fugitive's *Gstatus* on current document")
+call g:quickmenu#append("Preview Hunk", 'GitGutterPreviewHunk',
+            \ '<Leader>hp: Preview the hunk under the cursor. :pc[lose] to close the preview window')
+call g:quickmenu#append("Undo Hunk", 'GitGutterUndoHunk',
+            \ '<Leader>hp: Undo the hunk under the cursor.')
+"----------------------------------------
+call g:quickmenu#append("# YCM", '', '', 'c,cpp,python,java,js')
+call g:quickmenu#append("GoTo", 'YcmCompleter GoTo', "GoToDefinition>>GoToDeclaration>>GoToInclude", 'c,cpp,python')
+call g:quickmenu#append("References", 'YcmCompleter GoToReferences', "finds all the references", 'c,cpp,python')
+call g:quickmenu#append("GetType", 'YcmCompleter GetType',
+            \ "the type of the variable or method, and where it differs, the derived type", 'c,cpp,python')
+call g:quickmenu#append("GetParent", 'YcmCompleter GetParent', "the semantic parent", 'c,cpp,python')
+call g:quickmenu#append("GetDoc", 'YcmCompleter GetDoc',
+            \ "displays type or declaration/Doxygen or javadoc/Python docstrings / etc.", 'c,cpp,python')
+call g:quickmenu#append("FixIt", 'YcmCompleter FixIt',
+            \ "makes changes to correct diagnostics on buffer line.", 'c,cpp,python')
+call g:quickmenu#append("RefactorRename", 'YcmCompleter RefactorRename <new_name>todo',
+            \ "performs a semantic rename in involved file*s*.", 'js')
+
+noremap <silent><F12> :call quickmenu#toggle(0)<cr>
 
 "==|space-vim-dark|============================================================
 let g:space_vim_dark_background = 233 " 233(darkest)-238(lightest)
@@ -374,21 +433,21 @@ hi Comment cterm=italic
 "let b:ale_enabled = 0 " default 1
 "let g:ale_pattern_options_enabled " default !empty(g:ale_pattern_options)
 "let g:ale_pattern_options = {'\.min.js$': {'ale_enabled': 0}}
-"
 "let g:airline#extensions#ale#enabled = 0 " default 1
 "let g:ale_command_wrapper = '' " default ''
 "let g:ale_completion_enabled = 1 " default 0
 "let  g:ale_echo_cursor = 0  " tmp setting for cursor invisible
 let  g:ale_echo_msg_format = '%code%: %s [%linter%][%severity%]'
 "let b:ale_echo_msg_format = '%code%: %s [%linter%][%severity%]'
+"normal模式下文字改变时运行linter，相对保守的做法，没有会导致YouCompleteMe的补全对话框频繁刷新。
 let g:ale_lint_on_text_changed = 'normal'
+"离开insert模式时运行linter，相对保守的做法，没有会导致YouCompleteMe的补全对话框频繁刷新。
 let g:ale_lint_on_insert_leave = 1
 "let g:ale_fix_on_save = 1 " default 0
 "let b:ale_fix_on_save = 1 " default 0
 "let g:ale_keep_list_window_open = 0 " default 0
-"let g:ale_linters_explicit = 0 " default 1
-let g:ale_sign_error = '•' " '✹●' default '>>'
-"let g:ale_sign_warning = '--' " '▶' default '--'
+let g:ale_sign_error = '✗' " '•✹●' default '>>'
+let g:ale_sign_warning = '✭' " '▶' default '--'
 "let g:ale_sign_info = " default g:ale_sign_warning
 "let g:ale_sign_style_error = " default g:ale_sign_error
 "let g:ale_sign_style_warning = " default g:ale_sign_warning
@@ -401,6 +460,10 @@ let g:ale_python_pylint_use_global = 1
 let g:ale_python_flake8_executable = 'python3'
 let g:ale_python_flake8_options = '-m flake8'
 let g:ale_python_flake8_use_global = 1
+let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
+let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
+let g:ale_c_cppcheck_options = ''
+let g:ale_cpp_cppcheck_options = ''
 nmap <silent> <leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <leader>j <Plug>(ale_next_wrap)
 
@@ -422,25 +485,12 @@ function! Mydict()
 endfunction
 nnoremap <C-K> :call Mydict()<CR>
 
-"==|Ranger|====================================================================
-function! Ranger()
-    silent !ranger --choosefile=/tmp/chosen
-    if filereadable('/tmp/chosen')
-        exe 'edit ' . system('cat /tmp/chosen')
-        call system('rm /tmp/chosen')
-    endif
-    redraw!
-endfun
-nnoremap <leader>r :call Ranger()<cr>
-
 "==|FileType|==================================================================
 "--Python--
 autocmd BufNewFile *.py 0r ~/rcfiles/vim_template/py_header
 autocmd BufNewFile *.py exe "1," . line("$") . "g/_date_/s/_date_/" .strftime("%Y-%m-%d")
 autocmd BufNewFile *.py exe "normal! G"
-" to format python file  todo: use ale to auto do
 autocmd FileType python nnoremap <leader>= :0,$!yapf<CR>
-autocmd FileType python nnoremap <F5> :exe 'AsyncRun -raw ' . expand("%:p")<CR>
 function! QuickfixToggle()
     let has_quickfix = 0
     for winnr in range(1, winnr('$'))
@@ -454,4 +504,4 @@ function! QuickfixToggle()
         exe 'copen'
     endif
 endfun
-autocmd FileType python nnoremap <F6> :call QuickfixToggle()<CR>
+autocmd FileType python nnoremap <F10> :call QuickfixToggle()<CR>

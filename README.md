@@ -49,7 +49,7 @@ Todo: conflict with cursorline and gitgutter.
 
 ### Quick filesystem navigation
 *NERDTree* is used to navigate in filesystem.
-* `<leader>f` to open/close NERDTree.
+* `<leader>F` to open/close NERDTree.
 * `o` to open a directory/file.
 * `A` to zoom in/out.
 * `:Bookmark` to add a bookmark.
@@ -78,30 +78,13 @@ Use `<C-f>`/`<C-j>` in insert mode to move quickly right out of paires.
 * `K` to get python docstrings (supplied by *pydoc.vim*) in python files.
 * `<C-K>` to get translation (*sdcv* required). `q` to quit.
 
-### Shell buffer
-*Conque-Shell* is used to get a shell buffer.
-
-`<leader>sh` to get it.
-
 ### Go through a project
-#### YCM
-*YCM* can do many of them (differ according to filetypes). `:YcmCompleter` gives a list of the commands you can call for the current completer.
-* GoTo
-    * `:YcmCompleter GoTo` or `<C-]` performs the most sensible GoTo operation. GoToDefinition -> GoToDeclaration -> GoToInclude.
-    * `:YcmCompleter GoToReferences` finds all the references and populates a quickfix list.
-* Get
-    * `:YcmCompleter GetType` echos the type of the variable or method, and where it differs, the derived type.
-    * `:YcmCompleter GetParent` echos the semantic parent.
-    * `:YcmCompleter GetDoc` displays type or declaration / Doxygen or javadoc / Python docstrings / etc.
-* FixIt
-    * `:YcmCompleter FixIt` makes changes to correct diagnostics on the buffer line.
-* RefactorRename (now JavaScript only)
-    * `:YcmCompleter RefactorRename <new_name>` performs a semantic rename in involved file*s*.
-#### Tagbar
-*Tagbar* is to preview and jump to tags. (Maybe you will like to mark current line for coming back)
-* `:Tagbar` to open it, `q` to quit(also the preview window), `?` for detail help.
-* `o` to toggle fold, `x` to zoom in/out.
-* `/` to search, `<Space>` to show prototype, `P` to preview, `p`/`<Enter>` to jump to definition.
+#### QuickMenu
+<F12> to pop a menu to search/move/YCM/make/git in the project.
+* `<leader>f` to search files.
+* `<leader>l` to search lines in current buffer.
+* `<leader>a` to search contents.
+* select certain item in the menu for others.
 
 ### Syntax check
 *YCM* (C-family) and *ale* (python) can check the syntax, then give signs and location-list automaticly.
@@ -150,21 +133,22 @@ shows how powerful using q can be.
 ### Tabularize
 *tabular* is used to tabularize something.
 
-Select lines and `:Tabularize /=/` ('=' can be replaced by [-|%] and stuff).
+Select lines and `:Tabularize /=` ('=' can be replaced by [-|%] and stuff).
 
 ### Quick selection
 * `v`,`vv`,`vvv` from *vim-expand-region*
-* `v` and use *vim-easymotion*
-* text object in *targets.vim*:
+* `v` and use *vim-easymotion*/*vim-sneak*
+* text object in *targets.vim*/*vim-textobj*:
     * i( i) ib i[ i] it i{ i} iB i< i>
     * a( a) ab a[ a] at a{ a} aB a< a>
     * I( I) Ib I[ I] It I{ I} IB I< I>
     * A( A) Ab A[ A] At A{ A} AB A< A>
     * [count][iaIA][ln][()b[]t{}B<>]
-    * [iaIA]['"`]
     * [count][iaI][ln]['"`]
     * [count][iaIA][ln][, . ; : + - = ~ _ * # / | \ & $ ~]
     * [count][iaIA][ln]a    (arguments surrounded by braces and commas)
+    * if, af, ic, ac, iF, aF, iC, aC
+    * ii, ai
 
 ### Markdown
 *mathjax-support-for-mkdp* and *markdown-preview.vim* is used to preview markdown files in your browser. `:MarkdownPreview` to open it. It will auto update while you are typing.
