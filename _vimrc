@@ -1,4 +1,4 @@
-set nocompatible              " be iMproved, vundle_required
+set nocompatible
 
 "==|vim-plug|====================================================================
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -23,6 +23,7 @@ Plug 'easymotion/vim-easymotion' " <leader><leader>swafFjk
 Plug 'justinmk/vim-sneak'  " fxx
 Plug 'terryma/vim-expand-region' " v vv vvv
 Plug 'tpope/vim-surround'  "ds/cs
+Plug 'junegunn/vim-peekaboo'
 Plug 'skyblueee/visualmarks' " press mm to mark and F2 to circle them
 "---------------------------------------补全
 Plug 'jiangmiao/auto-pairs'
@@ -35,7 +36,7 @@ Plug 'wellle/targets.vim'  " i) a, i', i*, a_, a$
 Plug 'kana/vim-textobj-user'  " Create your own text objects, required by the followings.
 Plug 'kana/vim-textobj-function', {'for': ['c', 'cpp', 'vim', 'java']}  " aF if
 Plug 'kana/vim-textobj-indent', {'for': ['python']}  " ai ii
-Plug 'bps/vim-textobj-python', {'for': ['python']}  " af, if, ac, ic, aC, [pf ]pf
+Plug 'jeetsukumaran/vim-pythonsense', {'for': ['python']}  " af, if, ac, ic, ad, id, [[, ]], ]m, [m
 "---------------------------------------语法
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'scrooloose/nerdcommenter'
@@ -43,6 +44,8 @@ Plug 'ludovicchabant/vim-gutentags', {'for': ['python', 'c', 'cpp']}
 Plug 'skywind3000/asyncrun.vim', {'for': ['python', 'c', 'cpp']}
 Plug 'fs111/pydoc.vim', {'for': 'python'}  " just press K(or <leader>pw) in python files
 Plug 'w0rp/ale'
+Plug 'sbdchd/neoformat'
+Plug 'metakirby5/codi.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 "---------------------------------------
@@ -55,7 +58,7 @@ Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
 "---------------------------------------UI
 Plug 'liuchengxu/space-vim-dark'
 Plug 'kien/rainbow_parentheses.vim'
-Plug 'nathanaelkane/vim-indent-guides' " :IndentGuidesToggle
+Plug 'Yggdroot/indentLine'
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
 Plug 'Shougo/echodoc.vim', {'for': ['c', 'cpp', 'python']}
 Plug 'yianwillis/vimcdoc'
@@ -63,6 +66,7 @@ Plug 'vim-airline/vim-airline' " show infos
 Plug 'skyblueee/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
 Plug 'skywind3000/quickmenu.vim'  "<F12>
+Plug 'lilydjwg/colorizer'
 "---------------------------------------
 call plug#end()
 
@@ -194,7 +198,7 @@ command! -bang -nargs=* Ag
             \                         : fzf#vim#with_preview('right:50%:hidden','?'),
             \                 <bang>0)
 nnoremap <leader>f :Files!<CR>
-nnoremap <leader>a :Ag<CR>
+nnoremap <leader>/ :Ag<CR>
 nnoremap <leader>l :BLines<CR>
 
 "==|nerdtree-git-plugin|=======================================================
@@ -246,11 +250,9 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
-"==|vim-indent-guides|=========================================================
-let g:indent_guides_enable_on_vim_startup = 1 " default 0
-let g:indent_guides_guide_size = 1 " default 0
-let g:indent_guides_start_level = 2 " default 1
-let g:indent_guides_exclude_filetypes = ['help', 'nerdtree'] " default ['help']
+"==|indentLine|================================================================
+let g:indentLine_char='¦'  " ¦, ┆, │
+let g:indentLine_enabled = 1
 
 "==|vim-easymotion|============================================================
 " single character move
@@ -260,7 +262,7 @@ nmap <leader><leader>w <Plug>(easymotion-bd-w)
 " over window move
 nmap <leader><leader>a <Plug>(easymotion-overwin-w)
 
-"==|vim-sneak|============================================================
+"==|vim-sneak|=================================================================
 let g:sneak#prompt = 'sneak..>'
 let g:sneak#target_labels = ";abcdefghigklmnopqrstuvwxyz/"
 let g:sneak#label = 1
@@ -272,7 +274,6 @@ vmap <C-v> <Plug>(expand_region_shrink)
 
 "==|YouCompleteMe|=============================================================
 let g:ycm_min_num_identifier_candidate_chars = 2
-"let g:ycm_auto_trigger = 1
 let g:ycm_filetype_whitelist = {
             \ 'c': 1,
             \ 'cpp': 1,
@@ -284,7 +285,6 @@ let g:ycm_filetype_whitelist = {
 "let g:ycm_filetype_specific_completion_to_disable = { [see help file] }
 let g:ycm_show_diagnostics_ui = 0 " default 1
 let g:ycm_complete_in_comments = 1 " default 0
-"let g:ycm_complete_in_strings = 1 " default 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1 " default 0
 "let g:ycm_collect_identifiers_from_tags_files = 0 " default 0
 "let g:ycm_seed_identifiers_with_syntax = 0 " default 0
@@ -292,13 +292,9 @@ let g:ycm_collect_identifiers_from_comments_and_strings = 1 " default 0
 "let g:ycm_server_python_interpreter = '' " default ''
 "let g:ycm_keep_logfiles = 0 " default 0
 "let g:ycm_log_level = 'debug' " debug/info(default)/warning/error/critical
-"let g:ycm_auto_start_csharp_server = 1 " default 1
-"let g:ycm_auto_stop_csharp_server = 1 " default 1
-"let g:ycm_csharp_server_port = 0 " default 0
-"let g:ycm_csharp_insert_namespace_expr = '' " default ''
 "let g:ycm_add_preview_to_completeopt = 1 " default 0
 let g:ycm_autoclose_preview_window_after_completion = 1 " default 0
-"let g:ycm_autoclose_preview_window_after_insertion = 0 " default 0
+"let g:ycm_autoclose_preview_window_after_insertion = 1 " default 0
 "let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
 "let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>']
 "let g:ycm_key_list_stop_completion = ['<C-y>'] " default ['<C-y>']
@@ -388,14 +384,16 @@ call g:quickmenu#append('Ranger', 'call Ranger()', '<leader>r')
 "----------------------------------------
 call g:quickmenu#append("# FZF", '')
 call g:quickmenu#append("Files", 'Files', "<leader>f: use fzf's *Files* on current project")
-call g:quickmenu#append("Ag", 'Lines', "<leader>a: use fzf's *Ag* on current project")
+call g:quickmenu#append("Ag", 'Lines', "<leader>/: use fzf's *Ag* on current project")
 call g:quickmenu#append("BLines", 'BLines', "<leader>l: use fzf's *BLines* on current buffer")
 call g:quickmenu#append("Lines", 'Lines', "use fzf's *Lines* on opened buffers")
 call g:quickmenu#append("Tags", 'LeaderfBufTagAll', "use *LeaderfBufTagAll* on opened buffers")
 call g:quickmenu#append("Functions", 'LeaderfFunctionAll', "use *LeaderfFunction* on opened buffers")
 "----------------------------------------
-call g:quickmenu#append("# AsyncRun", '', '', 'c,cpp,python,sh')
-call g:quickmenu#append("Run file", 'AsyncRun -raw ' . expand("%:p"), "run current script", 'python,sh')
+call g:quickmenu#append("# AsyncRun/FMT", '', '', 'c,cpp,python,sh')
+call g:quickmenu#append("NeoFormat", "Neoformat", "Neoformat")
+call g:quickmenu#append("Run file", 'AsyncRun -raw ' . expand("%:p"),
+            \ "run current script. | Use `AsyncRun python` to run selected lines.", 'python,sh')
 call g:quickmenu#append("make", 'AsyncRun -cwd=<root> make', "*make* on current project", 'c,cpp')
 call g:quickmenu#append("make run", 'AsyncRun -cwd=<root> make run', "*make run* on current project", 'c,cpp')
 call g:quickmenu#append("make test", 'AsyncRun -cwd=<root> make test', "*make test* on current project", 'c,cpp')
@@ -416,10 +414,6 @@ call g:quickmenu#append("GetType", 'YcmCompleter GetType',
 call g:quickmenu#append("GetParent", 'YcmCompleter GetParent', "the semantic parent", 'c,cpp,python')
 call g:quickmenu#append("GetDoc", 'YcmCompleter GetDoc',
             \ "displays type or declaration/Doxygen or javadoc/Python docstrings / etc.", 'c,cpp,python')
-call g:quickmenu#append("FixIt", 'YcmCompleter FixIt',
-            \ "makes changes to correct diagnostics on buffer line.", 'c,cpp,python')
-call g:quickmenu#append("RefactorRename", 'YcmCompleter RefactorRename <new_name>todo',
-            \ "performs a semantic rename in involved file*s*.", 'js')
 
 noremap <silent><F12> :call quickmenu#toggle(0)<cr>
 
@@ -466,6 +460,14 @@ let g:ale_c_cppcheck_options = ''
 let g:ale_cpp_cppcheck_options = ''
 nmap <silent> <leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <leader>j <Plug>(ale_next_wrap)
+
+"==|nerdcommenter|=============================================================
+let g:codi#interpreters = {
+            \ 'python': {
+            \   'bin': 'python3',
+            \   'prompt': '^\(>>>\|\.\.\.\) ',
+            \   },
+            \ }
 
 "==|nerdcommenter|=============================================================
 let g:NERDDefaultAlign = 'left'

@@ -58,8 +58,8 @@ Todo: conflict with cursorline and gitgutter.
 
 *fzf.vim* is used to search and open files/buffers.
 * `<leader>f` to find files.
-* `<leader>a` to find contents in current project.
 * `<leader>l` to find lines in current buffer.
+* `<leader>/` to find contents in current project.
 
 `<leader>r` to use ranger.
 
@@ -146,8 +146,7 @@ Select lines and `:Tabularize /=` ('=' can be replaced by [-|%] and stuff).
     * [count][iaIA][ln][()b[]t{}B<>]
     * [count][iaI][ln]['"`]
     * [count][iaIA][ln][, . ; : + - = ~ _ * # / | \ & $ ~]
-    * [count][iaIA][ln]a    (arguments surrounded by braces and commas)
-    * if, af, ic, ac, iF, aF, iC, aC
+    * if, af, ic, ac, id, ad
     * ii, ai
 
 ### Markdown
