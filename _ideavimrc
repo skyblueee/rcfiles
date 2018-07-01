@@ -1,5 +1,5 @@
 "==|global|====================================================================
-let mapleader='\'
+let mapleader=' '
 set hlsearch
 set incsearch
 set ignorecase
