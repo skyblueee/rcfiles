@@ -22,6 +22,7 @@ Plug 'Yggdroot/LeaderF', {'do': './install.sh'}
 Plug 'easymotion/vim-easymotion' " <leader><leader>swafFjk
 Plug 'justinmk/vim-sneak'  " fxx
 Plug 'terryma/vim-expand-region' " v vv vvv
+Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'  "ds/cs
 Plug 'junegunn/vim-peekaboo'
 Plug 'skyblueee/visualmarks' " press mm to mark and F2 to circle them
