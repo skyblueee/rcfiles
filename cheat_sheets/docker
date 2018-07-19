@@ -1,0 +1,47 @@
+# Install
+apt-get install apt-transport-https ca-certificates
+deb [arch=amd64] https://download.docker.com/linux/debian stretch stable
+curl -fsSL https://download.docker.com/linux/debian/gpg| sudo apt-key add -
+apt update && apt install docker-ce
+# 免sudo
+sudo groupadd docker
+sudo gpasswd -a ${USER} docker
+sudo service docker restart
+newgrp - docker # 切换当前会话到新 group 或者重启X会话。注意:最后一步是必须的，否则因为groups 命令获取到的是缓存的组信息，刚添加的组信息未能生效，所以 docker images 执行时同样有错。
+
+# 备份与恢复镜像
+docker save -o ~/container-backup.tar container-backup
+docker load -i ~/container-backup.tar
+
+# Start docker daemon
+docker -d
+
+# start a container with an interactive shell
+docker run -ti <image_name> /bin/bash
+
+# "shell" into a running container (docker-1.3+)
+docker exec -ti <container_name> bash
+
+# inspect a running container
+docker inspect <container_name> (or <container_id>)
+
+# Get the process ID for a container
+# Source: https://github.com/jpetazzo/nsenter
+docker inspect --format {{.State.Pid}} <container_name_or_ID>
+
+# List the current mounted volumes for a container (and pretty print)
+# Source:
+# http://nathanleclaire.com/blog/2014/07/12/10-docker-tips-and-tricks-that-will-make-you-sing-a-whale-song-of-joy/
+docker inspect --format='{{json .Volumes}}' <container_id> | python -mjson.tool
+
+# Copy files/folders between a container and your host
+docker cp foo.txt mycontainer:/foo.txt
+
+# list currently running containers
+docker ps
+
+# list all containers
+docker ps -a
+
+# list all images
+docker images

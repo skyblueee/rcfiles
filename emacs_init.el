@@ -5,12 +5,15 @@
 	     '("gnu" . "http://elpa.gnu.org/packages/"))
 (package-initialize)
 
+
+(setq make-backup-files nil)
 (setq inhibit-startup-message t)
 (global-linum-mode 1) ; always show line numbers
 (setq linum-format "%4d \u2502")  ;set format
 (global-visual-line-mode 1)
 (global-set-key (kbd "C-SPC") 'nil)
 (global-set-key (kbd "M-SPC") 'set-mark-command)
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

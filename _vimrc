@@ -59,7 +59,7 @@ Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
 "---------------------------------------UI
 Plug 'liuchengxu/space-vim-dark'
-Plug 'kien/rainbow_parentheses.vim'
+Plug 'luochen1990/rainbow'
 Plug 'Yggdroot/indentLine'
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
 Plug 'Shougo/echodoc.vim', {'for': ['c', 'cpp', 'python']}
@@ -226,31 +226,49 @@ let g:airline_section_c = '%<%F%m%r%h%w'
 let g:airline_section_z = '(%b/0x%B)[%l/%L,%c][%p%%] %(%{strftime("%H:%M")}%)'
 let g:airline_symbols_ascii = 1
 
-"==|rainbow_parentheses|=======================================================
+"==|rainbow|===================================================================
 " delete black from default
-let g:rbpt_colorpairs = [
-            \ ['brown',       'RoyalBlue3'],
-            \ ['Darkblue',    'SeaGreen3'],
-            \ ['darkgray',    'DarkOrchid3'],
-            \ ['darkgreen',   'firebrick3'],
-            \ ['darkcyan',    'RoyalBlue3'],
-            \ ['darkred',     'SeaGreen3'],
-            \ ['darkmagenta', 'DarkOrchid3'],
-            \ ['brown',       'firebrick3'],
-            \ ['gray',        'RoyalBlue3'],
-            \ ['darkmagenta', 'DarkOrchid3'],
-            \ ['Darkblue',    'firebrick3'],
-            \ ['darkgreen',   'RoyalBlue3'],
-            \ ['darkcyan',    'SeaGreen3'],
-            \ ['darkred',     'DarkOrchid3'],
-            \ ['red',         'firebrick3'],
-            \ ]
-let g:rbpt_max = 16
-let g:rbpt_loadcmd_toggle = 0
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+"let g:rbpt_colorpairs = [
+"            \ ['brown',       'RoyalBlue3'],
+"            \ ['Darkblue',    'SeaGreen3'],
+"            \ ['darkgray',    'DarkOrchid3'],
+"            \ ['darkgreen',   'firebrick3'],
+"            \ ['darkcyan',    'RoyalBlue3'],
+"            \ ['darkred',     'SeaGreen3'],
+"            \ ['darkmagenta', 'DarkOrchid3'],
+"            \ ['brown',       'firebrick3'],
+"            \ ['gray',        'RoyalBlue3'],
+"            \ ['darkmagenta', 'DarkOrchid3'],
+"            \ ['Darkblue',    'firebrick3'],
+"            \ ['darkgreen',   'RoyalBlue3'],
+"            \ ['darkcyan',    'SeaGreen3'],
+"            \ ['darkred',     'DarkOrchid3'],
+"            \ ['red',         'firebrick3'],
+"            \ ]
+"let g:rbpt_max = 16
+let g:rainbow_conf = {
+	\	'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+	\	'ctermfgs': ['brown', 'red', 'lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+	\	'operators': '_,_',
+	\	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+	\	'separately': {
+	\		'*': {},
+	\		'tex': {
+	\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
+	\		},
+	\		'lisp': {
+	\			'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+	\		},
+	\		'vim': {
+    \			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
+	\		},
+	\		'html': {
+	\			'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+	\		},
+	\		'css': 0,
+	\	}
+	\}
+let g:rainbow_active = 1
 
 "==|indentLine|================================================================
 let g:indentLine_char='¦'  " ¦, ┆, │

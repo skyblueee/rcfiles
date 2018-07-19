@@ -207,10 +207,30 @@ if filename and os.path.isfile(filename):
     exec(startup_file)
 ```
 
-# Python v2.7
-python -m SimpleHTTPServer
-# Python 3
-python -m http.server 8000
+## http-server
+python -m SimpleHTTPServer  # v2.7
+python -m http.server 8000  # v3
+
+## ctypes
+ctypes中基本数据类型是在前面加个前缀“c_”，比如int是c_int，unsigned int是c_uint，不同的是这些在c里面是数据类型，在python里都是类，因此将类实例化成对象就行了。
+
+ctypes中有指针操作，对一个c_int对象取指针用pointer()，然后.contents就是指向的内容，如果要创造指针类型，就用POINTER(c_int),这样实例化出来的就是指针类型。
+
+cytpes中的数组格式是“数据类型*数组长度”，比如c_char*32就是生成了一个长度为32的char数组。
+
+最后是structure，在ctypes中是继承Structure类的一个子类，在类属性__fields__中赋值一个定义结构体成员的列表，举例如下：
+
+```python
+from ctypes import *
+class MyStructure(Structure):
+    _fields_ = [("aint", c_int),
+                ("puint", POINTER(c_uint)),
+                ("charArray", c_char*32)]
+```
+
+## ftp-server
+python -m pyftpdlib -w -d dir
+
 
 # SMTP-Server for debugging, messages will be discarded, and printed on stdout.
 python -m smtpd -n -c DebuggingServer localhost:1025
