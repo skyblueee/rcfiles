@@ -180,7 +180,7 @@ sketch : Cheese Shop Sketch
 [(4, 'four'), (1, 'one'), (3, 'three'), (2, 'two')]
 ```
 
-* 类型声明。可以在定义时声明参数和返回值的类型，如下所示：
+## 类型声明。可以在定义时声明参数和返回值的类型，如下所示：
 ```python
 >>> def f(ham: str, eggs: str = 'eggs') -> str:
 ...     print("Annotations:", f.__annotations__)

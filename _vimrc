@@ -85,7 +85,13 @@ nnoremap <C-Left>  <C-W>h
 nnoremap <C-Right> <C-W>l
 
 " Buffer navigating
-nnoremap <leader><tab>  :bn<CR>
+function! BufferNext()
+    if &buftype != 'quickfix'
+        exe 'w'
+    endif
+    exe 'bn'
+endfunction
+nnoremap <tab>  :call BufferNext()<CR>
 nnoremap <leader>1 :b1<CR>
 nnoremap <leader>2 :b2<CR>
 nnoremap <leader>3 :b3<CR>
@@ -116,6 +122,11 @@ nnoremap <C-\> :noh<CR>
 " some other
 nnoremap <leader>p "+p
 vnoremap <leader>y "+y
+
+" persistent undo
+set undodir=$HOME/.vim_undodir
+set undofile
+autocmd VimLeave * call system('rm ~/.vim_undodir/*')
 
 "==|ALL|=======================================================================
 set mouse=a " enable mouse
@@ -526,4 +537,4 @@ function! QuickfixToggle()
         exe 'copen'
     endif
 endfun
-autocmd FileType python nnoremap <F10> :call QuickfixToggle()<CR>
+autocmd FileType python,c,cpp nnoremap <F10> :call QuickfixToggle()<CR>
