@@ -30,7 +30,7 @@ Plug 'skyblueee/visualmarks' " press mm to mark and F2 to circle them
 Plug 'jiangmiao/auto-pairs'
 Plug 'honza/vim-snippets', {'for': ['python', 'c', 'cpp', 'sh']}
 Plug 'SirVer/ultisnips', {'for': ['python', 'c', 'cpp', 'sh']}  " must before CompleteParameter.vim
-Plug 'Valloric/YouCompleteMe', {'for': ['python', 'c', 'cpp'], 'do': './install.py --clang-completer'}
+Plug 'Valloric/YouCompleteMe', {'for': ['python', 'c', 'cpp'], 'do': 'python3 ./install.py --clang-completer'}
 Plug 'tenfyzhong/CompleteParameter.vim'
 "---------------------------------------文本对象
 Plug 'wellle/targets.vim'  " i) a, i', i*, a_, a$
@@ -320,7 +320,7 @@ let g:ycm_collect_identifiers_from_comments_and_strings = 1 " default 0
 "let g:ycm_collect_identifiers_from_tags_files = 0 " default 0
 "let g:ycm_seed_identifiers_with_syntax = 0 " default 0
 "let g:ycm_extra_conf_vim_data = [] " default []
-"let g:ycm_server_python_interpreter = '' " default ''
+let g:ycm_server_python_interpreter = '/usr/bin/python3'
 "let g:ycm_keep_logfiles = 0 " default 0
 "let g:ycm_log_level = 'debug' " debug/info(default)/warning/error/critical
 "let g:ycm_add_preview_to_completeopt = 1 " default 0
