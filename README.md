@@ -22,11 +22,12 @@ Press `<Ctrl-o>` to open ranger, and press `q` to leave you in the proper direct
 * `<C-h>`/`<C-l>` to navigate left/right among windows.
 * `<C-w>j/k/h/l` or `<C-*arrow*>` to navigate among windows.
 * `<leader><leader>a` in *vim-easymotion*.
+1. `<leader><TAB>` to navigate among windows.
 
 ### Buffer navigation
 *vim-airline* shows buffer numbers in a tabline.
 
-1. `<leader><TAB>` to navigate among buffers.
+1. `<TAB>` to navigate among buffers.
 2. `<leader><num>` or `:b<num><CR>` to go to buffer<num>.
 
 ### 快速移动

@@ -76,6 +76,7 @@ call plug#end()
 let mapleader = "\<SPACE>"
 
 " Windows navigating
+nnoremap <leader><tab> <c-w>w
 nnoremap <C-H>     <C-W>h
 nnoremap <C-L>     <C-W>l
 
