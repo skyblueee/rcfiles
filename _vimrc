@@ -85,13 +85,6 @@ nnoremap <C-Left>  <C-W>h
 nnoremap <C-Right> <C-W>l
 
 " Buffer navigating
-function! BufferNext()
-    if &buftype != 'quickfix'
-        exe 'w'
-    endif
-    exe 'bn'
-endfunction
-nnoremap <tab>  :call BufferNext()<CR>
 nnoremap <leader>1 :b1<CR>
 nnoremap <leader>2 :b2<CR>
 nnoremap <leader>3 :b3<CR>
@@ -229,6 +222,7 @@ let g:NERDTreeIndicatorMapCustom = {
     \ }
 
 "==|vim-airline|===============================================================
+nmap <tab> <Plug>AirlineSelectNextTab
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 " let g:airline_section_c       (bufferline or filename)
