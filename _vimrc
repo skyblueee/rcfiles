@@ -404,7 +404,7 @@ function! Ranger()
         call system('rm /tmp/chosen')
     endif
     redraw!
-endfun
+endfunction
 nnoremap <leader>r :call Ranger()<cr>
 call g:quickmenu#append('Ranger', 'call Ranger()', '<leader>r')
 "----------------------------------------
@@ -418,7 +418,7 @@ call g:quickmenu#append("Functions", 'LeaderfFunctionAll', "use *LeaderfFunction
 "----------------------------------------
 call g:quickmenu#append("# AsyncRun/FMT", '', '', 'c,cpp,python,sh')
 call g:quickmenu#append("NeoFormat", "Neoformat", "Neoformat")
-call g:quickmenu#append("Run file", 'AsyncRun -raw ' . expand("%:p"),
+call g:quickmenu#append("Run file", "AsyncRun -raw %:p",
             \ "run current script. | Use `AsyncRun python` to run selected lines.", 'python,sh')
 call g:quickmenu#append("make", 'AsyncRun -cwd=<root> make', "*make* on current project", 'c,cpp')
 call g:quickmenu#append("make run", 'AsyncRun -cwd=<root> make run', "*make run* on current project", 'c,cpp')
@@ -531,5 +531,5 @@ function! QuickfixToggle()
     else
         exe 'copen'
     endif
-endfun
+endfunction
 autocmd FileType python,c,cpp nnoremap <F10> :call QuickfixToggle()<CR>
