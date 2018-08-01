@@ -447,6 +447,9 @@ noremap <silent><F12> :call quickmenu#toggle(0)<cr>
 let g:space_vim_dark_background = 233 " 233(darkest)-238(lightest)
 colorscheme space-vim-dark
 hi Comment cterm=italic
+hi LineNr  ctermfg=gray
+hi CursorLineNr	ctermfg=yellow ctermbg=235
+hi CursorLine	ctermbg=235
 
 "==|ale|=======================================================================
 "let g:ale_enabled = 0 " default 1
