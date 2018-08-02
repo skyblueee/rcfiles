@@ -72,6 +72,51 @@ Plug 'lilydjwg/colorizer'
 "---------------------------------------
 call plug#end()
 
+"==|enable alt/meta map|=======================================================
+"https://github.com/skywind3000/vim-init/wiki/Setup-terminals-to-support-ALT-and-Backspace-correctly
+function! Terminal_MetaMode(mode)
+    set ttimeout
+    if $TMUX != ''
+        set ttimeoutlen=30
+    elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
+        set ttimeoutlen=80
+    endif
+    if has('nvim') || has('gui_running')
+        return
+    endif
+    function! s:metacode(mode, key)
+        if a:mode == 0
+            exec "set <M-".a:key.">=\e".a:key
+        else
+            exec "set <M-".a:key.">=\e]{0}".a:key."~"
+        endif
+    endfunc
+    for i in range(10)
+        call s:metacode(a:mode, nr2char(char2nr('0') + i))
+    endfor
+    for i in range(26)
+        call s:metacode(a:mode, nr2char(char2nr('a') + i))
+        call s:metacode(a:mode, nr2char(char2nr('A') + i))
+    endfor
+    if a:mode != 0
+        for c in [',', '.', '/', ';', '[', ']', '{', '}']
+            call s:metacode(a:mode, c)
+        endfor
+        for c in ['?', ':', '-', '_']
+            call s:metacode(a:mode, c)
+        endfor
+    else
+        for c in [',', '.', '/', ';', '{', '}']
+            call s:metacode(a:mode, c)
+        endfor
+        for c in ['?', ':', '-', '_']
+            call s:metacode(a:mode, c)
+        endfor
+    endif
+endfunc
+
+call Terminal_MetaMode(0)
+
 "==|Self|======================================================================
 let mapleader = "\<SPACE>"
 
@@ -405,7 +450,7 @@ function! Ranger()
     endif
     redraw!
 endfunction
-nnoremap <leader>r :call Ranger()<cr>
+nnoremap <leader>r :call Ranger()<CR>
 call g:quickmenu#append('Ranger', 'call Ranger()', '<leader>r')
 "----------------------------------------
 call g:quickmenu#append("# FZF", '')
@@ -441,7 +486,7 @@ call g:quickmenu#append("GetParent", 'YcmCompleter GetParent', "the semantic par
 call g:quickmenu#append("GetDoc", 'YcmCompleter GetDoc',
             \ "displays type or declaration/Doxygen or javadoc/Python docstrings / etc.", 'c,cpp,python')
 
-noremap <silent><F12> :call quickmenu#toggle(0)<cr>
+noremap <silent><F12> :call quickmenu#toggle(0)<CR>
 
 "==|space-vim-dark|============================================================
 let g:space_vim_dark_background = 233 " 233(darkest)-238(lightest)
@@ -490,7 +535,7 @@ let g:ale_cpp_cppcheck_options = ''
 nmap <silent> <leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <leader>j <Plug>(ale_next_wrap)
 
-"==|nerdcommenter|=============================================================
+"==|codi.vim|==================================================================
 let g:codi#interpreters = {
             \ 'python': {
             \   'bin': 'python3',
@@ -500,6 +545,7 @@ let g:codi#interpreters = {
 
 "==|nerdcommenter|=============================================================
 let g:NERDDefaultAlign = 'left'
+map <m-/> mc:call NERDComment('n', 'toggle')<CR>'cj
 
 "==|dict|======================================================================
 function! Mydict()
