@@ -17,15 +17,16 @@ Plug 'junegunn/vim-plug'
 "---------------------------------------fast move/select
 Plug 'Shougo/denite.nvim', {'for': ''}
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
-Plug 'junegunn/fzf.vim'  " <leader>fla for file/line/ag
+Plug 'junegunn/fzf.vim'  " <leader>fl/ for file/line/ag
 Plug 'Yggdroot/LeaderF', {'do': './install.sh'}
 Plug 'easymotion/vim-easymotion' " <leader><leader>swafFjk
 Plug 'justinmk/vim-sneak'  " fxx
 Plug 'terryma/vim-expand-region' " v vv vvv
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'  "ds/cs
-Plug 'junegunn/vim-peekaboo'
-Plug 'skyblueee/visualmarks' " press mm to mark and F2 to circle them
+Plug 'junegunn/vim-peekaboo'  " visual @ and registers and <c-r> for insert mode pasting.
+Plug 'kshenoy/vim-signature' " m<a-zA-Z> m/ m<space> | m<0-9> m? m<bs>
+Plug 't9md/vim-choosewin'  " press - to choose window
 "---------------------------------------补全
 Plug 'jiangmiao/auto-pairs'
 Plug 'honza/vim-snippets', {'for': ['python', 'c', 'cpp', 'sh']}
@@ -45,12 +46,13 @@ Plug 'vim-scripts/a.vim'
 Plug 'ludovicchabant/vim-gutentags', {'for': ['python', 'c', 'cpp']}
 Plug 'skywind3000/asyncrun.vim', {'for': ['python', 'c', 'cpp']}
 Plug 'fs111/pydoc.vim', {'for': 'python'}  " just press K(or <leader>pw) in python files
-Plug 'w0rp/ale'
+Plug 'w0rp/ale', {'for': ['python', 'c', 'cpp', 'sh']}
 Plug 'sbdchd/neoformat'
-Plug 'metakirby5/codi.vim'
+Plug 'metakirby5/codi.vim'  " :Codi to play with python codes
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 "---------------------------------------
+Plug 'jceb/vim-orgmode', {'for': 'org'}
 Plug 'vimwiki/vimwiki', {'for': 'wiki'}
 Plug 'iamcco/mathjax-support-for-mkdp', {'for': 'markdown'}
 Plug 'iamcco/markdown-preview.vim', {'for': 'markdown'}  " MarkdownPreview
@@ -58,6 +60,8 @@ Plug 'iamcco/markdown-preview.vim', {'for': 'markdown'}  " MarkdownPreview
 Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
 "---------------------------------------UI
+Plug 'mhinz/vim-startify'
+Plug 'mh21/errormarker.vim', {'for': ['c', 'cpp', 'python']}
 Plug 'liuchengxu/space-vim-dark'
 Plug 'luochen1990/rainbow'
 Plug 'Yggdroot/indentLine'
@@ -70,7 +74,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
 Plug 'skywind3000/quickmenu.vim'  "<F12>
 Plug 'lilydjwg/colorizer'
 "---------------------------------------
-call plug#end()
+call plug#end()  " will execute 'filetype plugin indent on' and 'syntax enable'
 
 "==|enable alt/meta map|=======================================================
 "https://github.com/skywind3000/vim-init/wiki/Setup-terminals-to-support-ALT-and-Backspace-correctly
@@ -122,41 +126,43 @@ let mapleader = "\<SPACE>"
 
 " Windows navigating
 nnoremap <leader><tab> <c-w>w
-nnoremap <C-H>     <C-W>h
-nnoremap <C-L>     <C-W>l
 
-nnoremap <C-Down>  <C-W>j
-nnoremap <C-Up>    <C-W>k
-nnoremap <C-Left>  <C-W>h
-nnoremap <C-Right> <C-W>l
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
 
 " Buffer navigating
-nnoremap <leader>1 :b1<CR>
-nnoremap <leader>2 :b2<CR>
-nnoremap <leader>3 :b3<CR>
-nnoremap <leader>4 :b4<CR>
-nnoremap <leader>5 :b5<CR>
-nnoremap <leader>6 :b6<CR>
-nnoremap <leader>7 :b7<CR>
-nnoremap <leader>8 :b8<CR>
-nnoremap <leader>9 :b9<CR>
+nnoremap <leader>1 :b1<cr>
+nnoremap <leader>2 :b2<cr>
+nnoremap <leader>3 :b3<cr>
+nnoremap <leader>4 :b4<cr>
+nnoremap <leader>5 :b5<cr>
+nnoremap <leader>6 :b6<cr>
+nnoremap <leader>7 :b7<cr>
+nnoremap <leader>8 :b8<cr>
+nnoremap <leader>9 :b9<cr>
 
 set switchbuf=useopen
 
 " Quick move
-inoremap <C-f> <Right>
-inoremap <C-b> <Left>
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
+inoremap <c-h> <left>
+inoremap <c-j> <down>
+inoremap <c-k> <up>
+inoremap <c-l> <right>
+inoremap <c-a> <home>
+inoremap <c-e> <end>
 
-nnoremap <UP> gk
-nnoremap <Down> gj
+nnoremap <up> gk
+nnoremap <down> gj
+inoremap <up> <c-\><c-o>gk
+inoremap <down> <c-\><c-o>gj
 
 " Appearance
 set cursorline
 set colorcolumn=120
 
-nnoremap <C-\> :noh<CR>
+nnoremap <c-\> :noh<cr>
 
 " some other
 nnoremap <leader>p "+p
@@ -168,27 +174,35 @@ set undofile
 autocmd VimLeave * call system('rm ~/.vim_undodir/*')
 
 "==|ALL|=======================================================================
-set mouse=a " enable mouse
-set linebreak " can not break word when line break
-set ruler " show row and column in the bottom
-set showcmd " show cmd when typing
-set number " show row number at left
-set laststatus=2 " always show the status line
-set wildmenu " complete in cmd
-set showmatch " show the matching part of the pair for [] {} and ()
+set mouse=a  " enable mouse
+set winaltkeys=no  " let windows pass alt to vim
+set linebreak  " can not break word when line break
+set ruler  " show row and column in the bottom
+set showcmd  " show cmd when typing
+set number  " show row number at left
+set laststatus=2  " always show the status line
+set wildmenu  " complete in cmd
+set showmatch  " show the matching part of the pair for [] {} and ()
 set scrolloff=3
+set formatoptions+=jmB
+set ffs=unix,dos,mac
 "---------------------------------------
 set incsearch
 set hlsearch
 set ignorecase smartcase
+"---------------------------------------
+set foldenable
+set fdm=indent
+set foldlevel=99
 "---------------------------------------
 set backspace=indent,eol,start
 "---------------------------------------
 set whichwrap=b,s,<,>,[,],~
 "---------------------------------------
 " set file encoding check and support
-set fencs=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936,big5,euc-jp,latin1
 "---------------------------------------
 set completeopt=menuone,longest,preview
 set diffopt=filler,vertical
@@ -197,6 +211,17 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 set autoindent
+"---------------------------------------
+" stuff to ignore when tab completing in cmd/ex mode
+set suffixes=.bak,~,.o,.h,.info,.swp,.obj,.pyc,.pyo,.egg-info,.class
+set wildignore=*.o,*.obj,*~,*.out,*.exe,*.a,*.pdb,*.lib
+set wildignore+=*.so,*.dll,*.swp,*.egg,*.jar,*.class,*.pyc,*.pyo,*.bin,*.dex
+set wildignore+=*.zip,*.7z,*.rar,*.gz,*.tar,*.gzip,*.bz2,*.tgz,*.xz
+set wildignore+=*.png,*.jpg,*.gif,*.bmp,*.tga,*.pcx,*.ppm,*.img,*.iso
+set wildignore+=*.wav,*.ogg,*.pcm,*.mp3,*.mp4,*.avi,*.flv,*.mov,*.mkv,*.swf,*.swc
+set wildignore+=*.chm,*.epub,*.pdf,*.mobi,*.ttf
+set wildignore+=*.ppt,*.pptx,*.doc,*.docx,*.xlt,*.xls,*.xlsx,*.odt,*.wps
+set wildignore+=*.msi,*.crx,*.deb,*.vfd,*.apk,*.ipa,*.bin,*.msu
 "---------------------------------------
 " to have Vim jump to the last position when reopening a file
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$")
@@ -235,7 +260,7 @@ function! MaximizeWindow()
 endfunction
 
 "==|NERDTree|==================================================================
-nnoremap <leader>F :NERDTreeToggle<CR>
+nnoremap <leader>F :NERDTreeToggle<cr>
 let NERDTreeShowBookmarks = 1
 let NERDTreeCascadeSingleChildDir = 1
 let NERDTreeNaturalSort = 1
@@ -249,9 +274,9 @@ command! -bang -nargs=* Ag
             \                 <bang>0 ? fzf#vim#with_preview('up:60%')
             \                         : fzf#vim#with_preview('right:50%:hidden','?'),
             \                 <bang>0)
-nnoremap <leader>f :Files!<CR>
-nnoremap <leader>/ :Ag<CR>
-nnoremap <leader>l :BLines<CR>
+nnoremap <leader>f :Files!<cr>
+nnoremap <leader>/ :Ag<cr>
+nnoremap <leader>l :BLines<cr>
 
 "==|nerdtree-git-plugin|=======================================================
 let g:NERDTreeIndicatorMapCustom = {
@@ -339,9 +364,13 @@ let g:sneak#target_labels = ";abcdefghigklmnopqrstuvwxyz/"
 let g:sneak#label = 1
 map f <Plug>Sneak_s
 
+"==|vim-choosewin|=============================================================
+nmap  -  <Plug>(choosewin)
+let g:choosewin_overlay_enable = 1
+
 "==|vim-expand-region|=========================================================
 vmap v <Plug>(expand_region_expand)
-vmap <C-v> <Plug>(expand_region_shrink)
+vmap <c-v> <Plug>(expand_region_shrink)
 
 "==|YouCompleteMe|=============================================================
 let g:ycm_min_num_identifier_candidate_chars = 2
@@ -368,8 +397,8 @@ let g:ycm_autoclose_preview_window_after_completion = 1 " default 0
 "let g:ycm_autoclose_preview_window_after_insertion = 1 " default 0
 "let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
 "let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>']
-"let g:ycm_key_list_stop_completion = ['<C-y>'] " default ['<C-y>']
-"let g:ycm_key_invoke_completion = '<C-z>' " default <C-Space>
+"let g:ycm_key_list_stop_completion = ['<c-y>'] " default ['<c-y>']
+"let g:ycm_key_invoke_completion = '<c-z>' " default <c-Space>
 let g:ycm_global_ycm_extra_conf = '~/rcfiles/_ycm_extra_conf.py' " default ''
 "let g:ycm_confirm_extra_conf = 1 " default 1
 "let g:ycm_extra_conf_globlist = [] " default []
@@ -382,8 +411,8 @@ let g:ycm_semantic_triggers =  {
 "let g:ycm_use_ultisnips_completer = 1 " default 1
 "let g:ycm_goto_buffer_command = 'same-buffer' " default 'same-buffer'
 "let g:ycm_disable_for_files_larger_than_kb = 1000 " default 1000
-au BufEnter *.h,*.c,*.cpp,*.py nmap <C-]> :YcmCompleter GoTo<CR>
-au BufLeave *.h,*.c,*.cpp,*.py unmap <C-]>
+au BufEnter *.h,*.c,*.cpp,*.py nmap <c-]> :YcmCompleter GoTo<cr>
+au BufLeave *.h,*.c,*.cpp,*.py unmap <c-]>
 
 "==|CompleteParameter|=========================================================
 inoremap <silent><expr> ( complete_parameter#pre_complete("()")
@@ -397,14 +426,14 @@ set noshowmode
 let g:echodoc#enable_at_startup = 1
 
 "==|UltiSnips|=================================================================
-let g:UltiSnipsExpandTrigger = '<C-o>' " Open it! default '<TAB>'
-"let g:UltiSnipsListSnippets = '<C-TAB>' " default '<C-TAB>'
-"let g:UltiSnipsJumpForwardTrigger = '<C-j>' " default '<C-j>'
-"let g:UltiSnipsJumpBackwardTrigger = '<C-k>' " default '<C-k>'
+let g:UltiSnipsExpandTrigger = '<c-o>' " Open it! default '<TAB>'
+"let g:UltiSnipsListSnippets = '<c-TAB>' " default '<c-TAB>'
+"let g:UltiSnipsJumpForwardTrigger = '<c-j>' " default '<c-j>'
+"let g:UltiSnipsJumpBackwardTrigger = '<c-k>' " default '<c-k>'
 
 "==|auto-pairs|================================================================
 let g:AutoPairs = {'[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
-inoremap <buffer><silent> ) <C-R>=AutoPairsInsert(')')<CR>
+inoremap <buffer><silent> ) <c-u>=AutoPairsInsert(')')<cr>
 
 "==|Pydoc|=====================================================================
 let g:pydoc_window_lines=0.7
@@ -432,6 +461,7 @@ let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '.gitignore', 'build.xml']
 let g:asyncrun_bell = 1
 let g:asyncrun_trim = 1
 let g:asyncrun_open = 9
+"command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ CFLAGS=-O2
 
 "==|quickmenu|==================================================================
 let g:quickmenu_options = "HL"
@@ -441,6 +471,7 @@ call g:quickmenu#reset()
 call g:quickmenu#header('')
 "----------------------------------------
 call g:quickmenu#append('# Window', '')
+call g:quickmenu#append('Startify', 'Startify', ':Startify')
 call g:quickmenu#append('NERDTreeToggle', 'NERDTreeToggle', '<leader>f')
 function! Ranger()
     silent !ranger --choosefile=/tmp/chosen
@@ -450,8 +481,14 @@ function! Ranger()
     endif
     redraw!
 endfunction
-nnoremap <leader>r :call Ranger()<CR>
+nnoremap <leader>r :call Ranger()<cr>
 call g:quickmenu#append('Ranger', 'call Ranger()', '<leader>r')
+" check unsaved changes
+if !exists(":DiffOrig")
+  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+          \ | wincmd p | diffthis
+endif
+call g:quickmenu#append('DiffOrig', 'DiffOrig', 'check unsaved changes')
 "----------------------------------------
 call g:quickmenu#append("# FZF", '')
 call g:quickmenu#append("Files", 'Files', "<leader>f: use fzf's *Files* on current project")
@@ -463,8 +500,12 @@ call g:quickmenu#append("Functions", 'LeaderfFunctionAll', "use *LeaderfFunction
 "----------------------------------------
 call g:quickmenu#append("# AsyncRun/FMT", '', '', 'c,cpp,python,sh')
 call g:quickmenu#append("NeoFormat", "Neoformat", "Neoformat")
-call g:quickmenu#append("Run file", "AsyncRun -raw %:p",
+call g:quickmenu#append("Run file", "let $PYTHONUNBUFFERED=1 | AsyncRun -raw %:p",
             \ "run current script. | Use `AsyncRun python` to run selected lines.", 'python,sh')
+call g:quickmenu#append("Compile and Run",
+            \ 'AsyncRun gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)"
+            \ && "$(VIM_FILEDIR)/$(VIM_FILENOEXT)"',
+            \ "Compile current c/cpp file", 'c,cpp')
 call g:quickmenu#append("make", 'AsyncRun -cwd=<root> make', "*make* on current project", 'c,cpp')
 call g:quickmenu#append("make run", 'AsyncRun -cwd=<root> make run', "*make run* on current project", 'c,cpp')
 call g:quickmenu#append("make test", 'AsyncRun -cwd=<root> make test', "*make test* on current project", 'c,cpp')
@@ -486,7 +527,16 @@ call g:quickmenu#append("GetParent", 'YcmCompleter GetParent', "the semantic par
 call g:quickmenu#append("GetDoc", 'YcmCompleter GetDoc',
             \ "displays type or declaration/Doxygen or javadoc/Python docstrings / etc.", 'c,cpp,python')
 
-noremap <silent><F12> :call quickmenu#toggle(0)<CR>
+noremap <silent><F12> :call quickmenu#toggle(0)<cr>
+
+"==|vim-startify|==============================================================
+let g:startify_custom_header = ""
+let g:startify_bookmarks = ['~/rcfiles/_vimrc']
+let g:startify_relative_path = 1
+let g:startify_change_to_dir = 1
+
+"==|errormarker.vim|===========================================================
+let errormarker_disablemappings = 1
 
 "==|space-vim-dark|============================================================
 let g:space_vim_dark_background = 233 " 233(darkest)-238(lightest)
@@ -497,8 +547,6 @@ hi CursorLineNr	ctermfg=yellow ctermbg=235
 hi CursorLine	ctermbg=235
 
 "==|ale|=======================================================================
-"let g:ale_enabled = 0 " default 1
-"let b:ale_enabled = 0 " default 1
 "let g:ale_pattern_options_enabled " default !empty(g:ale_pattern_options)
 "let g:ale_pattern_options = {'\.min.js$': {'ale_enabled': 0}}
 "let g:airline#extensions#ale#enabled = 0 " default 1
@@ -522,12 +570,18 @@ let g:ale_sign_warning = '✭' " '▶' default '--'
 "let g:ale_sign_offset = 1000000 " default 1000000
 "let g:ale_type_map = {} " default {}
 "let b:ale_type_map = {} " default {}
+"let g:ale_linters = {
+"            \ 'c': ['clang', 'gcc', 'cppcheck'],
+"            \ 'cpp': ['clang++', 'gcc', 'cppcheck'],
+"            \ 'python': ['flake8', 'pylint'],
+"            \ }
 let g:ale_python_pylint_executable = 'python3'
-let g:ale_python_pylint_options = '--rcfile ~/rcfiles/pylint.rc'
+let g:ale_python_pylint_options = '--rcfile ~/rcfiles/pylint.conf'
 let g:ale_python_pylint_use_global = 1
 let g:ale_python_flake8_executable = 'python3'
-let g:ale_python_flake8_options = '-m flake8'
+let g:ale_python_flake8_options = '-m flake8 --conf=~/rcfiles/flake8.conf'
 let g:ale_python_flake8_use_global = 1
+let g:ale_c_parse_makefile = 1
 let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
 let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
 let g:ale_c_cppcheck_options = ''
@@ -545,7 +599,7 @@ let g:codi#interpreters = {
 
 "==|nerdcommenter|=============================================================
 let g:NERDDefaultAlign = 'left'
-map <m-/> mc:call NERDComment('n', 'toggle')<CR>'cj
+map <m-/> mc:call NERDComment('n', 'toggle')<cr>'cj
 
 "==|dict|======================================================================
 function! Mydict()
@@ -556,18 +610,18 @@ function! Mydict()
                 \ q! | endif
     15sp dict-tmp
     setlocal buftype=nofile bufhidden=delete noswapfile modifiable
-    nnoremap <buffer> q :q<CR>
+    nnoremap <buffer> q :q<cr>
     1s/^/\=expl/
     1
 endfunction
-nnoremap <C-K> :call Mydict()<CR>
+nnoremap <leader>k :call Mydict()<cr>
 
 "==|FileType|==================================================================
 "--Python--
 autocmd BufNewFile *.py 0r ~/rcfiles/vim_template/py_header
 autocmd BufNewFile *.py exe "1," . line("$") . "g/_date_/s/_date_/" .strftime("%Y-%m-%d")
 autocmd BufNewFile *.py exe "normal! G"
-autocmd FileType python nnoremap <leader>= :0,$!yapf<CR>
+autocmd FileType python nnoremap <leader>= :0,$!yapf<cr>
 function! QuickfixToggle()
     let has_quickfix = 0
     for winnr in range(1, winnr('$'))
@@ -581,4 +635,4 @@ function! QuickfixToggle()
         exe 'copen'
     endif
 endfunction
-autocmd FileType python,c,cpp nnoremap <F10> :call QuickfixToggle()<CR>
+autocmd FileType python,c,cpp nnoremap <F10> :call QuickfixToggle()<cr>
