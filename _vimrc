@@ -496,7 +496,7 @@ call g:quickmenu#append("Functions", 'LeaderfFunctionAll', "use *LeaderfFunction
 "----------------------------------------
 call g:quickmenu#append("# AsyncRun/FMT", '', '', 'c,cpp,python,sh')
 call g:quickmenu#append("NeoFormat", "Neoformat", "Neoformat")
-call g:quickmenu#append("Run file", "AsyncRun -raw %:p",
+call g:quickmenu#append("Run file", "let $PYTHONUNBUFFERED=1 | AsyncRun -raw %:p",
             \ "run current script. | Use `AsyncRun python` to run selected lines.", 'python,sh')
 call g:quickmenu#append("Compile and Run",
             \ 'AsyncRun -auto=make gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)"
