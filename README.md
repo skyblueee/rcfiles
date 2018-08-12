@@ -15,14 +15,13 @@ Press `<Ctrl-o>` to open ranger, and press `q` to leave you in the proper direct
 
 ## Vim
 ### System
-* `<leader>y/p` to yank and paste to/from system in normal mode.
+* `<leader>y/p` to yank and paste to/from system in normal/visual mode.
 * `<C-;>` to paste from system. (Linux Only, not provided by vim.)
 
 ### Window navigation
-* `<C-h>`/`<C-l>` to navigate left/right among windows.
-* `<C-w>j/k/h/l` or `<C-*arrow*>` to navigate among windows.
-* `<leader><leader>a` in *vim-easymotion*.
 1. `<leader><TAB>` to navigate among windows.
+2. `-` and select.
+3. `<leader><leader>a` in *vim-easymotion*.
 
 ### Buffer navigation
 *vim-airline* shows buffer numbers in a tabline.
@@ -42,11 +41,8 @@ Press `<Ctrl-o>` to open ranger, and press `q` to leave you in the proper direct
 * `;/,` 用于向前向后移动。
 * 开启了label-mode，移动过程中可以输入label快速移动（类似于easymotion）。
 
-`mm` to mark the current line, and `<F2>` to toggle among the hilighted marks (supplied by *visualmarks*).
-Todo: conflict with cursorline and gitgutter.
-
 ### Insert motion
-* `<C-j/k/f>` to move quickly in insert mode.
+* `<C-h/l>` to move quickly in insert mode.
 
 ### Quick filesystem navigation
 *NERDTree* is used to navigate in filesystem.
@@ -67,13 +63,13 @@ Todo: conflict with cursorline and gitgutter.
 ### Completion
 #### Identifer Completion
 *YCM*, *cmp*, *UltiSnips* and *vim-snippets* are used for auto-completion in C-family and python files.
-* just type to get hints and use `<TAB>`, `<C-y>`, `<C-n>` to circle among them.
+* just type to get hints and use `<TAB>`, `<C-p>`, `<C-n>` to circle among them.
 * use `<C-o>` to open a snip, and `<C-j>`, `<C-k>` to navigate in it.
 
 #### Pairs Completion
 *auto-pairs* is used for complete about paires (paretheses and quotations).  When you inside `()`/`[]`/`{}`/`''`/`""`, press the latter part to go out, and when you delete the former part you also delete the latter one.
 
-Use `<C-f>`/`<C-j>` in insert mode to move quickly right out of paires.
+Use `<C-l>`/`<C-j>` in insert mode to move quickly right out of paires.
 
 ### Dictionary/Pydoc
 * `K` to get python docstrings (supplied by *pydoc.vim*) in python files.

@@ -1,0 +1,3 @@
+:imap   查看所有imaps
+:imap <c-h> 查看特定imap
+:verbose imap <c-h> 查看特定imap定义位置
