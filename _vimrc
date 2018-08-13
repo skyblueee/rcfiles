@@ -141,13 +141,12 @@ nnoremap <leader>9 :b9<cr>
 set switchbuf=useopen
 
 " Quick move
-" TODO:<bs>
-inoremap <c-h> <left>
+noremap! <c-h> <left>
 inoremap <c-j> <down>
 inoremap <c-k> <up>
-inoremap <c-l> <right>
-inoremap <c-a> <home>
-inoremap <c-e> <end>
+noremap! <c-l> <right>
+noremap! <c-a> <home>
+noremap! <c-e> <end>
 
 nnoremap <up> gk
 nnoremap <down> gj
@@ -429,6 +428,7 @@ let g:UltiSnipsExpandTrigger = '<c-o>' " Open it! default '<TAB>'
 
 "==|auto-pairs|================================================================
 let g:AutoPairs = {'[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
+let g:AutoPairsMapCh=0
 inoremap <buffer><silent> ) <c-u>=AutoPairsInsert(')')<cr>
 
 "==|Pydoc|=====================================================================
