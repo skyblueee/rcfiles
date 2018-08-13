@@ -575,7 +575,7 @@ let g:ale_python_pylint_executable = 'python3'
 let g:ale_python_pylint_options = '--rcfile ~/rcfiles/pylint.conf'
 let g:ale_python_pylint_use_global = 1
 let g:ale_python_flake8_executable = 'python3'
-let g:ale_python_flake8_options = '-m flake8 --conf=~/rcfiles/flake8.conf'
+let g:ale_python_flake8_options = '-m flake8 --conf=' . expand('~/rcfiles/flake8.conf')
 let g:ale_python_flake8_use_global = 1
 let g:ale_c_parse_makefile = 1
 let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
