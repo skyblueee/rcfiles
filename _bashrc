@@ -162,7 +162,7 @@ source ~/rcfiles/tmuxinator_completion.bash
 
 # fuzzy completion
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
-export FZF_COMPLETION_TRIGGER='/'
+export FZF_COMPLETION_TRIGGER='//'
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # bazel completion
