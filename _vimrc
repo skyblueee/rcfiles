@@ -44,7 +44,7 @@ Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'scrooloose/nerdcommenter'
 Plug 'vim-scripts/a.vim'
 Plug 'ludovicchabant/vim-gutentags', {'for': ['python', 'c', 'cpp']}
-Plug 'skywind3000/asyncrun.vim', {'for': ['python', 'c', 'cpp']}
+Plug 'skywind3000/asyncrun.vim', {'for': ['python', 'c', 'cpp', 'sh', 'matlab']}
 Plug 'fs111/pydoc.vim', {'for': 'python'}  " just press K(or <leader>pw) in python files
 Plug 'w0rp/ale', {'for': ['python', 'c', 'cpp', 'sh']}
 Plug 'sbdchd/neoformat'
@@ -494,8 +494,10 @@ call g:quickmenu#append("Lines", 'Lines', "use fzf's *Lines* on opened buffers")
 call g:quickmenu#append("Tags", 'LeaderfBufTagAll', "use *LeaderfBufTagAll* on opened buffers")
 call g:quickmenu#append("Functions", 'LeaderfFunctionAll', "use *LeaderfFunction* on opened buffers")
 "----------------------------------------
-call g:quickmenu#append("# AsyncRun/FMT", '', '', 'c,cpp,python,sh')
+call g:quickmenu#append("# AsyncRun/FMT", '', '', 'c,cpp,python,matlab,sh')
 call g:quickmenu#append("NeoFormat", "Neoformat", "Neoformat")
+call g:quickmenu#append("Run Matlab", "AsyncRun -raw octave %:p",
+            \ "run current script.", 'matlab')
 call g:quickmenu#append("Run file", "let $PYTHONUNBUFFERED=1 | AsyncRun -raw %:p",
             \ "run current script. | Use `AsyncRun python` to run selected lines.", 'python,sh')
 call g:quickmenu#append("Compile and Run",

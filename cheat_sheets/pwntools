@@ -22,6 +22,8 @@ context.endian = 'big'
 context.word_size = 32
 ## log级别
 context.log_level = 'debug'
+## 超时
+context.timeout = 0.2  # 为recvrepeat()使用创造条件。
 
 # 汇编与反汇编
 >>> asm('mov eax, 0').encode('hex')
