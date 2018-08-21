@@ -429,7 +429,6 @@ let g:UltiSnipsExpandTrigger = '<c-o>' " Open it! default '<TAB>'
 "==|auto-pairs|================================================================
 let g:AutoPairs = {'[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
 let g:AutoPairsMapCh=0
-inoremap <buffer><silent> ) <c-u>=AutoPairsInsert(')')<cr>
 
 "==|Pydoc|=====================================================================
 let g:pydoc_window_lines=0.7
