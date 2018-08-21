@@ -1,0 +1,4 @@
+# Linux系統登錄過程
+1. init - 系統初始化，接收用戶名，啓動login程序
+2. login - 讀取用戶密碼，判斷是否登錄，讀取/etc/passwd文件，根據最後一項（一般是某種shell）啓動該程序。
+3. shell

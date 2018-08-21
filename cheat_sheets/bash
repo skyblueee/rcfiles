@@ -1,7 +1,94 @@
 # 重定向
-- program > file  标准输出重定向
-- program 2> file  标准错误重定向
-- program &> file  标准输出和标准错误重定向
+- program > file  標准輸出重定向（是program 1> file的簡寫）
+- program 2> file  標准錯誤重定向
+- program &> file  標准輸出和標准錯誤重定向
+- for, while, until命令的後臺(&)、重定向(>)和管道(|)都加在done後面。對內部單行進行重定向也是允許的。
+    ```bash
+    for file
+    do
+        echo "Processing file $file" > /dev/tty
+        cat "$file"
+    done > outputfile
+    ```
+    會把$@中所有file的內容輸出到outputfile，而提示語"Processing ..."會打印到屏幕。
+
+# 傳遞變量給程序
+$DBHOME=/path/ DBID=450 dbrun
+這樣未dbrun設置了連個變量，但是當前shell對此兩個變量一無所知（不影響當前shell的環境變量）。
+
+# 環境變量
+命令variablename=var可以直接給變量賦值，但是不會被子shell繼承；
+export variblename的用途就是要創建一個可以被子shell繼承的變量；
+子shell對導出變量的修改不會影響父shell。
+
+# $$變量
+$$變量表示當前進程id，在編寫可有由多人同時運行的shell程序時，臨時文件要保證各不相同，此時可以用此變量。
+
+# 算術拓展 $((expression))
+```bash
+$ a=1
+$ ((a=a+1))  # `echo $a` get 2
+$ ((b=a+1))  # `echo $b` get 3
+```
+
+# ""擴展
+shell對雙引號內的內容進行如下三種拓展：
+1. 變量解釋符號$
+2. 反引號命令``
+3. 反斜槓\
+
+# shell的替換順序
+shell先做變量替換，然後做文件名替換，最後把這一行處理成參數。
+如：
+```bash
+$ ls
+address intro names phonebook
+$ x=*
+$ echo $x
+address intro names phonebook
+```
+文件名清單是在執行變量賦值時存入變量中的呢，還是執行echo的時候再替換的呢？
+1. 變量賦值時，shell掃描命令行，把x的值設爲星號*；
+2. shell掃描掃描命令行，先變量替換，遇到*，將其替換爲文件清單，啓動echo命令，並將清單傳遞過去。
+驗證：執行`echo "$x"`輸出爲'*'。
+
+# 參數替換
+${parameter:-value} -- = value if parameter is NULL else ${parameter}
+${parameter:+value} -- = value if parameter is not NULL else ${parameter}(NULL).
+${parameter:=value} -- if parameter is NULL, set parameter=value and return value
+${parameter:?value} -- 若parameter不爲空，值爲${parameter}；若parameter爲空，把value寫入標準錯誤輸出，然後退出。
+                       若value也爲空，寫入parameter：parameter null or not set。
+                       使用此結構可以很容易地檢查程序需要的一組變量是否都已經設置且不爲空。
+                       如：${TOOLS:?} ${EXPTOOLS:?} ${TOOLBIN:?}
+value可以是命令替換（`command`或者$(command)），只有需要用到value時纔會執行。
+
+# .命令
+`. file`的作用是在當前shell中執行file中的內容。shell用PATH來查找file。
+
+# 圓括號中執行的命令不影響當前環境
+```bash
+$ x= 50
+$ (x=100)  # 在子shell中執行
+$ echo $x
+50
+$ { x=100;}  # 當前shell中執行，注意{後面的空格
+$ echo $x
+100
+```
+也可以用於其他目的，如`$ (sort 2002data -o 2002data; plotdata 2002data) &`，他們都被放到後臺執行而執行順序不變。
+如果花括號中的第一條命令與左括號在同一行，中間必須要加一個空格；如果最後一個命令與右括號在同一行，中間必須要有一個分號。
+
+# 空命令 : true false
+:什麼都不做，返回成功狀態，例如
+```bash
+if grep "a" file
+then
+    :
+else
+    echo "no"
+fi
+```
+true和:一樣。false什麼都不做，返回錯誤狀態。
 
 # To implement a for loop:
 for file in *;
@@ -18,11 +105,9 @@ in
     3*) echo "something beginning with 3 found";;
 esac
 
-# Turn on debugging:
-set -x
-
-# Turn off debugging:
-set +x
+# debug
+set -x # Turn on debugging:
+set +x # Turn off debugging:
 
 # Retrieve N-th piped command exit status
 printf 'foo' | fgrep 'foo' | sed 's/foo/bar/'
@@ -30,3 +115,9 @@ echo ${PIPESTATUS[0]}  # replace 0 with N
 
 # Lock file:
 ( set -o noclobber; echo > my.lock ) || echo 'Failed to create lock file'
+
+# tools
+- nl : 類似與cat，但是在每一行前面加上行號。
+- basename : 去除前導和後綴，例如`basename /usr/bin/sort`輸出sort，`basename include/stdio.h .h`輸出stdio。
+
+<<Unix Shell Programming, 3nd Edition>>
