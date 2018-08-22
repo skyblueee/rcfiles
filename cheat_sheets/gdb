@@ -1,3 +1,4 @@
+# GDB
 gdb your-executable              # start the debugger
 b some-method, break some-method # set a breakpoint
 r, run                           # run the program
@@ -9,6 +10,9 @@ l, list                          # list surrounding source code
 c, continue                      # continue
 q, quit                          # exit
 
+# 跟踪子/父进程
+set follow-fork-mode child/parent
+
 ## tui
 gdb -tui your-executable
 窗口切换             ： c-x o
@@ -19,4 +23,3 @@ gdb -tui your-executable
 命令列表：peda
 
 ## cdbg
-
