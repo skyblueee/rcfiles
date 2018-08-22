@@ -1,0 +1,104 @@
+# alias
+- aliases - 列出所有別名
+- alias   - 操作別名
+- 在.gef.rc文件中可以定義別名。
+[aliases]
+my-new-alias = gdb-or-gef-command <arg1> <arg2> <etc...>
+
+# 匯編器
+asm mov eax, 1; mov ebx, 0xffffd500; mov ecx, 3; int 80h
+可以用-l location選項直接打補丁
+gef> x/2i 0x40061e
+  0x40061e: call 0x400560
+  0x400623: cmp eax, 0x0
+gef> p/d 0x400623-0x40061e
+$2 = 5
+gef> asm -l 0x40061e nop; nop; nop; nop; nop
+[+] Assembling 5 instructions for i386:x86-64: (little endian)
+[+] Overwriting 5 bytes at 0x000000000040061e
+gef> x/2i 0x40061e
+  0x40061e: nop
+  0x40061f: nop
+gef>
+
+# 反匯編
+cs-disassemble, cs
+
+# $命令
+$命令模仿windbg中的?命令。
+- 當給一個參數時，$命令會以各種格式來顯示結果（十進制、十六進制、二進制、字節）。
+- 當給兩個參數時，$命令顯示兩個參數之間的差值。
+
+# heap命令
+- heap chunks <location>    -   顯示所有chunks
+- heap chunk <location> -   顯示特定chunk信息
+- heap arenas   -   顯示所有線程的arena
+- heap bins -   顯示所有bins
+- heap bins fast/small/large/unsorted   -   顯示特定bins
+
+# 文件描述符
+- fd    -   顯示當前打開的文件描述符
+- hijack-fd -   劫持文件描述符
+
+# config
+gef config
+gef save
+gef restore
+
+## context layout
+gef config context.layout "-legend regs stack code args -source -threads -trace extra memory"
+memory面板顯示memory命令指定的內容：
+memory watch $sp 0x40 byte將會顯示棧中0x40個byte。
+memory unwatch <address>
+memory list
+memory clear
+
+# pie
+- pie attach, pie run
+- pie breakpoint <location>
+- pie info [VNum]
+- pie delete <VNum>
+- pie remote
+
+# stub
+- stub命令可以用來跳過某個函數的執行，欺騙gdb認爲該函數已經執行了，還可以設置返回值（默認爲0）。
+- stub命令對跟蹤子進程特別有用，用它跳過fork()，由於返回值默認爲0，所以gdb/程序認爲自己是子進程，
+因而接下來執行子進程相關代碼。注意這裏和set follow-fork-mod child不同，fork()根本沒有調用，
+只是欺騙當前進程執行子進程中的代碼。
+
+# 其他命令
+- dereference/telescope 解引用
+- flags 顯示和設置flag寄存器
+- elf 顯示elf文件基本信息
+- checksec 顯示文件保護措施
+- aslr [on/off] 檢測設置aslr狀態aslr，其中設置對於已經啓動的進程不能生效
+- canary 搜索canary的位置和值
+- entry-break/start 在入口處設置斷點並啓動調試
+- fmtstr-help 爲printf系列函數調用創建特殊斷點，當檢測到可能發生格式化字符串漏洞時，觸發斷點。
+- gef-remote 遠程調試，QEMU模擬調試
+- heap-analysis-helper 協助自動化堆使用分析
+- hexdump/db/dw/dd/dq 顯示內存當中的內容
+- print-format/pf 按照python/C/asm/js格式輸出內存內容。
+- process-search/ps 查看和附加到進程
+- process-status/status 查看進場信息（包括pid、父進程id、子進程id、文件描述符等）
+- patch/eb/ew/ed/eq/ea 打補丁（修改內存）
+- nop [-b num_bytes] [-h] [location] 用於跳過某條指令。
+    如果指定了-b選項，填充num_bytes個字節，否則自動填充location指令佔用的字節數。
+- pattern create/search 創建和搜索獨特字符串。
+- registers 查看寄存器內容。
+- ropper GOP
+- search-pattern pattern 查找內存特定模式
+- set-permission/mprotect 設置頁權限
+- shellcode search/get 查詢shellcode數據庫並下載
+- xref adderess 查找內存交叉引用（xref實際上是search-pattern的別名）
+- pcustom/dt 創建自定義結構體數據類型
+- ida-interact 與ida交互
+- ksymaddr 通過名稱定位內核符號地址
+- tmux-setup tmux佈局優化
+- trace-run 跟蹤執行流（需與ida協同）
+- emu -h 快速執行並查看變化
+- vmmap [pattern] 查看虛擬內存映射
+- xfiles [pattern] 類似gdb中的info files，但是可以利用pattern進行過濾
+- xinfo [adderess] 給出指定地址的所有信息。
+- xor-memory <display|patch> <address> <size_to_read> <xor_key>對某一塊內存進行xor操作
+
