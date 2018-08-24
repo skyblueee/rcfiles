@@ -140,10 +140,10 @@ function! Fcitx2zh()
     endif
 endfunction
 
-set timeoutlen=150
+set timeoutlen=250
 
 autocmd InsertLeave * call Fcitx2en()
-autocmd InsertEnter * call Fcitx2zh()
+"autocmd InsertEnter * call Fcitx2zh()
 
 "==|Self|======================================================================
 let mapleader = "\<SPACE>"
