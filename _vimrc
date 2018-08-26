@@ -530,6 +530,18 @@ call g:quickmenu#append("Compile and Run",
 call g:quickmenu#append("make", 'AsyncRun -auto=make -cwd=<root> make', "*make* on current project", 'c,cpp')
 call g:quickmenu#append("make run", 'AsyncRun -cwd=<root> make run', "*make run* on current project", 'c,cpp')
 call g:quickmenu#append("make test", 'AsyncRun -cwd=<root> make test', "*make test* on current project", 'c,cpp')
+function! TogglePy23()
+    if g:ale_python_pylint_executable == 'python3'
+        let g:ale_python_pylint_executable = 'python2'
+        let g:ale_python_flake8_executable = 'python2'
+        let g:pydoc_cmd = 'python2 -m pydoc'
+    else
+        let g:ale_python_pylint_executable = 'python3'
+        let g:ale_python_flake8_executable = 'python3'
+        let g:pydoc_cmd = 'python3 -m pydoc'
+    endif
+endfunction
+call g:quickmenu#append("toggle python2/3", 'call TogglePy23()', "Toggle python2/3 in ale/pydoc", 'python')
 "----------------------------------------
 call g:quickmenu#append("# Git", '')
 call g:quickmenu#append("Diff", 'Gvdiff', "use fugitive's *Gvdiff* on current document")

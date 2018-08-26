@@ -14,7 +14,7 @@ newgrp - docker # 切换当前会话到新group 或者重启X会话。注意:最
 docker version
 
 # 初始化一个容器
-docker run --name container_name -it <image_name> /bin/bash
+docker run --name container_name -d -p host_port:container_port <image_name>
 
 # "shell" into a running container (docker-1.3+)
 docker exec -it <container_name> bash
