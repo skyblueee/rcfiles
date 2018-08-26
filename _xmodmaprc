@@ -1,4 +1,11 @@
+! map CapsLock to Ctrl
+!clear lock
+!clear control
+!add control = Caps_Lock Control_L Control_R
+!keycode 66 = Control_L Caps_Lock NoSymbol NoSymbol
+
+! map CapsLock to Alt
 clear lock
-clear control
-add control = Caps_Lock Control_L Control_R
-keycode 66 = Control_L Caps_Lock NoSymbol NoSymbol
+clear mod1
+keycode 66 = Alt_L
+add mod1 = Caps_Lock Alt_L Alt_R Meta_L
