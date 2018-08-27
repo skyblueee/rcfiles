@@ -35,8 +35,11 @@ docker ps
 # list all containers
 docker ps -a
 
-# list all images
-docker images
+# images
+docker images # list all images
+## 鏡像重命名/刪除
+docker tag old_image_name new_image_name  # add tag name for image
+docker rmi old_image_name  # delete old tag name, 如果是唯一的tag，刪除該鏡像
 
 # 将容器转换为镜像
 docker commit container_name resp/new_image_name
