@@ -174,7 +174,7 @@ source /usr/local/lib/bazel/bin/bazel-complete.bash
 # python startup
 export PYTHONSTARTUP=~/rcfiles/pythonrc.py
 
-# map CapsLock to Ctrl
+# map CapsLock
 xmodmap ~/rcfiles/_xmodmaprc
 
 # cheat

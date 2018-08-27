@@ -1,8 +1,8 @@
 # 程序交互
 - 与远程服务交互    p = remote('ftp.ubuntu.com', 21)
 - 与本地程序交互    p = process('/bin/sh')
-- IO交互    p.send(), p.sendline(),
-            p.recv(), p.recvline(), p.recvuntil('sth')
+- IO交互    p.send(), p.sendline(), p.sendafter('sth'), p.sendlineafter('sth')
+            p.recv(), p.recvline(), p.recvuntil('sth'), p.recvrepeat()
 - 直接交互  p.interactive()
 - 关闭交互  p.close()
 
@@ -14,7 +14,7 @@
 # context设置
 ## 体系结构
 1. 利用context.binary = './binfile'来根据文件属性自动设置对应的体系架构变量值。
-2. context(arch='i386', os='linux', endian='little', word_size=32)
+2. context(arch='i386', os='linux', endian='little')
 或者
 context.arch = 'arm'
 context.os = 'linux'
@@ -41,6 +41,10 @@ context.timeout = 0.2  # 为recvrepeat()使用创造条件。
 3. pop a shell
 >>> asm(shellcraft.setreuid() + shellcraft.dupsh(4)).encode('hex')
 '6a3158cd80...'
+
+# 格式化字符串
+FmtStr() : 自動化攻擊。
+- fmtstr_payload(offset, {address:data}, numbwritten=0, write_size=’byte’) : 給定偏移，將指定地址修改爲特定值。
 
 # 定位溢出位置
 1. 使用cyclic(n)构造一个长度为n的字符串；(cyclic(200)=aaaabaaacaa...)
