@@ -1,4 +1,14 @@
 #source ~/bin/peda/peda.py
 #source ~/bin/peda-heap/peda.py
-source ~/bin/gef/gef.py
+source ~/bin/ctf-tools/gef/gef.py
 #source ~/.local/lib/python3.6/site-packages/voltron/entry.py
+
+source ~/bin/ctf-tools/Pwngdb/pwngdb.py
+source ~/bin/ctf-tools//Pwngdb/angelheap/gdbinit.py
+
+define hook-run
+python
+import angelheap
+angelheap.init_angelheap()
+end
+end

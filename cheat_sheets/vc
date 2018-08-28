@@ -1,0 +1,128 @@
+# Visual Studio的命令行構建工具
+## 位置
+假設VS2010安裝位置爲（後面用VSDIR代替）C:\Program Files (x86)\Microsoft Visual Studio 10.0
+命令行構建工具位於VSDIR\VC\bin目錄下，主要有：
+- cl.exe 編譯程序
+- link.exe 鏈接程序
+- lib.exe 加載lib庫的程序
+- nmake.exe makefile工程構建工具
+
+## 環境變量
+VSDIR\VC\bin\vcvars32.bat可以自動設置環境變量，也可以手動設置：
+- VSDIR: C:\Program Files (x86)\Microsoft Visual Studio 10.0
+- WIN_SDK: C:\Program Files (x86)\Microsoft SDKs
+- PATH: %VSDIR%\VC\bin加入到原PATH變量中
+- include: %VSDIR%\VC\include;%WIN_SDK%Windows\v7.0A\Include;
+- lib: %VSDIR%\VC\lib;%WIN_SDK%\Windows\v7.0A\Lib;
+
+## cl -help
+cl [option...] file... [option | file]... [lib...] [@command-file] [/link link-option...]
+- option 一个或多个CL选项。注意所有选项都应用于所有指定源文件。选项是由一个斜杠(/)或一个短划线(–)指定的。
+- file 一个或多个源文件、.obj文件或库的名称。CL编译源文件并将.obj文件和库的名称传递给链接器。
+- lib 一个或多个库名。CL将这些名称传递给链接器。
+- command-file 包含多个选项和文件名的文件。
+- link-opt 一个或多个链接器选项。
+- 可以指定任意数目的选项、文件名和库名，条件是命令行上的字符数不超过1024，该限制是操作系统指定的。
+
+### 優化選項
+/O1 最小化空間
+/O2 最大化速度
+/Ob 控制內聯展開
+/Od 禁用優化(默認)
+/Og 使用全局優化
+/Oi 生成內部函數
+
+### 代碼生成
+/GF 啓用只讀字符串池
+/Gm 啓動最小重新生成
+/Gy 分隔鏈接器函數
+/GS 啓用緩衝區安全檢查
+/GR 啓用C++ RTTI
+/GX 啓用C++ EH（與/EHsc相同）
+/EHs 啓用C++ EH（沒有SEH異常）
+/EHa 啓用C++ EH（w/SEH異常）
+/EHc extern C默認爲nothrow
+
+/GL 啓用鏈接時代碼生成
+/Ge 爲所有函數強制堆棧檢查
+/Gd 使用__cdecl調用約定
+/Gr 使用__fastcall調用約定
+/GZ 使用__stdcall調用約定
+/RTCs 堆棧幀運行時檢查（/GZ）
+/RTCu 未初始化的局部用法檢查
+/arch:AVX 支持使用Intel高級矢量擴展指令集
+
+### 輸出文件
+/Fa[file] 命名程序集列表文件
+/FA[scu] 創建彙編文件
+/Fd[file] 命名PDB文件
+/Fe 命名可執行文件
+/Fm[file] 命名映射文件
+/Fo 命名對象文件
+/Fp 命名預編譯頭文件
+/Fi 命名預處理的文件
+
+### 預處理器
+/AI 添加到程序集搜索路徑
+/C 預處理期間保留註釋
+/D{=|#} 定義宏
+/E 預處理到stdout
+/EP 預處理到stdout，無行號
+/P 預處理的文件
+/Fx 將插入的代碼合併到文件中
+/FI 命名強制包含文件
+/U 移除預定義的宏
+/u 移除所有預定義的宏
+/I 添加到包含搜索路徑
+/X 忽略“標準位置”
+
+### 語言
+/Zi 啓用調試信息
+/Za 禁用拓展
+/Ze 啓用拓展（默認）
+/Zc:arg1[,arg2] C++語言合規性，這裏的參數可以是：
+    forScope[-] - 對範圍規則強制使用標準C++
+    wchar_t[-] - wchar_t是本機類型，不是typedef
+    auto[-] - 對auto強制使用新的標準C++含義
+    trigraphs[-] - 啓用三元組（默認關閉）
+
+### 雜項
+/c 只編譯，不鏈接
+/J 默認char類型爲unsigned
+/MP[n] 最多用n個進程進行編譯
+/nologo 取消顯示版權信息
+/showIncludes 顯示包含文件名
+/w 禁用所有警告
+/wd 禁用警告n
+/we 將警告n視爲錯誤
+/wo 發出一次警告n
+/w 爲n設置警告等級1-4
+/W 設置警告等級（默認爲1）
+/Wall 啓用所有警告
+/WL 啓用單行診斷
+/WX 將警告視爲錯誤
+
+### 鏈接
+/LD 創建DLL
+/LDd 創建DLL調試庫
+/link [連接器選項和庫]
+/ML 使用LIBC.LIB創建單線程可執行文件
+/MLd 使用LIBCD.LIB創建單線程可執行文件
+/MD 使用MSVCRT.LIB創建多線程DLL
+/MDd 使用MSVCRTD.LIB創建多線程DLL
+/MT 使用LIBCMT.LIB創建多線程可執行文件
+/MTd 使用LIBCMTD.LIB創建多線程可執行文件
+
+## link -help
+/DLL 生成DLL
+/DRIVER 創建NT核心模式驅動程序
+/LIBPATH 添加庫路徑
+/MACHINE 指定目標平臺{ARM|MIPS|X86|X64|...}
+/NOENTRY 創建純資源DLL
+/SUBSYSTEM 指定子系統{CONSOLE|EFI_RUNTIME_DRIVER|NATIVE|POSIX|WINDOWS|WINDOWSCE}[,#[.##]]
+/OUT 指定輸出文件名(/OUT:hello.exe)
+
+## 例子
+1. cl test.cpp /EHsc /I"C:/OpenCV2.0/include/opencv/" cv200.lib /link /LIBPATH:"C:/OpenCV2.0/vs2008/lib"
+2. cl *.cpp /G7 /MD /Ox /Ot /W3 /c /EHsc /I"G:/Visual C++/VC98/PlatformSDK/Include"
+3. link *.obj rc.res /LIBPATH:"G:/Visual C++/lib" /SUBSYSTEM:WINDOWS /MACHINE:X86 kernel32.lib user32.lib gdi32.lib
