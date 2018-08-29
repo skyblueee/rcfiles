@@ -24,7 +24,7 @@
 ## some peda aliases
 # telescope = dereference
 # start = entry-break
-# stack = dereference $sp 10
+stack = dereference $sp
 # argv = show args
 # kp = info stack
 # findmem = search-pattern
