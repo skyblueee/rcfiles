@@ -65,7 +65,7 @@ cl [option...] file... [option | file]... [lib...] [@command-file] [/link link-o
 ### 預處理器
 /AI 添加到程序集搜索路徑
 /C 預處理期間保留註釋
-/D{=|#} 定義宏
+/D{=|#} 定義宏(/Dname /Dname=value)
 /E 預處理到stdout
 /EP 預處理到stdout，無行號
 /P 預處理的文件
@@ -73,7 +73,7 @@ cl [option...] file... [option | file]... [lib...] [@command-file] [/link link-o
 /FI 命名強制包含文件
 /U 移除預定義的宏
 /u 移除所有預定義的宏
-/I 添加到包含搜索路徑
+/I 添加到包含搜索路徑(/I"include_path")
 /X 忽略“標準位置”
 
 ### 語言
@@ -116,7 +116,7 @@ cl [option...] file... [option | file]... [lib...] [@command-file] [/link link-o
 ## link -help
 /DLL 生成DLL
 /DRIVER 創建NT核心模式驅動程序
-/LIBPATH 添加庫路徑
+/LIBPATH 添加庫路徑(/libpath:"directory")
 /MACHINE 指定目標平臺{ARM|MIPS|X86|X64|...}
 /NOENTRY 創建純資源DLL
 /SUBSYSTEM 指定子系統{CONSOLE|EFI_RUNTIME_DRIVER|NATIVE|POSIX|WINDOWS|WINDOWSCE}[,#[.##]]
@@ -126,3 +126,11 @@ cl [option...] file... [option | file]... [lib...] [@command-file] [/link link-o
 1. cl test.cpp /EHsc /I"C:/OpenCV2.0/include/opencv/" cv200.lib /link /LIBPATH:"C:/OpenCV2.0/vs2008/lib"
 2. cl *.cpp /G7 /MD /Ox /Ot /W3 /c /EHsc /I"G:/Visual C++/VC98/PlatformSDK/Include"
 3. link *.obj rc.res /LIBPATH:"G:/Visual C++/lib" /SUBSYSTEM:WINDOWS /MACHINE:X86 kernel32.lib user32.lib gdi32.lib
+### 創建和使用靜態庫
+1. cl /c foo.cpp
+2. cl /c bar.cpp
+3. lib foo.obj bar.obj /out:mylib.lib
+4. cl test.cpp /link /libpath:. mylib.lib
+### 創建和使用動態庫
+1. cl foo.cpp bar.cpp /link /dll /out:mylib.dll  # 注意會同時生成mylib.dll, mylib.lib, mylib.exp
+2. cl test.cpp /link /libpath:. mylib.lib
