@@ -78,8 +78,9 @@ cl [option...] file... [option | file]... [lib...] [@command-file] [/link link-o
 
 ### 語言
 /Zi 啓用調試信息
-/Za 禁用拓展
-/Ze 啓用拓展（默認）
+/Ze 啓用VC定義的超出標準C/C++的自定義拓展（默認）
+/Za 禁用VC定義的超出標準C/C++的自定義拓展。
+    使用/Za時，編譯器自動定義了__STDC__這個宏，可以通過判斷該宏是否被定義而確定是否禁用了自定義拓展。
 /Zc:arg1[,arg2] C++語言合規性，這裏的參數可以是：
     forScope[-] - 對範圍規則強制使用標準C++
     wchar_t[-] - wchar_t是本機類型，不是typedef
