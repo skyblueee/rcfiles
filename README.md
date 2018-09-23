@@ -42,7 +42,7 @@ Press `<Ctrl-o>` to open ranger, and press `q` to leave you in the proper direct
 * 开启了label-mode，移动过程中可以输入label快速移动（类似于easymotion）。
 
 ### Insert motion
-* `<C-h/l>` to move quickly in insert mode.
+* `<C-h/l/j>` to move quickly in insert mode.
 
 ### Quick filesystem navigation
 *NERDTree* is used to navigate in filesystem.
@@ -145,6 +145,14 @@ Select lines and `:Tabularize /=` ('=' can be replaced by [-|%] and stuff).
     * [count][iaIA][ln][, . ; : + - = ~ _ * # / | \ & $ ~]
     * if, af, ic, ac, id, ad
     * ii, ai
+
+### Surrounding
+1. select `word` and use `S<space><space>` to get ` word `.
+1. select `word` and use `S<space>'` to get `' word '`.
+1. select `word` and use `S'` to get `'word'`.
+1. select `word` and use `S(` to get `( word )`.
+1. select `word` and use `S)` to get `(word)`.
+1. use 'cs' to change and 'ds' to delete.
 
 ### Markdown
 *mathjax-support-for-mkdp* and *markdown-preview.vim* is used to preview markdown files in your browser. `:MarkdownPreview` to open it. It will auto update while you are typing.
