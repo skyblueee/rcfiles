@@ -1,4 +1,5 @@
-VERSION = DEBUG  # DEBUG, PROFILE, RELEASE
+# DEBUG, PROFILE, RELEASE
+VERSION = DEBUG
 ############################################################
 # flags
 CFLAGS =  # -Iinclude
