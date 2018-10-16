@@ -42,6 +42,7 @@ Out[296]:
     3. size
     4. dtype
     5. itemsize
+    1. data -- 指向实际数据的指针
     6. nbytes
     7. T
     8. real
