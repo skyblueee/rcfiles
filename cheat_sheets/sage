@@ -1,0 +1,78 @@
+# install
+需要注意的是在安裝前把解壓縮後的文件放在預定位置，安裝後不可修改，但可以通過ln -s在PATH中放入一個符號鏈接。
+
+# 配置文件
+`$SAGE_ROOT/ipythonrc`
+
+# ways to use
+1. 默認進入交互式shell模式。
+    1. logstart filename
+    1. load("filename")
+    1. save_session("filename")
+    1. load_session("filename")
+2. notebook()在瀏覽器中使用notebook界面。
+3. 程序文件：load('foo.sage'), attach('foo.sage')
+4. 腳本：以#!/usr/bin/env sage開頭的腳本文件。
+
+# Help
+* matrix_plot?
+* matrix_plot??
+* help(matrix_plot)
+* browse_sage_doc(matrix_plot)
+
+# 操作符
+1. **和^都表示指數冪運算。
+1. %表示取模。
+1. 部分運算（比如5/10,exp(1),sin(1))結果存儲精確值，要取數值，使用N()函數或者n()方法。
+
+# 符號運算
+1. 定義符號： x = var('x')
+1. 解方程: use solve() to solve equations.
+           use find_root() to find a numeric solution.
+1. 微積分: use diff()/integral() to differentiate/integrate functions.
+
+# Plot
+1. 基本圖形：c = circle((0,0), 1, rgbcolor=(1,1,0), fill=True)
+             c.show()
+             c.save('filename.png', aspect_ratio=1)
+1. 基本函數：plot(cos, (-5, 5))
+             def f(z): return z^2
+             plot(f, 0, 2)
+1. 參數曲線：x = var('x')
+             parametric_plot((cos(x),sin(x)^3),(x,0,2*pi),rgbcolor=hue(0.6))
+1. 連點成線：v = [(sin(x),x) for x in srange(-2*float(pi),2*float(pi),0.1)]
+             line(v)
+1. 連點成面：L = [[0, 0], [0, 1], [1,1], [1, 0]]
+             p = polygon(L, rgbcolor=(1/8,1/4,1/2))
+1. more: plot3d, contour_plot polar_plot
+
+# Ring, Field
+1. ZZ: 整數環
+1. QQ: 有理數域
+1. RR: 實數域
+1. CC: 複數域
+1. RDF(Real Double Field)
+1. CDF(Complex Double Field)
+1. GF(Num)
+
+1. 模數環：IntegerModRing(Num)
+1. 多項式環：R = PolynomialRing(QQ, 't') <==> R = QQ['t']
+             R.<t> = PolynomialRing(QQ) <==> R.<t> = QQ['t'] <==> R.<t> = QQ[]
+
+# 線性代數
+1. A = Matrix([[1,2,3],[3,2,1],[1,1,1]]); Matrix(RR, [[1, 2], [3, 4]])
+1. w = vector([1,1,-4])
+1. X = kernel(A) <==> XA = 0
+1. X = A \ Y <==> X = A.solve_right(Y) <==> AX = Y
+1. X = A.solve_left(Y) <==> XA = Y
+
+# 數論
+1. 歐幾里得算法：gcd()，xgcd()
+1. 因子和素因子：divisors(), prime_divisors()
+1. 找素數：next_prime()，previous_prime()
+1. 乘法逆元：inverse_mod()
+1. 歐拉函數：euler_phi()
+1. 計算特定因子的冪指數部分：valuation()
+1. 除2因子冪後的剩餘部分：odd_part()
+1. 排除特定素因子冪後的剩餘部分：prime_to_m_part()
+1. 中國剩餘定理：crt()
