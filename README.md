@@ -26,7 +26,7 @@ Press `<Ctrl-o>` to open ranger, and press `q` to leave you in the proper direct
 ### Buffer navigation
 *vim-airline* shows buffer numbers in a tabline.
 
-1. `<TAB>` to navigate among buffers.
+1. `<TAB>/<S-TAB>` to navigate among buffers.
 2. `<leader><num>` or `:b<num><CR>` to go to buffer<num>.
 
 ### 快速移动

@@ -255,6 +255,11 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWritePre * %s/\s\+$//e
 
+"==|Windows|===================================================================
+if has('win32') || has('win64')
+    set makeprog=nmake.exe
+endif
+
 "==|GUI|=======================================================================
 set guioptions-=T
 if has('gui_running')
