@@ -1,159 +1,72 @@
 ## List
 * 删除list中的元素
-```python
->>> letters
-['a', 'b', 'C', 'D', 'E', 'f', 'g']
->>> # now remove them
+>>> letters  # ['a', 'b', 'C', 'D', 'E', 'f', 'g']
 >>> letters[2:5] = []
->>> letters
-['a', 'b', 'f', 'g']
-```
+>>> letters  # ['a', 'b', 'f', 'g']
+
 * list拼接
-```python
->>> squares[:]
-[1, 4, 9, 16, 25]
->>> squares + [36, 49, 64, 81, 100]
-[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
-```
+>>> squares[:]  # [1, 4, 9, 16, 25]
+>>> squares + [36, 49, 64, 81, 100]  # [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
 
 * 对list循环时对list进行修改，先用slice进行深拷贝
-```python
 >>> words = ['cat', 'window', 'defenestrate']
 >>> for w in words[:]:  # Loop over a slice copy of the entire list.
 ...     if len(w) > 6:
 ...         words.insert(0, w)
 ...
->>> words
-['defenestrate', 'cat', 'window', 'defenestrate']
-```
+>>> words  # ['defenestrate', 'cat', 'window', 'defenestrate']
 若将`words[:]`替换为`words`，将是一个无限循环（无限在最前面插入'defenestrate'）。
 
 
 ## 字符串
-
 * 用raw string取消转义。
-```python
->>> print('C:\some\name')  # here \n means newline!
-C:\some
-ame
->>> print(r'C:\some\name')  # note the r before the quote
-C:\some\name
-```
+>>> print(r'C:\some\name')  # \n means newline! note the r before the quote
 
 * 三引号字符串中可以用`\`取消行尾的回车换行。
-```python
 print("""\
 Usage: thingy [OPTIONS]
      -h                        Display this usage message
      -H hostname               Hostname to connect to
 """)
-```python
-> Usage: thingy [OPTIONS]
->      -h                        Display this usage message
->      -H hostname               Hostname to connect to
-```
 
 * 超出范围的引用会产生错误，超出范围的slice则不会。
-Attempting to use an index that is too large will result in an error:
-```python
 >>> word = "python"
->>> word[42]  # the word only has 6 characters
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-IndexError: string index out of range
->>> word[4:42]
-'on'
->>> word[42:]
-''
-```
+>>> word[42]  # IndexError: string index out of range
+>>> word[4:42]  # 'on'
+>>> word[42:]  # ''
 
 ## for循环
-* Python3中，range()返回一个迭代器，而不是一个list。
-```python
->>> type(range(4))
-range
->>> print(range(4))
-range(0, 4)
->>> list(range(4))
->>> [0, 1, 2, 3]
->>> tuple(range(4))
-(0, 1, 2, 3)
-```
 * for和while的else从句：当不通过break来结束循环时，执行else从句内容。
 
 ## 函数
 * 函数参数的默认值在定义时动态指定。
-```python
 i = 5
-
 def f(arg=i):
     print(arg)
-
 i = 6
 f() # will print 5
-```
 
 * 函数包含mutable默认参数时，每次调用都会改变这个参数。
-```python
 def f(a, L=[]):
     L.append(a)
     return L
 
-print(f(1))
-print(f(2))
-print(f(3))
-```
-输出为：
-```python
-[1]
-[1, 2]
-[1, 2, 3]
-```
+print(f(1))  # [1]
+print(f(2))  # [1, 2]
+print(f(3))  # [1, 2, 3]
+
 如果不希望这种行为，可以如下定义函数：
-```python
 def f(a, L=None):
     if L is None:
         L = []
     L.append(a)
     return L
-```
-
-* 形参中的`*args`和`**kargs`：`*args`表示调用时传入的除已占位参数以外的所有位置参数（position argument）,`**kargs`表示调用时传入的除已命名参数外的所有命名参数（keyword argument），`**kargs`必须位于`*args`之后，且`*args`之后不能再出现位置参数。
-```python
-def cheeseshop(kind, *arguments, **keywords):
-    print("-- Do you have any", kind, "?")
-    print("-- I'm sorry, we're all out of", kind)
-    for arg in arguments:
-        print(arg)
-    print("-" * 40)
-    for kw in keywords:
-        print(kw, ":", keywords[kw])
-
-cheeseshop("Limburger", "It's very runny, sir.",
-           "It's really very, VERY runny, sir.",
-           shopkeeper="Michael Palin",
-           client="John Cleese",
-           sketch="Cheese Shop Sketch")
-```
-输出为：
-```python
--- Do you have any Limburger ?
--- I'm sorry, we're all out of Limburger
-It's very runny, sir.
-It's really very, VERY runny, sir.
-----------------------------------------
-shopkeeper : Michael Palin
-client : John Cleese
-sketch : Cheese Shop Sketch
-```
 
 * 解压后传递参数：有时想将list解压后传入函数，调用时在list变量名前加上`*`。类似的，将dict解压调用时前面加上`**`。
-```python
->>> list(range(3, 6))
-[3, 4, 5]
+>>> list(range(3, 6))  # [3, 4, 5]
 >>> a = [3, 6]
->>> list(range(*a))
-[3, 4, 5]
+>>> list(range(*a))  # [3, 4, 5]
+
 >>> def parrot(voltage, state='a stiff', action='voom'):
 ...     print("-- This parrot wouldn't", action, end=' ')
 ...     print("if you put", voltage, "volts through it.", end=' ')
@@ -162,26 +75,19 @@ sketch : Cheese Shop Sketch
 >>> d = {"voltage": "four million", "state": "bleedin' demised", "action": "VOOM"}
 >>> parrot(**d)
 -- This parrot wouldn't VOOM if you put four million volts through it. E's bleedin' demised !
-```
 
 * lambda表达式可看作一个匿名函数，不止可以用于返回值，也可以创建指定参数的函数。
-```python
 >>> def make_incrementor(n):
 ...     return lambda x: x + n
 ...
 >>> f = make_incrementor(42)
->>> f(0)
-42
->>> f(1)
-43
+>>> f(0)  # 42
+>>> f(1)  # 43
 >>> pairs = [(1, 'one'), (2, 'two'), (3, 'three'), (4, 'four')]
 >>> pairs.sort(key=lambda pair: pair[1])
->>> pairs
-[(4, 'four'), (1, 'one'), (3, 'three'), (2, 'two')]
-```
+>>> pairs  # [(4, 'four'), (1, 'one'), (3, 'three'), (2, 'two')]
 
 ## 类型声明。可以在定义时声明参数和返回值的类型，如下所示：
-```python
 >>> def f(ham: str, eggs: str = 'eggs') -> str:
 ...     print("Annotations:", f.__annotations__)
 ...     print("Arguments:", ham, eggs)
@@ -191,28 +97,30 @@ sketch : Cheese Shop Sketch
 Annotations: {'ham': <class 'str'>, 'return': <class 'str'>, 'eggs': <class 'str'>}
 Arguments: spam eggs
 'spam and eggs'
-```
 
 
 ## 交互模式下的启动配置文件
-交互模式下启动python，会自动读取执行PYTHONSTARTUP环境变量指定文件中的内容，类似bashrc文件。在该文件中还可以利用类似`if os.path.isfile('.pythonrc.py'): exec(open('.pythonrc.py').read())`的代码读取执行其他文件的内容。
+交互模式下启动python，会自动读取执行PYTHONSTARTUP环境变量指定文件中的内容，类似bashrc文件。
+在该文件中可以利用`if os.path.isfile('.pythonrc.py'): exec(open('.pythonrc.py').read())`读取执行其他文件的内容。
 
 如果要在脚本（非交互换环境）中使用该文件，需如下显式调用。
-```python
-import os
-filename = os.environ.get('PYTHONSTARTUP')
-if filename and os.path.isfile(filename):
-    with open(filename) as fobj:
-        startup_file = fobj.read()
-    exec(startup_file)
-```
+>>> import os
+>>> filename = os.environ.get('PYTHONSTARTUP')
+>>> if filename and os.path.isfile(filename):
+...     with open(filename) as fobj:
+...         startup_file = fobj.read()
+...     exec(startup_file)
 
-## http-server
+## http ftp smtp server
 python -m SimpleHTTPServer  # v2.7
 python -m http.server 8000  # v3
+python -m pyftpdlib -w -d dir
+python -m smtpd -n -c DebuggingServer localhost:1025
+
 
 ## ctypes
-ctypes中基本数据类型是在前面加个前缀“c_”，比如int是c_int，unsigned int是c_uint，不同的是这些在c里面是数据类型，在python里都是类，因此将类实例化成对象就行了。
+ctypes中基本数据类型是在前面加个前缀“c_”，比如int是c_int，unsigned int是c_uint，
+不同的是这些在c里面是数据类型，在python里都是类，因此将类实例化成对象就行了。
 
 ctypes中有指针操作，对一个c_int对象取指针用pointer()，然后.contents就是指向的内容，如果要创造指针类型，就用POINTER(c_int),这样实例化出来的就是指针类型。
 
@@ -220,20 +128,44 @@ cytpes中的数组格式是“数据类型*数组长度”，比如c_char*32就�
 
 最后是structure，在ctypes中是继承Structure类的一个子类，在类属性__fields__中赋值一个定义结构体成员的列表，举例如下：
 
-```python
 from ctypes import *
 class MyStructure(Structure):
     _fields_ = [("aint", c_int),
                 ("puint", POINTER(c_uint)),
                 ("charArray", c_char*32)]
-```
-
-## ftp-server
-python -m pyftpdlib -w -d dir
-
-
-# SMTP-Server for debugging, messages will be discarded, and printed on stdout.
-python -m smtpd -n -c DebuggingServer localhost:1025
 
 # Pretty print a json
 python -mjson.tool
+
+# 解方程
+from z3 import *
+x = Int('x')
+y = Int('y')
+z = Int('z')
+s = Solver()
+s.add(x - y + z == 1550207830)
+s.add(y + 3 * (z + x) == 12465522610)
+s.add(z * y == 3651346623716053780)
+if s.check() != sat:
+	print 'unsat'
+else:
+	m = s.model()
+	print m
+#s2=[1868915551,1953724780,1635017059]
+
+# hex2str
+import binascii
+from libnum import n2s, s2n
+print(n2s(0x63617461) + n2s(0x6c797374) + n2s(0x5f63656f))
+#catalyst_ceo
+
+# 解二维码
+import qrtools  # python2
+qr = qrtools.QR()
+if qr.decode('a.bmp') is True:
+    print(qr.data)
+
+from pyzbar.pyzbar import decode  # python3
+res = decode(ndarray/PIL.Image)
+if res != []:
+    print(str(res[0].data, encoding='utf-8'))

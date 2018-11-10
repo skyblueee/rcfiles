@@ -60,7 +60,6 @@ Plug 'iamcco/markdown-preview.vim', {'for': 'markdown'}  " MarkdownPreview
 Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
 "---------------------------------------UI
-Plug 'mhinz/vim-startify'
 Plug 'mh21/errormarker.vim', {'for': ['c', 'cpp', 'python']}
 Plug 'liuchengxu/space-vim-dark'
 Plug 'luochen1990/rainbow'

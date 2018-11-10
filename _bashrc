@@ -146,6 +146,8 @@ alias ctf-b64decode='~/bin/ctf-tools/b64decode.py'
 alias ctf-b64encode='~/bin/ctf-tools/b64encode.py'
 alias ctf-xxencode='~/bin/ctf-tools/xxencode.py'
 alias ctf-jpgeofx='~/bin/ctf-tools/jpegeofx.py'
+alias ctf-ida_dbg_linux_server32='~/bin/ctf-tools/linux_server'
+alias ctf-ida_dbg_linux_server64='~/bin/ctf-tools/linux_server64'
 libc-add(){ echo "cd ~/bin/ctf-tools/libc-database; ./add $@" | bash; }
 libc-get(){ echo "cd ~/bin/ctf-tools/libc-database; ./get $@" | bash; }
 libc-find(){ echo "cd ~/bin/ctf-tools/libc-database; ./find $@" | bash; }
