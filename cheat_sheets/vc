@@ -104,8 +104,9 @@ cl [option...] file... [option | file]... [lib...] [@command-file] [/link link-o
 /WX 將警告視爲錯誤
 
 ### 鏈接
-/LD 創建DLL
-/LDd 創建DLL調試庫
+/LD 創建Release版DLL
+/LDd 創建Debug版DLL
+/DEF [.lib file] 指定def文件
 /link [連接器選項和庫]
 /ML 使用LIBC.LIB創建單線程可執行文件
 /MLd 使用LIBCD.LIB創建單線程可執行文件
