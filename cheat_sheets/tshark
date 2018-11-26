@@ -1,0 +1,11 @@
+# 讀取文件：
+tshark -r filename
+# 指定輸出格式：
+tshark -r filename -T pdml|ps|psml|json|jsonraw|ek|tabs|text|fields
+# 過濾
+tshark -r filename [filter-expression]
+# 輸出特殊字段
+tshark -r filename -T fields -e ip.src -e tcp.port [filter-expression(tcp.port==80)]
+# 直接輸出某一層的數據（禁止解析已知協議）
+tshark -r filename -T fields --disable-protocal dns -e data [filter-expression]
+
