@@ -37,6 +37,7 @@ Usage: thingy [OPTIONS]
 
 ## for循环
 * for和while的else从句：当不通过break来结束循环时，执行else从句内容。
+* itertools.product用於避免過多的嵌套for循環。
 
 ## 函数
 * 函数参数的默认值在定义时动态指定。
