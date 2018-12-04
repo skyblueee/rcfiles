@@ -151,6 +151,7 @@ alias ctf-jpgeofx='~/bin/ctf-tools/jpegeofx.py'
 alias ctf-ida_dbg_linux_server32='~/bin/ctf-tools/linux_server'
 alias ctf-ida_dbg_linux_server64='~/bin/ctf-tools/linux_server64'
 alias ctf-uncompy2le6='~/bin/ctf-tools/uncompy2le6'
+alias ctf-demov='~/bin/ctf-tools/demovfuscator/demov'
 libc-add(){ echo "cd ~/bin/ctf-tools/libc-database; ./add $@" | bash; }
 libc-get(){ echo "cd ~/bin/ctf-tools/libc-database; ./get $@" | bash; }
 libc-find(){ echo "cd ~/bin/ctf-tools/libc-database; ./find $@" | bash; }
