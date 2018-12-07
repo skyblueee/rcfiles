@@ -13,13 +13,35 @@ q, quit                          # exit
 # 跟踪子/父进程
 set follow-fork-mode child/parent
 
+# 設置程序和環境變量
+file elf_file
+set environment LD_PRELOAD ./libc.so.6
+
+# 跟蹤heap動態變換
+define mallocfinish
+	finish
+	printf "= %p\n", $eax
+	continue
+end
+
+
+b malloc
+commands 1
+	silent
+	printf "malloc(%d)        #", *(int*)($sp+4)
+	mallocfinish
+end
+
+b free
+commands 2
+	silent
+	printf "free(%p)\n", *(unsigned int*)($sp+4)
+	c
+end
+
 ## tui
 gdb -tui your-executable
 窗口切换             ： c-x o
 查看指令（汇编窗口） ： layout split
 重绘界面             ： c-l
 
-## peda
-命令列表：peda
-
-## cdbg

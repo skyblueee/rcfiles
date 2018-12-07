@@ -1,8 +1,9 @@
 # 程序交互
 - 与远程服务交互    p = remote('ftp.ubuntu.com', 21)
-- 与本地程序交互    p = process('/bin/sh')
+- 与本地程序交互    p = process('/bin/sh', env={'LD_PRELOAD': './libc.so.6'})
 - IO交互    p.send(), p.sendline(), p.sendafter('sth'), p.sendlineafter('sth')
             p.recv(), p.recvline(), p.recvuntil('sth'), p.recvrepeat()
+- gdb交互   gdb.attach(p)
 - 直接交互  p.interactive()
 - 关闭交互  p.close()
 
@@ -53,12 +54,19 @@ FmtStr() : 自動化攻擊。
 
 # 读写ELF文件
 >>> e = ELF('/bin/cat')
+>>> print hex(e.got['write'])  # 0x60b070
+>>> print hex(e.plt['write'])  # 0x401680
 >>> e.read(e.address, 4)
 '\x7fELF'
 >>> e.asm(e.address, 'ret')
 >>> e.save('/tmp/quiet-cat')
 >>> disasm(file('/tmp/quiet-cat','rb').read(1))
 '   0:   c3                      ret'
+
+>>> libc = ELF('./libc.so.6')
+>>> free_func = libc.symbols['free']
+
+# ROP  # TODO
 
 # 模拟其他体系结构计算机
 ## 要求

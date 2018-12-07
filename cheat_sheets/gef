@@ -35,6 +35,7 @@ $命令模仿windbg中的?命令。
 - heap arenas   -   顯示所有線程的arena
 - heap bins -   顯示所有bins
 - heap bins fast/small/large/unsorted   -   顯示特定bins
+- heap-analysis-helper  -   跟踪堆变化，開發中，目前free的跟蹤好像有問題。
 
 # 文件描述符
 - fd    -   顯示當前打開的文件描述符
@@ -46,6 +47,7 @@ gef save
 gef restore
 
 ## context layout
+gef config context.enable 0 : 關閉上下文信息輸出
 gef config context.layout "-legend regs stack code args -source -threads -trace extra memory"
 memory面板顯示memory命令指定的內容：
 memory watch $sp 0x40 byte將會顯示棧中0x40個byte。
