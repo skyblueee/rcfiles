@@ -194,13 +194,14 @@ Skip it even use step. Skips can be listed, deleted, disabled, and enabled, much
 * dump [format] value filename expr
 * append [binary] memory filename start_addr end_addr
 * append [binary] value filename expr
-* restore filename [binary] bias start end
+* restore filename [binary] address [off_start off_end] # restore data.bin binary 0x7ffffff7fcf006
 
 # change
-* print x=1
-* set var x=1
-* set {int}0x83040 = 4
-* set $pc = 0x485
+* print x=1  # change var
+* set var x=1  # change var
+* set {int}0x83040 = 4  # change memory
+* set $pc = 0x485  # change register
+* restore memory
 
 # User-defined cmd
 * show user [cmdname]
@@ -226,6 +227,9 @@ Skip it even use step. Skips can be listed, deleted, disabled, and enabled, much
     <<<---Hello World--->>>
 * hook a multi-word command by adding hook- or hookpost- to the last word of the command, e.g. ‘define target hook-remote’ to add a hook to ‘target remote’.
 
+# disable alarm
+#
 # more
 * Specifying a Debugging Target # A target is the execution environment occupied by your program.
 * Extending gdb using Python
+

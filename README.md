@@ -1,4 +1,4 @@
-[TOC]
+{:toc}
 
 # Introduction
 
@@ -87,45 +87,6 @@ Use `<C-l>`/`<C-j>` in insert mode to move quickly right out of paires.
 *YCM* (C-family) and *ale* (python) can check the syntax, then give signs and location-list automaticly.
 * `<leader>j/k` to navigate among the list.
 * `:lopen [height]` opens the location-list.
-
-### Debug
-Use *q* to debug python files. (For an IDE, use Pycharm)
-
-Install q with `pip install -U q`.
-
-All output goes to /tmp/q, which you can watch with `tail -f /tmp/q`.
-
-If _$TMPDIR_ is set, the output goes to _$TMPDIR/q_.
-Note: Some alternatives to the TMPDIR variable are TEMP, TEMPDIR and TMP
-
-1. To print the value of foo, insert this into your program:
-    ```python
-    import q; q(foo)
-    ```
-2. To print the value of something in the middle of an expression, insert
-  "q()", "q/", or "q|".  For example, given this statement:
-    ```python
-    file.write(prefix + (sep or '').join(items))
-    ```
-    ... you can print out various values without using any temporary variables:
-    ```python
-    file.write(prefix + q(sep or '').join(items))  # prints (sep or '')
-    file.write(q/prefix + (sep or '').join(items))  # prints prefix
-    file.write(q|prefix + (sep or '').join(items))  # prints the arg to write
-    ```
-3. To trace a function's arguments and return value, insert this above the def:
-    ```python
-    import q
-    @q
-    ```
-4. To start an interactive console at any point in your code, call q.d():
-
-    ```python
-    import q; q.d()
-    ```
-
-The following [Lightning Talk](http://pyvideo.org/video/1858/sunday-evening-lightning-talks#t=25m15s)
-shows how powerful using q can be.
 
 ### Tabularize
 *tabular* is used to tabularize something.

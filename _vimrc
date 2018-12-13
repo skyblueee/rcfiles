@@ -48,7 +48,6 @@ Plug 'skywind3000/asyncrun.vim', {'for': ['python', 'c', 'cpp', 'sh', 'matlab']}
 Plug 'fs111/pydoc.vim', {'for': 'python'}  " just press K(or <leader>pw) in python files
 Plug 'w0rp/ale', {'for': ['python', 'c', 'cpp', 'sh']}
 Plug 'sbdchd/neoformat'
-Plug 'metakirby5/codi.vim'  " :Codi to play with python codes
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 "---------------------------------------
@@ -626,14 +625,6 @@ let g:ale_c_cppcheck_options = ''
 let g:ale_cpp_cppcheck_options = ''
 nmap <silent> <leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <leader>j <Plug>(ale_next_wrap)
-
-"==|codi.vim|==================================================================
-let g:codi#interpreters = {
-            \ 'python': {
-            \   'bin': 'python3',
-            \   'prompt': '^\(>>>\|\.\.\.\) ',
-            \   },
-            \ }
 
 "==|nerdcommenter|=============================================================
 let g:NERDDefaultAlign = 'left'

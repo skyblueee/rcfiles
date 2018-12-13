@@ -132,7 +132,6 @@ alias ip3='ipython3'
 alias checksec='~/bin/checksec.sh/checksec'
 alias mancpp='cppman'
 alias manasm='~/bin/go/bin/cgasm'
-alias du='ncdu'
 alias wgetR='wget -m -p -np -k'
 alias grep='grep --color=auto'
 alias git='LC_ALL=C git'
@@ -158,8 +157,6 @@ libc-find(){ echo "cd ~/bin/ctf-tools/libc-database; ./find $@" | bash; }
 libc-dump(){ echo "cd ~/bin/ctf-tools/libc-database; ./dump $@" | bash; }
 libc-identify(){ echo "cd ~/bin/ctf-tools/libc-database; ./identify $@" | bash; }
 ctf-stegsolve(){ java -jar ~/bin/ctf-tools/Stegsolve.jar & }
-
-ctf-codi() { vim -c "Codi" "$@"; }
 
 # golang
 export GOPATH=~/bin/go
