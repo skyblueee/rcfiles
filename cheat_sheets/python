@@ -171,23 +171,23 @@ res = decode(ndarray/PIL.Image)
 if res != []:
     print(str(res[0].data, encoding='utf-8'))
 
-# Debug -- `pip install -U q`
-All output goes to /tmp/q, which you can watch with `tail -f /tmp/q`.
+# Debug
+## `pip install -U ipdb`
+import ipdb; ipdb.set_trace()
 
-If _$TMPDIR_ is set, the output goes to _$TMPDIR/q_.
-Note: Some alternatives to the TMPDIR variable are TEMP, TEMPDIR and TMP
+## IPython
+insert `from IPython import embed; embed()` anywhere you want.
+
+## `pip install -U q`
+All output goes to /tmp/q, which you can watch with `tail -f /tmp/q`.
 
 1. To print the value of foo, insert this into your program:
     ```python
     import q; q(foo)
     ```
-2. To print the value of something in the middle of an expression, insert
-  "q()", "q/", or "q|".  For example, given this statement:
+2. To print the value of something in the middle of an expression, insert "q()", "q/", or "q|".
     ```python
-    file.write(prefix + (sep or '').join(items))
-    ```
-    ... you can print out various values without using any temporary variables:
-    ```python
+    # file.write(prefix + (sep or '').join(items))
     file.write(prefix + q(sep or '').join(items))  # prints (sep or '')
     file.write(q/prefix + (sep or '').join(items))  # prints prefix
     file.write(q|prefix + (sep or '').join(items))  # prints the arg to write
@@ -198,11 +198,6 @@ Note: Some alternatives to the TMPDIR variable are TEMP, TEMPDIR and TMP
     @q
     ```
 4. To start an interactive console at any point in your code, call q.d():
-
     ```python
     import q; q.d()
     ```
-
-The following [Lightning Talk](http://pyvideo.org/video/1858/sunday-evening-lightning-talks#t=25m15s)
-shows how powerful using q can be.
-
