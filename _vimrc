@@ -494,8 +494,7 @@ call g:quickmenu#reset()
 call g:quickmenu#header('')
 "----------------------------------------
 call g:quickmenu#append('# Window', '')
-call g:quickmenu#append('Startify', 'Startify', ':Startify')
-call g:quickmenu#append('NERDTreeToggle', 'NERDTreeToggle', '<leader>f')
+call g:quickmenu#append('NERDTreeToggle', 'NERDTreeToggle', '<leader>F')
 function! Ranger()
     silent !ranger --choosefile=/tmp/chosen
     if filereadable('/tmp/chosen')
@@ -527,10 +526,6 @@ call g:quickmenu#append("Run Matlab", "AsyncRun -raw octave %:p",
             \ "run current script.", 'matlab')
 call g:quickmenu#append("Run file", "let $PYTHONUNBUFFERED=1 | AsyncRun -raw %:p",
             \ "run current script. | Use `AsyncRun python` to run selected lines.", 'python,sh')
-call g:quickmenu#append("Compile and Run",
-            \ 'AsyncRun -auto=make gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)"
-            \ && "$(VIM_FILEDIR)/$(VIM_FILENOEXT)"',
-            \ "Compile current c/cpp file", 'c,cpp')
 call g:quickmenu#append("make", 'AsyncRun -auto=make -cwd=<root> make', "*make* on current project", 'c,cpp')
 call g:quickmenu#append("make run", 'AsyncRun -cwd=<root> make run', "*make run* on current project", 'c,cpp,python')
 call g:quickmenu#append("make test", 'AsyncRun -cwd=<root> make test', "*make test* on current project", 'c,cpp')
