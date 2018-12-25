@@ -78,10 +78,17 @@ Out[296]:
     2. 求值：polyval()
     3. 求根：roots()
     4. 求导：polyder()
-# 卷积
-    1. convolve()
+# 信號處理
+    1. 卷積：convolve()
+    1. fft：np.fft.fft(), np.fft.ifft(), rfft(), rifft()
+    1. 複數角度：np.angle(), np.rad2deg()
 # 避免循环
     1. 矢量化：np.vectorize(func)将作用于标量的函数进行矢量化，返回的函数可以作用于数组。
+# print
+    1. print(np.array_str(a))
+# 分段函數
+    1. x = np.arange(0, 1, 1/size); y = np.where(x<0.5, x, 1-x);
+    1. 切頂：np.clip(array_like, min, max, out)
 # 判断正负：sign()
 # 判断两个array相等：np.array_equal(arrya1, array2)
 # numpy to ctypes

@@ -11,3 +11,13 @@
 - 3G~30G    超高頻（SHF）   衛星通信、無線電高度計、微波鏈路、記載雷達、氣象雷達、公用陸地移動通信
 - 300G~3T   亞毫米波(0.1~1mm)   未划分，實驗用
 - 43T~3000T 紅外、可見光、紫外  光通信系統
+
+# Hilbert變換
+1. 在幅度不不變的情況下將相角偏移90°，頻率響應H(w)=j*sgn(w)，正弦波變爲餘弦波。
+1. 可以用於包絡檢測envelop(x) = sqrt(Hilbert(x)^2 + x^2)，sin^2(x) + cos^2(x) = 1
+1. from scipy.fftpack import hilbert
+
+# 利用fft實現快速卷積
+1. from scipy.signal import fftconvolve
+1. 對於較短的序列，直接卷積更快；對於較長序列，利用FFT優勢更大。大概在512時兩者相當，1024以上快速卷積優勢明顯。
+
