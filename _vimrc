@@ -21,6 +21,7 @@ Plug 'junegunn/fzf.vim'  " <leader>fl/ for file/line/ag
 Plug 'Yggdroot/LeaderF', {'do': './install.sh'}
 Plug 'easymotion/vim-easymotion' " <leader><leader>swafFjk
 Plug 'justinmk/vim-sneak'  " fxx
+Plug 'terryma/vim-multiple-cursors'
 Plug 'terryma/vim-expand-region' " v vv vvv
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'  "ds/cs
