@@ -211,7 +211,7 @@ set ignorecase smartcase
 "---------------------------------------
 set foldenable
 set fdm=indent
-set foldlevel=99
+set foldlevel=1
 "---------------------------------------
 set backspace=indent,eol,start
 "---------------------------------------

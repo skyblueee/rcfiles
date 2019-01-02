@@ -1,0 +1,72 @@
+# projectname.pro
+TEMPLATE = app(default)/lib/aux/subdirs/vcapp/vclib/vcsubdirs
+SUBDIRS = dir1 dir2 dir3
+include(other.pro)
+
+TARGET = output_name
+DEST = "Program Output Dir"  # comments
+DESTDIR = "install_path"
+TEMP_SOURCES = $$SOURCES
+DEFINES += USE_MY_STUFF
+DEPENDPATH += the dependency search path
+VPATH += the search path to find supplied files
+HEADERS += a.h b,h
+SOURCES += a.c b.c main.c
+FORMS += main.ui
+win32:INCLUDEPATH += "C:/mylibs/extra headers"
+unix:LIBS += "-L/home/user/extra_libs -lmath"
+QT += network xml  # by default, QT contains both core and gui.
+
+CONFIG -= qt(this value is added by default)
+CONFIG += link_pkgconfig
+PKGCONFIG += ogg dbus-1
+
+win32:debug {
+    CONFIG += console(Windows console app)/windows(Windows GUI app)/testcase(automated test)
+}
+
+# test case
+CONFIG += testcase
+TESTRUNNER = "test-wrapper --timeout 120"
+TESTARGS = "-o result.xml,xunitxml"
+CONFIG += insignificant_test  # ignore exit code during make check
+win32:DEF_FILE = dllname.def
+
+# library
+TEMPLATE = lib
+CONFIG += dll/staticlib/plugin
+VERSION = 2.3.1
+
+# debug release
+CONFIG += debug/release/debug_and_release/build_all
+CONFIG(debug, debug|release) {
+    TARGET = debug_binary_name
+    mac: TARGET = $$join(TARGET,,,_debug)
+    win32: TARGET = $$join(TARGET,,d)
+} else {
+    TARGET = release_binary_name
+}
+
+# custom targets
+mytarget.target = .buildfile  # a qmake target called mytarget, containing a Makefile target called .buildfile
+mytarget.commands = touch $$mytarget.target
+mytarget.depends = mytarget2
+mytarget2.commands = @echo Building $$mytarget.target
+QMAKE_EXTRA_TARGETS += mytarget mytarget2
+
+# qmake
+qmake -o Makefile hello.pro
+qmake
+qmake -tp vc hello.pro  # generate Visual Studio project files
+qmake -tp vc -r
+
+# qmake language
+EVERYTHING = $$SOURCES $$HEADERS  # use $$ to get contents of variables
+message("The project contains the fllowing files:")
+message($$EVERYTHING)
+
+DESTDIR = $$(PWD)  # use $$(...) to obtain contents of environment value when qmake is run
+message(The project will be installed in $$DESTDIR)
+DESTDIR = $(PWD)  # use $(...) to obtain contents of environment value when Makefile is processed
+
+HEADERS = $$unique(HEADERS)
