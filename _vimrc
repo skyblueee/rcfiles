@@ -301,6 +301,13 @@ nnoremap <leader>f :Files!<cr>
 nnoremap <leader>/ :Ag<cr>
 nnoremap <leader>l :BLines<cr>
 
+"==|Leaderf|=======================================================================
+let g:Lf_ReverseOrder = 1
+let g:Lf_WildIgnore = {
+        \ 'dir': ['.svn','.git','.hg'],
+        \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
+        \}
+
 "==|nerdtree-git-plugin|=======================================================
 let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "✹",
@@ -386,7 +393,8 @@ nmap <leader><leader>a <Plug>(easymotion-overwin-w)
 let g:sneak#prompt = 'sneak..>'
 let g:sneak#target_labels = ";abcdefghigklmnopqrstuvwxyz/"
 let g:sneak#label = 1
-map f <Plug>Sneak_s
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
 
 "==|vim-choosewin|=============================================================
 nmap  -  <Plug>(choosewin)
