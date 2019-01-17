@@ -69,7 +69,6 @@ Plug 'Shougo/echodoc.vim', {'for': ['c', 'cpp', 'python']}
 Plug 'yianwillis/vimcdoc'
 Plug 'vim-airline/vim-airline' " show infos
 Plug 'skyblueee/nerdtree', {'on': 'NERDTreeToggle'}
-Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
 Plug 'skywind3000/quickmenu.vim'  "<F12>
 Plug 'lilydjwg/colorizer'
 "---------------------------------------
@@ -287,9 +286,9 @@ nnoremap <leader>F :NERDTreeToggle<cr>
 let NERDTreeShowBookmarks = 1
 let NERDTreeCascadeSingleChildDir = 1
 let NERDTreeNaturalSort = 1
-let NERDTreeChDirMode = 2
 
 "==|fzf|=======================================================================
+" mix exact search terms and fuzzy terms by prefixing each term with ' character
 command! -bang -nargs=? -complete=dir Files
             \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 command! -bang -nargs=* Ag
@@ -307,20 +306,6 @@ let g:Lf_WildIgnore = {
         \ 'dir': ['.svn','.git','.hg'],
         \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
         \}
-
-"==|nerdtree-git-plugin|=======================================================
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ 'Ignored'   : '☒',
-    \ "Unknown"   : "?"
-    \ }
 
 "==|vim-airline|===============================================================
 nmap <tab> <Plug>AirlineSelectNextTab
