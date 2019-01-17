@@ -465,10 +465,11 @@ let g:UltiSnipsExpandTrigger = '<c-o>' " Open it! default '<TAB>'
 
 "==|auto-pairs|================================================================
 let g:AutoPairs = {'[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
-let g:AutoPairsMapCh=0
+let g:AutoPairsShortcutJump = ''
+let g:AutoPairsMapCh = 0
 
 "==|Pydoc|=====================================================================
-let g:pydoc_window_lines=0.7
+let g:pydoc_window_lines = 0.7
 let g:pydoc_cmd = 'python3 -m pydoc'
 
 "==|Gutentags|=================================================================
@@ -569,12 +570,6 @@ call g:quickmenu#append("GetDoc", 'YcmCompleter GetDoc',
             \ "displays type or declaration/Doxygen or javadoc/Python docstrings / etc.", 'c,cpp,python')
 
 noremap <silent><F12> :call quickmenu#toggle(0)<cr>
-
-"==|vim-startify|==============================================================
-let g:startify_custom_header = ""
-let g:startify_bookmarks = ['~/rcfiles/_vimrc']
-let g:startify_relative_path = 1
-let g:startify_change_to_dir = 1
 
 "==|errormarker.vim|===========================================================
 let errormarker_disablemappings = 1
