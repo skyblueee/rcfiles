@@ -65,7 +65,9 @@ Out[296]:
 # 数据类型转换：ndarray.astype()
 # 文件读写
     1. CVS: loadtxt()，savetxt()
-    2.
+    2. jpg/png: import matplotlab.pyplot as plt; a = plt.imread('a.jpg'); print(im.shape); plt.imsave('a.png', a)
+    3. bmp: import matplotlab.pyplot as plt; a = plt.imread('a.bmp'); print(im.shape)
+            from PIL import Image; b = Image.fromarray(); b.save('b.bmp')
 # 统计
     1. 加权平均：average()
     2. 极差（最大-最小）：ptp() -- peak to peak
