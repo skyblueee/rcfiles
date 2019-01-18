@@ -1,3 +1,11 @@
+:h i_<key>  插入模式命令
+:h :<key>   命令行模式命令
+:h v_<key>  可视模式命令
+
 :imap   查看所有imaps
 :imap <c-h> 查看特定imap
 :verbose imap <c-h> 查看特定imap定义位置
+
+:g/.*/m0 将文件逆序(从第一行开始匹配，匹配每一行，执行move操作移动到第0行)
+:g/patten/d 删除模式匹配的所有行
+:g!/patten/d    删除模式不匹配的所有行
