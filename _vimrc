@@ -521,9 +521,8 @@ call g:quickmenu#append("Run Matlab", "AsyncRun -raw octave %:p",
             \ "run current script.", 'matlab')
 call g:quickmenu#append("Run file", "let $PYTHONUNBUFFERED=1 | AsyncRun -raw %:p",
             \ "run current script. | Use `AsyncRun python` to run selected lines.", 'python,sh')
-call g:quickmenu#append("make", 'AsyncRun -auto=make -cwd=<root> make', "*make* on current project", 'c,cpp')
-call g:quickmenu#append("make run", 'AsyncRun -cwd=<root> make run', "*make run* on current project", 'c,cpp,python')
-call g:quickmenu#append("make test", 'AsyncRun -cwd=<root> make test', "*make test* on current project", 'c,cpp')
+call g:quickmenu#append("make", 'AsyncRun -auto=make -cwd=<root>/build make', "*make* on current project", 'c,cpp')
+call g:quickmenu#append("make test", 'AsyncRun -cwd=<root>/build make test', "*make test* on current project", 'c,cpp')
 function! TogglePy23()
     if g:ale_python_pylint_executable == 'python3'
         let g:ale_python_pylint_executable = 'python2'

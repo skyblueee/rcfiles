@@ -24,6 +24,11 @@ cl [option...] file... [option | file]... [lib...] [@command-file] [/link link-o
 - link-opt 一个或多个链接器选项。
 - 可以指定任意数目的选项、文件名和库名，条件是命令行上的字符数不超过1024，该限制是操作系统指定的。
 
+## 字符编码
+- /source-charset:utf-8 specify the source character sets
+- /execution-charset:utf-8 specify the execution character sets
+- /utf-8    specify both the source and execution character sets
+
 ### 優化選項
 /O1 最小化空間
 /O2 最大化速度
