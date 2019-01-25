@@ -16,11 +16,12 @@ endif
 Plug 'junegunn/vim-plug'
 "---------------------------------------fast move/select
 Plug 'Shougo/denite.nvim', {'for': ''}
+Plug 'skywind3000/asyncrun.vim'
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 Plug 'junegunn/fzf.vim'  " <leader>fl/ for file/line/ag
-Plug 'Yggdroot/LeaderF', {'do': './install.sh'}
+Plug 'Yggdroot/LeaderF', {'for': ['python', 'c', 'cpp', 'sh'], 'do': './install.sh'}
 Plug 'easymotion/vim-easymotion' " <leader><leader>swafFjk
-Plug 'justinmk/vim-sneak'  " fxx
+Plug 'justinmk/vim-sneak'  " sxx fx
 Plug 'terryma/vim-multiple-cursors'
 Plug 'terryma/vim-expand-region' " v vv vvv
 Plug 'tpope/vim-repeat'
@@ -45,7 +46,6 @@ Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'scrooloose/nerdcommenter'
 Plug 'vim-scripts/a.vim'
 Plug 'ludovicchabant/vim-gutentags', {'for': ['python', 'c', 'cpp']}
-Plug 'skywind3000/asyncrun.vim', {'for': ['python', 'c', 'cpp', 'sh', 'matlab']}
 Plug 'fs111/pydoc.vim', {'for': 'python'}  " just press K(or <leader>pw) in python files
 Plug 'w0rp/ale', {'for': ['python', 'c', 'cpp', 'sh']}
 Plug 'sbdchd/neoformat'
@@ -296,8 +296,32 @@ command! -bang -nargs=* Ag
             \                 <bang>0 ? fzf#vim#with_preview('up:60%')
             \                         : fzf#vim#with_preview('right:50%:hidden','?'),
             \                 <bang>0)
-nnoremap <leader>f :Files!<cr>
-nnoremap <leader>/ :Ag<cr>
+
+function! SmartFiles()
+  let root = split(system('git rev-parse --show-toplevel'), '\n')[0]
+  let root = v:shell_error ? '' : root
+  if empty(root)
+      call fzf#vim#files('', fzf#vim#with_preview(), 1)
+  else
+      call fzf#vim#gitfiles('', fzf#vim#with_preview(), 1)
+  endif
+endfunction
+
+function! SmartAg()
+  let root = split(system('git rev-parse --show-toplevel'), '\n')[0]
+  let root = v:shell_error ? '' : root
+  if empty(root)
+      exe 'Ag'
+  else
+      let l:pwd = getcwd()
+      exe 'cd ' . root
+      exe 'Ag'
+      exe 'cd ' . l:pwd
+  endif
+endfunction
+
+nnoremap <leader>f :call SmartFiles()<cr>
+nnoremap <leader>/ :call SmartAg()<cr>
 nnoremap <leader>l :BLines<cr>
 
 "==|Leaderf|=======================================================================
