@@ -16,7 +16,6 @@ endif
 Plug 'junegunn/vim-plug'
 "---------------------------------------fast move/select
 Plug 'Shougo/denite.nvim', {'for': ''}
-Plug 'skywind3000/asyncrun.vim'
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 Plug 'junegunn/fzf.vim'  " <leader>fl/ for file/line/ag
 Plug 'Yggdroot/LeaderF', {'for': ['python', 'c', 'cpp', 'sh'], 'do': './install.sh'}
@@ -46,6 +45,7 @@ Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'scrooloose/nerdcommenter'
 Plug 'vim-scripts/a.vim'
 Plug 'ludovicchabant/vim-gutentags', {'for': ['python', 'c', 'cpp']}
+Plug 'skywind3000/asyncrun.vim', {'for': ['python', 'c', 'cpp', 'sh', 'matlab']}
 Plug 'fs111/pydoc.vim', {'for': 'python'}  " just press K(or <leader>pw) in python files
 Plug 'w0rp/ale', {'for': ['python', 'c', 'cpp', 'sh']}
 Plug 'sbdchd/neoformat'
@@ -282,7 +282,6 @@ function! MaximizeWindow()
 endfunction
 
 "==|NERDTree|==================================================================
-nnoremap <leader>F :NERDTreeToggle<cr>
 let NERDTreeShowBookmarks = 1
 let NERDTreeCascadeSingleChildDir = 1
 let NERDTreeNaturalSort = 1
@@ -513,7 +512,7 @@ call g:quickmenu#reset()
 call g:quickmenu#header('')
 "----------------------------------------
 call g:quickmenu#append('# Window', '')
-call g:quickmenu#append('NERDTreeToggle', 'NERDTreeToggle', '<leader>F')
+call g:quickmenu#append('NERDTreeToggle', 'NERDTreeToggle', '')
 function! Ranger()
     silent !ranger --choosefile=/tmp/chosen
     if filereadable('/tmp/chosen')
