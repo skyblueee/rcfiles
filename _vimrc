@@ -22,35 +22,35 @@ Plug 'Yggdroot/LeaderF', {'for': ['python', 'c', 'cpp', 'sh'], 'do': './install.
 Plug 'easymotion/vim-easymotion' " <leader><leader>swafFjk
 Plug 'justinmk/vim-sneak'  " sxx fx
 Plug 'terryma/vim-multiple-cursors'
-Plug 'terryma/vim-expand-region' " v vv vvv
+Plug 'terryma/vim-expand-region', {'for': ['python', 'c', 'cpp', 'sh', 'matlab', 'vim']} " v vv vvv
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'  "ds/cs
 Plug 'junegunn/vim-peekaboo'  " visual @ and registers and <c-r> for insert mode pasting.
 Plug 'kshenoy/vim-signature' " m<a-zA-Z> m/ m<space> | m<0-9> m? m<bs>
 Plug 't9md/vim-choosewin'  " press - to choose window
 "---------------------------------------补全
-Plug 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs', {'for': ['python', 'c', 'cpp', 'sh', 'matlab', 'vim']}
 Plug 'honza/vim-snippets', {'for': ['python', 'c', 'cpp', 'sh']}
 Plug 'SirVer/ultisnips', {'for': ['python', 'c', 'cpp', 'sh']}  " must before CompleteParameter.vim
 Plug 'Valloric/YouCompleteMe', {'for': ['python', 'c', 'cpp'], 'do': 'python3 ./install.py --clang-completer'}
-Plug 'tenfyzhong/CompleteParameter.vim'
+Plug 'tenfyzhong/CompleteParameter.vim', {'for': ['c', 'cpp', 'python']}
 "---------------------------------------文本对象
 Plug 'wellle/targets.vim'  " i) a, i', i*, a_, a$
-Plug 'kana/vim-textobj-user'  " Create your own text objects, required by the followings.
+Plug 'kana/vim-textobj-user', {'for': ['c', 'cpp', 'vim', 'java']} " Create your own objects, required by followings.
 Plug 'kana/vim-textobj-function', {'for': ['c', 'cpp', 'vim', 'java']}  " aF if
 Plug 'kana/vim-textobj-indent', {'for': ['python']}  " ai ii
 Plug 'jeetsukumaran/vim-pythonsense', {'for': ['python']}  " af, if, ac, ic, ad, id, [[, ]], ]m, [m
 "---------------------------------------语法
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
-Plug 'scrooloose/nerdcommenter'
-Plug 'vim-scripts/a.vim'
+Plug 'scrooloose/nerdcommenter', {'for': ['python', 'c', 'cpp', 'sh', 'matlab', 'vim']}
+Plug 'vim-scripts/a.vim', {'for': ['c', 'cpp']}
 Plug 'ludovicchabant/vim-gutentags', {'for': ['python', 'c', 'cpp']}
 Plug 'skywind3000/asyncrun.vim', {'for': ['python', 'c', 'cpp', 'sh', 'matlab']}
 Plug 'fs111/pydoc.vim', {'for': 'python'}  " just press K(or <leader>pw) in python files
 Plug 'w0rp/ale', {'for': ['python', 'c', 'cpp', 'sh']}
-Plug 'sbdchd/neoformat'
+Plug 'sbdchd/neoformat', {'for': ['python', 'c', 'cpp', 'sh']}
 Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive', {'on': 'Gdiff'}
 "---------------------------------------
 Plug 'jceb/vim-orgmode', {'for': 'org'}
 Plug 'vimwiki/vimwiki', {'for': 'wiki'}
@@ -62,15 +62,15 @@ Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
 "---------------------------------------UI
 Plug 'mh21/errormarker.vim', {'for': ['c', 'cpp', 'python']}
 Plug 'liuchengxu/space-vim-dark'
-Plug 'luochen1990/rainbow'
-Plug 'Yggdroot/indentLine'
+Plug 'luochen1990/rainbow', {'for': ['python', 'c', 'cpp', 'sh', 'matlab', 'vim']}
+Plug 'Yggdroot/indentLine', {'for': ['python', 'c', 'cpp', 'sh', 'matlab', 'vim']}
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
 Plug 'Shougo/echodoc.vim', {'for': ['c', 'cpp', 'python']}
-Plug 'yianwillis/vimcdoc'
+Plug 'yianwillis/vimcdoc', {'for': ['help']}  " second help for chinese help
 Plug 'vim-airline/vim-airline' " show infos
 Plug 'skyblueee/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'skywind3000/quickmenu.vim'  "<F12>
-Plug 'lilydjwg/colorizer'
+Plug 'lilydjwg/colorizer', {'for': ['html', 'css', 'vim']}  " rgb(100, 2, 3), #0f0, #00f, #f00
 "---------------------------------------
 call plug#end()  " will execute 'filetype plugin indent on' and 'syntax enable'
 
@@ -538,14 +538,17 @@ call g:quickmenu#append("Lines", 'Lines', "use fzf's *Lines* on opened buffers")
 call g:quickmenu#append("Tags", 'LeaderfBufTagAll', "use *LeaderfBufTagAll* on opened buffers")
 call g:quickmenu#append("Functions", 'LeaderfFunctionAll', "use *LeaderfFunction* on opened buffers")
 "----------------------------------------
+call g:quickmenu#append("# CMake", '', '', 'c,cpp,python')
+call g:quickmenu#append("cmake ..", 'AsyncRun -cwd=<root>/build cmake ..', "*cmake ..* on project", 'c,cpp')
+call g:quickmenu#append("make", 'AsyncRun -auto=make -cwd=<root>/build make', "*make* on project", 'c,cpp')
+call g:quickmenu#append("make test", 'AsyncRun -cwd=<root>/build make test', "*make test* on project", 'c,cpp')
+"----------------------------------------
 call g:quickmenu#append("# AsyncRun/FMT", '', '', 'c,cpp,python,matlab,sh')
 call g:quickmenu#append("NeoFormat", "Neoformat", "Neoformat")
 call g:quickmenu#append("Run Matlab", "AsyncRun -raw octave %:p",
             \ "run current script.", 'matlab')
 call g:quickmenu#append("Run file", "let $PYTHONUNBUFFERED=1 | AsyncRun -raw %:p",
             \ "run current script. | Use `AsyncRun python` to run selected lines.", 'python,sh')
-call g:quickmenu#append("make", 'AsyncRun -auto=make -cwd=<root>/build make', "*make* on current project", 'c,cpp')
-call g:quickmenu#append("make test", 'AsyncRun -cwd=<root>/build make test', "*make test* on current project", 'c,cpp')
 function! TogglePy23()
     if g:ale_python_pylint_executable == 'python3'
         let g:ale_python_pylint_executable = 'python2'
