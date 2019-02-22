@@ -1,3 +1,8 @@
+# jmpcall
+gef> asm "jmp esp"
+\xff\xe4        # jmp esp
+gef> search-pattern 0xe4ff
+
 # alias
 - aliases - 列出所有別名
 - alias   - 操作別名

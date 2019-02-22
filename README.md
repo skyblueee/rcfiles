@@ -12,6 +12,7 @@ This is the rcfiles of my `bash` and `vim`. It contains some comfortable setting
 Just use the first letter of a Chinese character to represent it. For example, if you want to change the working directory to `桌面` in current directory, input `cd zm` and press `<TAB>` then you will get it. To edit a file named `日记.txt`, type `vim rj` and press `<TAB>`. Tab completion is supported.
 ### Ranger CD (*ranger* installed required)
 Press `<Ctrl-o>` to open ranger, and press `q` to leave you in the proper directory.
+### j (autojmp installed required)
 
 ## Vim
 ### System
@@ -24,10 +25,10 @@ Press `<Ctrl-o>` to open ranger, and press `q` to leave you in the proper direct
 3. `<leader><leader>a` in *vim-easymotion*.
 
 ### Buffer navigation
-*vim-airline* shows buffer numbers in a tabline.
-
+*vim-xtabline* shows buffer numbers in a tabline.
 1. `<TAB>/<S-TAB>` to navigate among buffers.
-2. `<leader><num>` or `:b<num><CR>` to go to buffer<num>.
+2. `<num><BS>` to go to buffer<num>.
+3. `<BS>` to switch between recent 2 buffers.
 
 ### 快速移动
 *vim-easymotion*
@@ -37,7 +38,8 @@ Press `<Ctrl-o>` to open ranger, and press `q` to leave you in the proper direct
 * `<leader><leader>a` 可以跨窗口移动.
 
 *vim-sneak*
-* `f` 后输入两个字符进行查找移动。
+* `f` 后输入1个字符进行查找移动。
+* `s` 后输入2个字符进行查找移动。
 * `;/,` 用于向前向后移动。
 * 开启了label-mode，移动过程中可以输入label快速移动（类似于easymotion）。
 

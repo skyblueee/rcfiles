@@ -21,7 +21,8 @@ Plug 'junegunn/fzf.vim'  " <leader>fl/ for file/line/ag
 Plug 'Yggdroot/LeaderF', {'for': ['python', 'c', 'cpp', 'sh'], 'do': './install.sh'}
 Plug 'easymotion/vim-easymotion' " <leader><leader>swafFjk
 Plug 'justinmk/vim-sneak'  " sxx fx
-Plug 'terryma/vim-multiple-cursors'
+"Plug 'terryma/vim-multiple-cursors'
+Plug 'mg979/vim-visual-multi'  " <c-n>vii<c-f> for current indent, <c-n>maf for current function
 Plug 'terryma/vim-expand-region', {'for': ['python', 'c', 'cpp', 'sh', 'matlab', 'vim']} " v vv vvv
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'  "ds/cs
@@ -68,6 +69,8 @@ Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
 Plug 'Shougo/echodoc.vim', {'for': ['c', 'cpp', 'python']}
 Plug 'yianwillis/vimcdoc', {'for': ['help']}  " second help for chinese help
 Plug 'vim-airline/vim-airline' " show infos
+Plug 'tpope/vim-obsession'
+Plug 'mg979/vim-xtabline'
 Plug 'skyblueee/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'skywind3000/quickmenu.vim'  "<F12>
 Plug 'lilydjwg/colorizer', {'for': ['html', 'css', 'vim']}  " rgb(100, 2, 3), #0f0, #00f, #f00
@@ -148,17 +151,6 @@ let mapleader = "\<SPACE>"
 
 " Windows navigating
 nnoremap <leader><tab> <c-w>w
-
-" Buffer navigating
-nnoremap <leader>1 :b1<cr>
-nnoremap <leader>2 :b2<cr>
-nnoremap <leader>3 :b3<cr>
-nnoremap <leader>4 :b4<cr>
-nnoremap <leader>5 :b5<cr>
-nnoremap <leader>6 :b6<cr>
-nnoremap <leader>7 :b7<cr>
-nnoremap <leader>8 :b8<cr>
-nnoremap <leader>9 :b9<cr>
 
 set switchbuf=useopen
 
@@ -323,18 +315,25 @@ nnoremap <leader>f :call SmartFiles()<cr>
 nnoremap <leader>/ :call SmartAg()<cr>
 nnoremap <leader>l :BLines<cr>
 
-"==|Leaderf|=======================================================================
+"==|Leaderf|===================================================================
 let g:Lf_ReverseOrder = 1
 let g:Lf_WildIgnore = {
         \ 'dir': ['.svn','.git','.hg'],
         \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
         \}
 
+"==|xtabline|==================================================================
+let g:xtabline_settings = {}
+let g:xtabline_settings.bufline_format = ' N: l +<'
+let g:xtabline_settings.override_airline = 0
+nmap <tab> <Plug>(XT-Next-Buffer)
+nmap <s-tab> <Plug>(XT-Prev-Buffer)
+
 "==|vim-airline|===============================================================
-nmap <tab> <Plug>AirlineSelectNextTab
-nmap <s-tab> <Plug>AirlineSelectPrevTab
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
+"nmap <tab> <Plug>AirlineSelectNextTab
+"nmap <s-tab> <Plug>AirlineSelectPrevTab
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#buffer_nr_show = 1
 " let g:airline_section_c       (bufferline or filename)
 let g:airline_section_c = '%<%F%m%r%h%w'
 " let g:airline_section_z       (percentage, line number, column number)
@@ -386,7 +385,8 @@ let g:rainbow_conf = {
 let g:rainbow_active = 1
 
 "==|indentLine|================================================================
-let g:indentLine_char='¦'  " ¦, ┆, │
+let g:indentLine_char_list = ['│', '|', '¦', '┆', '┊']
+let g:indentLine_char='¦'
 let g:indentLine_enabled = 1
 
 "==|vim-easymotion|============================================================
@@ -403,6 +403,9 @@ let g:sneak#target_labels = ";abcdefghigklmnopqrstuvwxyz/"
 let g:sneak#label = 1
 map f <Plug>Sneak_f
 map F <Plug>Sneak_F
+
+"==|vim-visual-multi|==========================================================
+let g:VM_manual_infoline = 0
 
 "==|vim-choosewin|=============================================================
 nmap  -  <Plug>(choosewin)

