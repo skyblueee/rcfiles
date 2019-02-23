@@ -29,6 +29,10 @@ Plug 'tpope/vim-surround'  "ds/cs
 Plug 'junegunn/vim-peekaboo'  " visual @ and registers and <c-r> for insert mode pasting.
 Plug 'kshenoy/vim-signature' " m<a-zA-Z> m/ m<space> | m<0-9> m? m<bs>
 Plug 't9md/vim-choosewin'  " press - to choose window
+"---------------------------------------REPL
+Plug 'sillybun/vim-repl', {'for':['python'], 'do': './install.sh'}
+Plug 'sillybun/vim-async', {'for': ['python'], 'do': './install.sh'}  " required by vim-repl
+Plug 'sillybun/zytutil', {'for': ['python']}  " required by vim-repl
 "---------------------------------------补全
 Plug 'jiangmiao/auto-pairs', {'for': ['python', 'c', 'cpp', 'sh', 'matlab', 'vim']}
 Plug 'honza/vim-snippets', {'for': ['python', 'c', 'cpp', 'sh']}
@@ -325,7 +329,7 @@ let g:Lf_WildIgnore = {
 "==|xtabline|==================================================================
 let g:xtabline_settings = {}
 let g:xtabline_settings.bufline_format = ' N: l +<'
-let g:xtabline_settings.override_airline = 0
+"let g:xtabline_settings.override_airline = 0
 nmap <tab> <Plug>(XT-Next-Buffer)
 nmap <s-tab> <Plug>(XT-Prev-Buffer)
 
@@ -410,6 +414,14 @@ let g:VM_manual_infoline = 0
 "==|vim-choosewin|=============================================================
 nmap  -  <Plug>(choosewin)
 let g:choosewin_overlay_enable = 1
+
+"==|vim-repl|==================================================================
+let g:repl_program = { "python": "ipython3", "default": "bash" }
+let g:repl_exit_commands = { "ipython3": "quit()", "default": "exit" }
+let g:repl_predefine_python = {
+            \   'numpy': 'import numpy as np',
+            \   'matplotlib': 'from matplotlib import pyplot as plt'
+            \   }
 
 "==|vim-expand-region|=========================================================
 vmap v <Plug>(expand_region_expand)
@@ -550,6 +562,8 @@ call g:quickmenu#append("# AsyncRun/FMT", '', '', 'c,cpp,python,matlab,sh')
 call g:quickmenu#append("NeoFormat", "Neoformat", "Neoformat")
 call g:quickmenu#append("Run Matlab", "AsyncRun -raw octave %:p",
             \ "run current script.", 'matlab')
+call g:quickmenu#append("add brkpoint", "exe 'normal Oimport ipdb; ipdb.set_trace(\<Esc>'", "add brkpoint", 'python')
+call g:quickmenu#append("Toggle IPython", "REPLToggle", "Toggle IPython. use <c-w>N to term-normal.", 'python')
 call g:quickmenu#append("Run file", "let $PYTHONUNBUFFERED=1 | AsyncRun -raw %:p",
             \ "run current script. | Use `AsyncRun python` to run selected lines.", 'python,sh')
 function! TogglePy23()

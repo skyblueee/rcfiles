@@ -174,9 +174,11 @@ if res != []:
 # Debug
 ## `pip install -U ipdb`
 import ipdb; ipdb.set_trace()
+using this method, you can continue debug after checking the env at the breakpoint.
 
 ## IPython
 insert `from IPython import embed; embed()` anywhere you want.
+using this method, you can only check the env at the breakpoint.
 
 ## `pip install -U q`
 All output goes to /tmp/q, which you can watch with `tail -f /tmp/q`.
