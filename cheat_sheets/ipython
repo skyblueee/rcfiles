@@ -1,0 +1,26 @@
+# 自动补全
+1. Tab自动补全
+1. Ctrl+R进行历史搜索补全
+
+# 內省
+1. 变量后面加?显示该对象的通用信息。
+1. 函数后面加?显示该函数的docstring
+1. 函数后面加??显示该函数的源代码
+1. ?和通配符*搭配可以搜索命名空间。如np.*load*?会返回np.load np.loads np.loadtxt np.pkgload
+
+# 运行文件
+1. %run file.py 在一个空的命名空间运行file.py，执行之后该文件中定义的全部变量和函数等可以在ipython shell中使用。
+1. %run -i file.py  在当前ipython shell命名空间中运行file.py，脚本可以使用当前空间中的变量和函数等。
+1. %run -d file.py  在调试器中调试file.py
+1. %run -p file.py  进行性能分析
+
+# 执行剪切板中的代码
+1. %paste   运行剪切板中的代码
+1. %cpaste  在最终执行前，你想粘贴多少代码就粘贴多少代码
+
+# 其他%magic
+1. %timeit  检测任意语句的执行时间
+1. %debug   从最新的异常跟踪的底部进入交互式调试器
+1. %pdb 在异常发生后自动进入调试器
+1. %prun    通过cProfile执行语句，打印分析器的输出结果
+1. %logstart    记录终端会话

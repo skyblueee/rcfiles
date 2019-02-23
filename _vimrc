@@ -34,7 +34,7 @@ Plug 'jiangmiao/auto-pairs', {'for': ['python', 'c', 'cpp', 'sh', 'matlab', 'vim
 Plug 'honza/vim-snippets', {'for': ['python', 'c', 'cpp', 'sh']}
 Plug 'SirVer/ultisnips', {'for': ['python', 'c', 'cpp', 'sh']}  " must before CompleteParameter.vim
 Plug 'Valloric/YouCompleteMe', {'for': ['python', 'c', 'cpp'], 'do': 'python3 ./install.py --clang-completer'}
-Plug 'tenfyzhong/CompleteParameter.vim', {'for': ['c', 'cpp', 'python']}
+Plug 'tenfyzhong/CompleteParameter.vim'  ", {'for': ['c', 'cpp', 'python']}
 "---------------------------------------文本对象
 Plug 'wellle/targets.vim'  " i) a, i', i*, a_, a$
 Plug 'kana/vim-textobj-user', {'for': ['c', 'cpp', 'vim', 'java']} " Create your own objects, required by followings.
@@ -43,7 +43,7 @@ Plug 'kana/vim-textobj-indent', {'for': ['python']}  " ai ii
 Plug 'jeetsukumaran/vim-pythonsense', {'for': ['python']}  " af, if, ac, ic, ad, id, [[, ]], ]m, [m
 "---------------------------------------语法
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
-Plug 'scrooloose/nerdcommenter', {'for': ['python', 'c', 'cpp', 'sh', 'matlab', 'vim']}
+Plug 'scrooloose/nerdcommenter', {'for': ['python', 'c', 'cpp', 'sh', 'matlab', 'vim', 'make', 'cmake']}
 Plug 'vim-scripts/a.vim', {'for': ['c', 'cpp']}
 Plug 'ludovicchabant/vim-gutentags', {'for': ['python', 'c', 'cpp']}
 Plug 'skywind3000/asyncrun.vim', {'for': ['python', 'c', 'cpp', 'sh', 'matlab']}
@@ -51,7 +51,7 @@ Plug 'fs111/pydoc.vim', {'for': 'python'}  " just press K(or <leader>pw) in pyth
 Plug 'w0rp/ale', {'for': ['python', 'c', 'cpp', 'sh']}
 Plug 'sbdchd/neoformat', {'for': ['python', 'c', 'cpp', 'sh']}
 Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive', {'on': 'Gdiff'}
+Plug 'tpope/vim-fugitive', {'on': ['Gdiff', 'Gvdiff', 'Gstatus']}
 "---------------------------------------
 Plug 'jceb/vim-orgmode', {'for': 'org'}
 Plug 'vimwiki/vimwiki', {'for': 'wiki'}
