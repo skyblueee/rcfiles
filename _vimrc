@@ -50,7 +50,7 @@ Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'scrooloose/nerdcommenter', {'for': ['python', 'c', 'cpp', 'sh', 'matlab', 'vim', 'make', 'cmake']}
 Plug 'vim-scripts/a.vim', {'for': ['c', 'cpp']}
 Plug 'ludovicchabant/vim-gutentags', {'for': ['python', 'c', 'cpp']}
-Plug 'skywind3000/asyncrun.vim', {'for': ['python', 'c', 'cpp', 'sh', 'matlab']}
+Plug 'skywind3000/asyncrun.vim', {'on': 'AsyncRun', 'for': ['python', 'c', 'cpp', 'sh', 'matlab']}
 Plug 'fs111/pydoc.vim', {'for': 'python'}  " just press K(or <leader>pw) in python files
 Plug 'w0rp/ale', {'for': ['python', 'c', 'cpp', 'sh']}
 Plug 'sbdchd/neoformat', {'for': ['python', 'c', 'cpp', 'sh']}
@@ -553,10 +553,10 @@ call g:quickmenu#append("Lines", 'Lines', "use fzf's *Lines* on opened buffers")
 call g:quickmenu#append("Tags", 'LeaderfBufTagAll', "use *LeaderfBufTagAll* on opened buffers")
 call g:quickmenu#append("Functions", 'LeaderfFunctionAll', "use *LeaderfFunction* on opened buffers")
 "----------------------------------------
-call g:quickmenu#append("# CMake", '', '', 'c,cpp,python')
-call g:quickmenu#append("cmake ..", 'AsyncRun -cwd=<root>/build cmake ..', "*cmake ..* on project", 'c,cpp')
-call g:quickmenu#append("make", 'AsyncRun -auto=make -cwd=<root>/build make', "*make* on project", 'c,cpp')
-call g:quickmenu#append("make test", 'AsyncRun -cwd=<root>/build make test', "*make test* on project", 'c,cpp')
+call g:quickmenu#append("# CMake", '', '', 'c,cpp,python,cmake')
+call g:quickmenu#append("cmake ..", 'AsyncRun -cwd=<root>/build cmake ..', "*cmake ..* on project", 'c,cpp,cmake')
+call g:quickmenu#append("make", 'AsyncRun -auto=make -cwd=<root>/build make', "*make* on project", 'c,cpp,cmake')
+call g:quickmenu#append("make test", 'AsyncRun -cwd=<root>/build make test', "*make test* on project", 'c,cpp,cmake')
 "----------------------------------------
 call g:quickmenu#append("# AsyncRun/FMT", '', '', 'c,cpp,python,matlab,sh')
 call g:quickmenu#append("NeoFormat", "Neoformat", "Neoformat")
