@@ -145,7 +145,7 @@ function! Fcitx2zh()
     endif
 endfunction
 
-set timeoutlen=250
+set timeoutlen=300
 
 autocmd InsertLeave * call Fcitx2en()
 "autocmd InsertEnter * call Fcitx2zh()
@@ -170,6 +170,14 @@ nnoremap <up> gk
 nnoremap <down> gj
 inoremap <up> <c-\><c-o>gk
 inoremap <down> <c-\><c-o>gj
+
+" quick move line/block
+nnoremap <m-down> :m .+1<CR>==
+nnoremap <m-up> :m .-2<CR>==
+inoremap <m-down> <Esc>:m .+1<CR>==gi
+inoremap <m-up> <Esc>:m .-2<CR>==gi
+vnoremap <m-down> :m '>+1<CR>gv=gv
+vnoremap <m-up> :m '<-2<CR>gv=gv
 
 " Appearance
 set cursorline
@@ -410,6 +418,21 @@ map F <Plug>Sneak_F
 
 "==|vim-visual-multi|==========================================================
 let g:VM_manual_infoline = 0
+let g:VM_default_mappings = 0
+let g:VM_maps = {}
+let g:VM_maps['Find Under'] = '<C-n>'
+let g:VM_maps['Find Subword Under'] = '<C-n>'
+let g:VM_maps["Select All"] = '<c-s-l>'
+let g:VM_maps["Start Regex Search"] = 'g/'
+let g:VM_maps["Add Cursor Down"] = '<s-m-down>'
+let g:VM_maps["Add Cursor Up"] = '<s-m-up>'
+let g:VM_maps["Add Cursor At Pos"] = 'g<space>'
+
+let g:VM_maps["Visual Regex"] = 'g/'
+let g:VM_maps["Visual All"] = '<c-s-l>'
+let g:VM_maps["Visual Add"] = '<C-a>'
+let g:VM_maps["Visual Find"] = '<C-f>'
+let g:VM_maps["Visual Cursors"] = '<C-c>'
 
 "==|vim-choosewin|=============================================================
 nmap  -  <Plug>(choosewin)
@@ -562,7 +585,7 @@ call g:quickmenu#append("# AsyncRun/FMT", '', '', 'c,cpp,python,matlab,sh')
 call g:quickmenu#append("NeoFormat", "Neoformat", "Neoformat")
 call g:quickmenu#append("Run Matlab", "AsyncRun -raw octave %:p",
             \ "run current script.", 'matlab')
-call g:quickmenu#append("add brkpoint", "exe 'normal Oimport ipdb; ipdb.set_trace(\<Esc>'", "add brkpoint", 'python')
+call g:quickmenu#append("add brkpoint", "exe 'normal! Oimport ipdb; ipdb.set_trace()\<Esc>'", "add brkpoint", 'python')
 call g:quickmenu#append("Toggle IPython", "REPLToggle", "Toggle IPython. use <c-w>N to term-normal.", 'python')
 call g:quickmenu#append("Run file", "let $PYTHONUNBUFFERED=1 | AsyncRun -raw %:p",
             \ "run current script. | Use `AsyncRun python` to run selected lines.", 'python,sh')
@@ -692,3 +715,9 @@ function! QuickfixToggle()
     endif
 endfunction
 autocmd FileType python,c,cpp nnoremap <F10> :call QuickfixToggle()<cr>
+
+"--C/C++--
+" For local replace
+nnoremap gr gd[{V%::s/<C-R>///gc<left><left><left>
+" For global replace
+nnoremap <leader>R gD:%s/<C-R>///gc<left><left><left>
