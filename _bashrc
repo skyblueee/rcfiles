@@ -117,7 +117,7 @@ bind 'set completion-ignore-case on'
 export HISTIGNORE='&:[ ]*:exit:ls:bg:fg:history:clear'
 
 # app alias
-alias code='~/bin/VSCode-linux-x64/code'
+alias code='~/bin/VSCode-linux-x64/bin/code'
 alias pycharm='~/.prog/JetBrains/pycharm/bin/pycharm.sh > /dev/null &'
 alias idea='~/.prog/JetBrains/idea/bin/idea.sh > /dev/null &'
 alias clion='~/.prog/JetBrains/clion/bin/clion.sh > /dev/null &'
