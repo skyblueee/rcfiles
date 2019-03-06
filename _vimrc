@@ -584,7 +584,9 @@ call g:quickmenu#append("make test", 'AsyncRun -cwd=<root>/build make test', "*m
 call g:quickmenu#append("# AsyncRun/FMT", '', '', 'c,cpp,python,matlab,sh')
 call g:quickmenu#append("NeoFormat", "Neoformat", "Neoformat")
 call g:quickmenu#append("Run Matlab", "AsyncRun -raw octave %:p",
-            \ "run current script.", 'matlab')
+            \ "run current script and exit octave.", 'matlab')
+call g:quickmenu#append("Term Matlab", "term octave --persist %:p",
+            \ "run current script and persist octave. use <c-w>N to term-normal.", 'matlab')
 call g:quickmenu#append("add brkpoint", "exe 'normal! Oimport ipdb; ipdb.set_trace()\<Esc>'", "add brkpoint", 'python')
 call g:quickmenu#append("Toggle IPython", "REPLToggle", "Toggle IPython. use <c-w>N to term-normal.", 'python')
 call g:quickmenu#append("Run file", "let $PYTHONUNBUFFERED=1 | AsyncRun -raw %:p",
