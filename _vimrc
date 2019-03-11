@@ -439,8 +439,8 @@ nmap  -  <Plug>(choosewin)
 let g:choosewin_overlay_enable = 1
 
 "==|vim-repl|==================================================================
-let g:repl_program = { "python": "ipython3", "default": "bash" }
-let g:repl_exit_commands = { "ipython3": "quit()", "default": "exit" }
+let g:repl_program = { "python": "python3", "default": "bash" }
+let g:repl_exit_commands = { "python": "quit()", "default": "exit" }
 let g:repl_predefine_python = {
             \   'numpy': 'import numpy as np',
             \   'matplotlib': 'from matplotlib import pyplot as plt'
@@ -588,7 +588,7 @@ call g:quickmenu#append("Run Matlab", "AsyncRun -raw octave %:p",
 call g:quickmenu#append("Term Matlab", "term octave --persist %:p",
             \ "run current script and persist octave. use <c-w>N to term-normal.", 'matlab')
 call g:quickmenu#append("add brkpoint", "exe 'normal! Oimport ipdb; ipdb.set_trace()\<Esc>'", "add brkpoint", 'python')
-call g:quickmenu#append("Toggle IPython", "REPLToggle", "Toggle IPython. use <c-w>N to term-normal.", 'python')
+call g:quickmenu#append("REPL Python", "REPLToggle", "REPL Python. use <c-w>N to term-normal.", 'python')
 call g:quickmenu#append("Run file", "let $PYTHONUNBUFFERED=1 | AsyncRun -raw %:p",
             \ "run current script. | Use `AsyncRun python` to run selected lines.", 'python,sh')
 function! TogglePy23()
@@ -721,5 +721,3 @@ autocmd FileType python,c,cpp nnoremap <F10> :call QuickfixToggle()<cr>
 "--C/C++--
 " For local replace
 nnoremap gr gd[{V%::s/<C-R>///gc<left><left><left>
-" For global replace
-nnoremap <leader>R gD:%s/<C-R>///gc<left><left><left>
