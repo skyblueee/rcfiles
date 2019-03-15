@@ -61,6 +61,7 @@ Plug 'jceb/vim-orgmode', {'for': 'org'}
 Plug 'vimwiki/vimwiki', {'for': 'wiki'}
 Plug 'iamcco/mathjax-support-for-mkdp', {'for': 'markdown'}
 Plug 'iamcco/markdown-preview.vim', {'for': 'markdown'}  " MarkdownPreview
+Plug 'vim-scripts/DoxygenToolkit.vim', {'on': 'Dox'}
 "Plug 'vim-latex/vim-latex', {'for': 'tex'}
 Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
@@ -581,8 +582,14 @@ call g:quickmenu#append("cmake ..", 'AsyncRun -cwd=<root>/build cmake ..', "*cma
 call g:quickmenu#append("make", 'AsyncRun -auto=make -cwd=<root>/build make', "*make* on project", 'c,cpp,cmake')
 call g:quickmenu#append("make test", 'AsyncRun -cwd=<root>/build make test', "*make test* on project", 'c,cpp,cmake')
 "----------------------------------------
-call g:quickmenu#append("# AsyncRun/FMT", '', '', 'c,cpp,python,matlab,sh')
+call g:quickmenu#append("# FMT", '', '', 'c,cpp,python,markdown')
 call g:quickmenu#append("NeoFormat", "Neoformat", "Neoformat")
+call g:quickmenu#append("Dox Class/Func", "Dox", ":Dox")
+call g:quickmenu#append("Dox File", "DoxAuthor", ":DoxAuthor")
+call g:quickmenu#append("MD pic", "exe 'normal! o![text]()\<left>./'", "insert picture in markdown", 'markdown')
+call g:quickmenu#append("MD link", "exe 'normal! o[text]()\<left>http://'", "insert link in markdown", 'markdown')
+"----------------------------------------
+call g:quickmenu#append("# AsyncRun", '', '', 'python,matlab,sh')
 call g:quickmenu#append("Run Matlab", "AsyncRun -raw octave %:p",
             \ "run current script and exit octave.", 'matlab')
 call g:quickmenu#append("Term Matlab", "term octave --persist %:p",

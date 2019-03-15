@@ -1,0 +1,74 @@
+# python
+## include header file; link lib file
+set(Python_ADDITIONAL_VERSIONS 3.6)
+find_package(PythonInterp REQUIRED)
+find_package(PythonLibs REQUIRED)
+target_link_libraries(tgt_name ${PYTHON_LIBRARIES})
+
+if(WIN32)
+    execute_process(COMMAND "${PYTHON_EXECUTABLE}" -c "import numpy; prin(numpy.get_include(), end='')"
+        OUTPUT_VARIABLE numpy_path)
+    find_path(numpy_include_dir "numpy/arrayobject.h"
+        HINTS "${numpy_path}" "${PYTHON_INCLUDE_DIRS}
+        NO_DEFAULT_PATH)
+    include_directories(${numpy_include_dir})
+    message("Found numpy include dir: ${numpy_include_dir}")
+endif(WIN32)
+
+## py2pyc
+macro(add_py_target tgt)
+    foreach(file ${ARGN})
+        if(${file} MATCHES ".*\.py")
+            set(OUT ${CMAKE_CURRENT_BINARY_DIR}/${file}c)
+            list(APPEND OUT_FILES ${OUT})
+            add_custom_command(OUTPUT ${OUT}
+                COMMAND ${PYTHON_EXECUTABLE} -B -c \"import py_compile\;py_compile.compile('${CMAKE_CURRENT_SOURCE_DIR}/${file}', '${OUT}')\"
+                DEPENDS ${file})
+        else()
+            set(OUT ${CMAKE_CURRENT_BINARY_DIR}/${file})
+            list(APPEND OUT_FILES ${OUT})
+            add_custom_command(OUTPUT ${OUT}
+                COMMAND cmake -E copy ${CMAKE_CURRENT_SOURCE_DIR}/${file} ${OUT}
+                DEPENDS ${file})
+        endif()
+
+        install(FILES ${OUT} DESTINATION ${PROJECT_BINARY_DIR}/release/py)
+    endforeach()
+
+    add_custom_target(${tgt} ALL DEPENDS ${OUT_FILES})
+endmacro()
+
+add_py_target(py_tgt foo.py bar.py logconf.yaml)
+
+# doxygen
+## CMakeLists.txt
+option(BUILD_DOC "Build Documentation" ON)
+find_package(Doxygen)
+if(DOXYGEN_FOUND)
+    set(DOXYGEN_IN ${PROJECT_SOURCE_DIR}/doc/Doxyfile)
+    set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+
+    configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
+    message("Doxygen build started")
+
+    add_custom_target(doc_doxygen ALL
+        COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        COMMENT "Generating API documentation with Doxygen"
+        VERBATIM)
+
+    install(DIRECTORY ${PROJECT_BINARY_DIR}/doc
+        DESTINATION ${PROJECT_BINARY_DIR}/release/doc)
+else(DOXYGEN_FOUND)
+    message("Doxygen need to be installed to generate the doxygen documentation")
+endif(DOXYGEN_FOUND)
+
+## doc/Doxyfile
+DOXYFILE_ENCODING = UTF-8
+PROJECT_NAME = @CMAKE_PROJECT_NAME@
+PROJECT_NUMBER = @VERSION_MAJOR@.@VERSION_MINOR@.@VERSION_PATCH@
+OUTPUT_DIRECTORY = @PROJECT_BINARY_DIR@/doc
+INPUT = @CMAKE_CURRENT_SOURCE_DIR@ @PROJECT_SOURCE_DIR@/doc @PROJECT_SOURCE_DIR@/README.md
+USE_MDFILE_AS_MAINPAGE = @PROJECT_SOURCE_DIR@/README.md
+TOC_INCLUDE_HEADINGS = 3
+EXCLUDE_SYMBOLS = *::*Imp
