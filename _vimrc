@@ -18,7 +18,7 @@ Plug 'junegunn/vim-plug'
 Plug 'Shougo/denite.nvim', {'for': ''}
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 Plug 'junegunn/fzf.vim'  " <leader>fl/ for file/line/ag
-Plug 'Yggdroot/LeaderF', {'for': ['python', 'c', 'cpp', 'sh'], 'do': './install.sh'}
+Plug 'Yggdroot/LeaderF', {'on': ['LeaderfBufTagAll', 'LeaderfFunctionAll'], 'do': './install.sh'}
 Plug 'easymotion/vim-easymotion' " <leader><leader>swafFjk
 Plug 'justinmk/vim-sneak'  " sxx fx
 "Plug 'terryma/vim-multiple-cursors'
@@ -30,9 +30,9 @@ Plug 'junegunn/vim-peekaboo'  " visual @ and registers and <c-r> for insert mode
 Plug 'kshenoy/vim-signature' " m<a-zA-Z> m/ m<space> | m<0-9> m? m<bs>
 Plug 't9md/vim-choosewin'  " press - to choose window
 "---------------------------------------REPL
-Plug 'sillybun/vim-repl', {'for':['python'], 'do': './install.sh'}
-Plug 'sillybun/vim-async', {'for': ['python'], 'do': './install.sh'}  " required by vim-repl
-Plug 'sillybun/zytutil', {'for': ['python']}  " required by vim-repl
+Plug 'sillybun/vim-repl', {'on':['REPLToggle'], 'do': './install.sh'}
+Plug 'sillybun/vim-async', {'on': ['REPLToggle'], 'do': './install.sh'}  " required by vim-repl
+Plug 'sillybun/zytutil', {'on': ['REPLToggle']}  " required by vim-repl
 "---------------------------------------补全
 Plug 'jiangmiao/auto-pairs', {'for': ['python', 'c', 'cpp', 'sh', 'matlab', 'vim']}
 Plug 'honza/vim-snippets', {'for': ['python', 'c', 'cpp', 'sh']}
@@ -50,10 +50,10 @@ Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'scrooloose/nerdcommenter', {'for': ['python', 'c', 'cpp', 'sh', 'matlab', 'vim', 'make', 'cmake']}
 Plug 'vim-scripts/a.vim', {'for': ['c', 'cpp']}
 Plug 'ludovicchabant/vim-gutentags', {'for': ['python', 'c', 'cpp']}
-Plug 'skywind3000/asyncrun.vim', {'on': 'AsyncRun', 'for': ['python', 'c', 'cpp', 'sh', 'matlab']}
+Plug 'skywind3000/asyncrun.vim', {'on': 'AsyncRun'}
 Plug 'fs111/pydoc.vim', {'for': 'python'}  " just press K(or <leader>pw) in python files
 Plug 'w0rp/ale', {'for': ['python', 'c', 'cpp', 'sh']}
-Plug 'sbdchd/neoformat', {'for': ['python', 'c', 'cpp', 'sh']}
+Plug 'sbdchd/neoformat', {'on': ['Neoformat']}
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive', {'on': ['Gdiff', 'Gvdiff', 'Gstatus']}
 "---------------------------------------
@@ -683,6 +683,28 @@ let g:ale_c_cppcheck_options = ''
 let g:ale_cpp_cppcheck_options = ''
 nmap <silent> <leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <leader>j <Plug>(ale_next_wrap)
+
+"==|neoformat|=================================================================
+let g:neoformat_cpp_clangformat = {
+        \ 'exe': 'clang-format',
+        \ 'args': ['-style="{BasedOnStyle: WebKit,
+        \                    AlignAfterOpenBracket: Align,
+        \                    AlignOperands: true,
+        \                    AllowAllParametersOfDeclarationOnNextLine: false,
+        \                    BinPackParameters: false,
+        \                    BreakInheritanceList: BeforeComma,
+        \                    ColumnLimit: 120,
+        \                    Cpp11BracedListStyle: true,
+        \                    FixNamespaceComments: true,
+        \                    IndentPPDirectives: AfterHash,
+        \                    SpacesBeforeTrailingComments: 2,
+        \                    SpacesInContainerLiterals: false}"'],
+        \ }
+let g:neoformat_enabled_cpp = ['clangformat']
+augroup fmt
+  autocmd!
+  autocmd BufWritePre * undojoin | Neoformat
+augroup END
 
 "==|nerdcommenter|=============================================================
 let g:NERDDefaultAlign = 'left'
