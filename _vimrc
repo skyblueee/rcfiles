@@ -589,7 +589,7 @@ call g:quickmenu#append("Dox File", "DoxAuthor", ":DoxAuthor")
 call g:quickmenu#append("MD pic", "exe 'normal! o![text]()\<left>./'", "insert picture in markdown", 'markdown')
 call g:quickmenu#append("MD link", "exe 'normal! o[text]()\<left>http://'", "insert link in markdown", 'markdown')
 "----------------------------------------
-call g:quickmenu#append("# AsyncRun", '', '', 'python,matlab,sh')
+call g:quickmenu#append("# AsyncRun", '', '', 'python,matlab,sh,gnuplot')
 call g:quickmenu#append("Run Matlab", "AsyncRun -raw octave %:p",
             \ "run current script and exit octave.", 'matlab')
 call g:quickmenu#append("Term Matlab", "term octave --persist %:p",
@@ -598,6 +598,7 @@ call g:quickmenu#append("add brkpoint", "exe 'normal! Oimport ipdb; ipdb.set_tra
 call g:quickmenu#append("REPL Python", "REPLToggle", "REPL Python. use <c-w>N to term-normal.", 'python')
 call g:quickmenu#append("Run file", "let $PYTHONUNBUFFERED=1 | AsyncRun -raw %:p",
             \ "run current script. | Use `AsyncRun python` to run selected lines.", 'python,sh')
+call g:quickmenu#append("Run gnuplot", "AsyncRun gnuplot --persist %:p", "Run gnuplot script", 'gnuplot')
 function! TogglePy23()
     if g:ale_python_pylint_executable == 'python3'
         let g:ale_python_pylint_executable = 'python2'
