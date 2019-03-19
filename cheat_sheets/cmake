@@ -57,6 +57,9 @@ if(DOXYGEN_FOUND)
         COMMENT "Generating API documentation with Doxygen"
         VERBATIM)
 
+    file(GLOB images ${PROJECT_SOURCE_DIR}/doc/*.png)
+    file(COPY ${images} DESTINATION ${PROJECT_BINARY_DIR}/doc/html/doc)
+
     install(DIRECTORY ${PROJECT_BINARY_DIR}/doc
         DESTINATION ${PROJECT_BINARY_DIR}/release/doc)
 else(DOXYGEN_FOUND)
