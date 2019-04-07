@@ -341,6 +341,7 @@ let g:xtabline_settings.bufline_format = ' N: l +<'
 "let g:xtabline_settings.override_airline = 0
 nmap <tab> <Plug>(XT-Next-Buffer)
 nmap <s-tab> <Plug>(XT-Prev-Buffer)
+nmap <BS> <Plug>(XT-Select-Buffer)
 
 "==|vim-airline|===============================================================
 "nmap <tab> <Plug>AirlineSelectNextTab
@@ -666,11 +667,11 @@ let g:ale_sign_warning = '✭' " '▶' default '--'
 "let g:ale_sign_offset = 1000000 " default 1000000
 "let g:ale_type_map = {} " default {}
 "let b:ale_type_map = {} " default {}
-"let g:ale_linters = {
-"            \ 'c': ['clang', 'gcc', 'cppcheck'],
-"            \ 'cpp': ['clang++', 'gcc', 'cppcheck'],
-"            \ 'python': ['flake8', 'pylint'],
-"            \ }
+let g:ale_linters = {
+            \ 'c': ['clang', 'gcc', 'cppcheck'],
+            \ 'cpp': ['clang++', 'gcc', 'cppcheck'],
+            \ 'python': ['flake8', 'pylint'],
+            \ }
 let g:ale_python_pylint_executable = 'python3'
 let g:ale_python_pylint_options = '--rcfile ~/rcfiles/pylint.conf'
 let g:ale_python_pylint_use_global = 1

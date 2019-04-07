@@ -187,7 +187,7 @@ export PYTHONSTARTUP=~/rcfiles/pythonrc.py
 xmodmap ~/rcfiles/_xmodmaprc
 
 # cheat
-export DEFAULT_CHEAT_DIR='~/rcfiles/cheat_sheets/'
+export CHEAT_USER_DIR='~/rcfiles/cheat_sheets/'
 export CHEATCOLORS=true
 function _cheat_autocomplete {
     sheets=$(cheat -l | cut -d' ' -f1)
