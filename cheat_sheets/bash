@@ -121,3 +121,33 @@ echo ${PIPESTATUS[0]}  # replace 0 with N
 - basename : 去除前導和後綴，例如`basename /usr/bin/sort`輸出sort，`basename include/stdio.h .h`輸出stdio。
 
 <<Unix Shell Programming, 3nd Edition>>
+
+# bash abc
+## 位置参数变量
+1. `$0`,`$1`,`$2`,...,`${10}`,... 是命令行中传入的参数，其中`$0`是脚本文件的名字或函数名。
+2. `$*`
+3. `$@`
+4. `$#`: 位置参数的个数。
+
+## 变量长度
+1. `${#var}`: 字符串长度(字符数量).
+2. `${#array}`: 对于一个数组,是数组中第一个元素的长度.
+3. `${#*}`和`${#@}`: 位置参数的个数.
+4. `${#array[*]}`和`${$#array[@]}`: 对于数组将给出元素的个数.
+
+## 变量扩展
+1. `${var:pos}`: 变量var从位置pos开始扩展.
+2. `${var:pos:len}`: 从位置pos开始,并扩展len长度个字符.
+
+## 变量字串删除
+1. `${var#Pattern}`/`${var##Pattern}`: 从`$var`开头删除最近/最远匹配Pattern的子串.
+2. `${var%Pattern}`/`${var%%Pattern}`: 从`$var`结尾删除最近/最远匹配Pattern的子串.
+
+## 变量字串替换
+1. `${var/pattern/replace}`: 内容替换(一次)
+2. `${var//pattern/replace}`: 内容替换(全部)
+3. `${var/#pattern/replace}`: 前缀替换
+4. `${var/%pattern/replace}`: 后缀替换
+
+## 变量匹配
+1. `${!varprefix*}`和`${!varprefix@}`:以特定前缀来匹配变量名。

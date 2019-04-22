@@ -703,10 +703,28 @@ let g:neoformat_cpp_clangformat = {
         \                    SpacesInContainerLiterals: false}"'],
         \ }
 let g:neoformat_enabled_cpp = ['clangformat']
-augroup fmt
-  autocmd!
-  autocmd BufWritePre * undojoin | Neoformat
-augroup END
+
+let g:neoformat_c_clangformat = {
+        \ 'exe': 'clang-format',
+        \ 'args': ['-style="{BasedOnStyle: WebKit,
+        \                    AlignAfterOpenBracket: Align,
+        \                    AlignOperands: true,
+        \                    AllowAllParametersOfDeclarationOnNextLine: false,
+        \                    BinPackParameters: false,
+        \                    BreakInheritanceList: BeforeComma,
+        \                    ColumnLimit: 120,
+        \                    Cpp11BracedListStyle: true,
+        \                    FixNamespaceComments: true,
+        \                    IndentPPDirectives: AfterHash,
+        \                    SpacesBeforeTrailingComments: 2,
+        \                    SpacesInContainerLiterals: false}"'],
+        \ }
+let g:neoformat_enabled_c = ['clangformat']
+
+"augroup fmt
+"  autocmd!
+"  autocmd BufWritePre * undojoin | Neoformat
+"augroup END
 
 "==|nerdcommenter|=============================================================
 let g:NERDDefaultAlign = 'left'
