@@ -114,7 +114,7 @@ fi
 #===User========================================================================
 export EDITOR='vim'
 bind 'set completion-ignore-case on'
-export HISTIGNORE='&:[ ]*:exit:ls:bg:fg:history:clear'
+export HISTIGNORE='&:[ ]*:exit:ls:ll:cd*:bg:fg:history:clear:vim'
 
 # app alias
 alias code='~/bin/VSCode-linux-x64/bin/code'
