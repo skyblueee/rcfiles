@@ -3,3 +3,5 @@
 #source ~/bin/ctf-tools/pwndbg/gdbinit.py
 source ~/bin/ctf-tools/gef/gef.py
 #source ~/.local/lib/python3.6/site-packages/voltron/entry.py
+dir ~/bin/glibc/malloc
+dir ~/bin/glibc/stdio-common

@@ -46,6 +46,7 @@ Plug 'kana/vim-textobj-function', {'for': ['c', 'cpp', 'vim', 'java']}  " aF if
 Plug 'kana/vim-textobj-indent', {'for': ['python']}  " ai ii
 Plug 'jeetsukumaran/vim-pythonsense', {'for': ['python']}  " af, if, ac, ic, ad, id, [[, ]], ]m, [m
 "---------------------------------------语法
+Plug 'vim-scripts/DrawIt'
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'scrooloose/nerdcommenter', {'for': ['python', 'c', 'cpp', 'sh', 'matlab', 'vim', 'make', 'cmake']}
 Plug 'vim-scripts/a.vim', {'for': ['c', 'cpp']}
@@ -751,7 +752,6 @@ let $PYTHONUNBUFFERED=1
 autocmd BufNewFile *.py 0r ~/rcfiles/vim_template/py_header
 autocmd BufNewFile *.py exe "1," . line("$") . "g/_date_/s/_date_/" .strftime("%Y-%m-%d")
 autocmd BufNewFile *.py exe "normal! G"
-autocmd FileType python nnoremap <leader>= :0,$!yapf<cr>
 function! QuickfixToggle()
     let has_quickfix = 0
     for winnr in range(1, winnr('$'))

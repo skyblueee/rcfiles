@@ -118,7 +118,7 @@ export HISTIGNORE='&:[ ]*:exit:ls:ll:cd*:bg:fg:history:clear:vim'
 
 # app alias
 alias code='~/bin/VSCode-linux-x64/bin/code'
-alias pycharm='~/.prog/JetBrains/pycharm/bin/pycharm.sh > /dev/null &'
+alias pycharm='~/bin/pycharm-community-2019.1.2/bin/pycharm.sh > /dev/null &'
 alias idea='~/.prog/JetBrains/idea/bin/idea.sh > /dev/null &'
 alias clion='~/.prog/JetBrains/clion/bin/clion.sh > /dev/null &'
 alias idaq='~/.prog/IDA_Pro_v6.4_Linux_and_Hex-Rays_Decompiler_ARM_x86_x64/idaq'
@@ -138,8 +138,10 @@ alias wgetR='wget -m -p -np -k'
 alias grep='grep --color=auto'
 alias git='LC_ALL=C git'
 alias ll='ls -lh'
+alias objdump='objdump -M intel'
 alias open='xdg-open'
 alias john='~/bin/JohnTheRipper/run/john'
+alias ftpserver='python3 -m pyftpdlib -d . -w'
 
 # ctf tools
 alias ctf-str2hex='~/bin/ctf-tools/str2hex.py'
@@ -153,6 +155,11 @@ alias ctf-ida_dbg_linux_server32='~/bin/ctf-tools/linux_server'
 alias ctf-ida_dbg_linux_server64='~/bin/ctf-tools/linux_server64'
 alias ctf-uncompy2le6='~/bin/ctf-tools/uncompy2le6'
 alias ctf-demov='~/bin/ctf-tools/demovfuscator/demov'
+alias ctf-flint='~/bin/ctf-tools/flint.py'
+alias ctf-vmmap='~/bin/ctf-tools/vmmap.py'
+alias ctf-patch='~/bin/ctf-tools/patchkit/patch'
+alias ctf-patch_call='~/bin/ctf-tools/patch_call.py'
+alias ctf-patch_ehframe='~/bin/ctf-tools/patch_ehframe.py'
 libc-add(){ echo "cd ~/bin/ctf-tools/libc-database; ./add $@" | bash; }
 libc-get(){ echo "cd ~/bin/ctf-tools/libc-database; ./get $@" | bash; }
 libc-find(){ echo "cd ~/bin/ctf-tools/libc-database; ./find $@" | bash; }
@@ -173,9 +180,9 @@ export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 export FZF_COMPLETION_TRIGGER='//'
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 # bazel completion
-source /usr/local/lib/bazel/bin/bazel-complete.bash
+# source /usr/local/lib/bazel/bin/bazel-complete.bash
 # john completion
-source ~/bin/JohnTheRipper/run/john.bash_completion
+# source ~/bin/JohnTheRipper/run/john.bash_completion
 
 # autojump
 . /usr/share/autojump/autojump.sh
