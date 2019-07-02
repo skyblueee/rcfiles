@@ -12,7 +12,7 @@ sudo apt install -y vim sdcv lftp
 sudo apt install -y silversearcher-ag terminator
 ln terminator.config ~/.config/terminator/config
 
-echo "source ~/rcfiles/_bashrc" > ~/.bashrc
-echo "source ~/rcfiles/_vimrc" > ~/.vimrc
-echo "source ~/rcfiles/_gdbinit" > ~/.gdbinit
+echo "source ~/rcfiles/_bashrc" >> ~/.bashrc
+echo "source ~/rcfiles/_vimrc" >> ~/.vimrc
+echo "source ~/rcfiles/_gdbinit" >> ~/.gdbinit
 cp ~/rcfiles/_gef.rc ~/.gef.rc

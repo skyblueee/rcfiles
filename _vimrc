@@ -670,7 +670,7 @@ let g:ale_sign_warning = '✭' " '▶' default '--'
 "let b:ale_type_map = {} " default {}
 let g:ale_linters = {
             \ 'c': ['clang', 'gcc', 'cppcheck'],
-            \ 'cpp': ['clang++', 'gcc', 'cppcheck'],
+            \ 'cpp': ['clang++', 'g++', 'cppcheck'],
             \ 'python': ['flake8', 'pylint'],
             \ }
 let g:ale_python_pylint_executable = 'python3'
@@ -681,6 +681,7 @@ let g:ale_python_flake8_options = '-m flake8 --conf=' . expand('~/rcfiles/flake8
 let g:ale_python_flake8_use_global = 1
 let g:ale_c_parse_makefile = 1
 let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
+let g:ale_cpp_gcc_executable = 'clang++'
 let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
 let g:ale_c_cppcheck_options = ''
 let g:ale_cpp_cppcheck_options = ''
