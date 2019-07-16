@@ -49,7 +49,7 @@ Plug 'jeetsukumaran/vim-pythonsense', {'for': ['python']}  " af, if, ac, ic, ad,
 Plug 'vim-scripts/DrawIt'
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'scrooloose/nerdcommenter', {'for': ['python', 'c', 'cpp', 'sh', 'matlab', 'vim', 'make', 'cmake']}
-Plug 'vim-scripts/a.vim', {'for': ['c', 'cpp']}
+"Plug 'vim-scripts/a.vim', {'for': ['c', 'cpp']}
 Plug 'ludovicchabant/vim-gutentags', {'for': ['python', 'c', 'cpp']}
 Plug 'skywind3000/asyncrun.vim', {'on': 'AsyncRun'}
 Plug 'fs111/pydoc.vim', {'for': 'python'}  " just press K(or <leader>pw) in python files
@@ -180,6 +180,22 @@ inoremap <m-down> <Esc>:m .+1<CR>==gi
 inoremap <m-up> <Esc>:m .-2<CR>==gi
 vnoremap <m-down> :m '>+1<CR>gv=gv
 vnoremap <m-up> :m '<-2<CR>gv=gv
+
+" h/cc,cpp
+function! ToggleHS()
+    let file_name = expand("%:p:r")
+    let type_name = expand("%:e")
+    if type_name == 'h'
+        if filereadable(file_name . '.cc')
+            exe 'e ' . file_name . '.cc'
+            return
+        endif
+        exe 'e ' . file_name . '.cpp'
+    elseif type_name == 'cpp' || type_name == 'cc'
+        exe 'e ' . file_name . '.h'
+    endif
+endfunction
+nnoremap <m-o> :call ToggleHS()<cr>
 
 " Appearance
 set cursorline
