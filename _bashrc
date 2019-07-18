@@ -115,7 +115,7 @@ fi
 export EDITOR='vim'
 bind 'set completion-ignore-case on'
 export HISTIGNORE='&:[ ]*:exit:ls:ll:cd*:bg:fg:history:clear:vim'
-export GIT_TEMPLATE_DIR='~/rcfiles/git_template'
+export GIT_TEMPLATE_DIR="$HOME/rcfiles/git_template"
 export CXX='/usr/bin/clang++'
 
 # app alias
