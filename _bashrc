@@ -118,6 +118,12 @@ export HISTIGNORE='&:[ ]*:exit:ls:ll:cd*:bg:fg:history:clear:vim'
 export GIT_TEMPLATE_DIR="$HOME/rcfiles/git_template"
 export CXX='/usr/bin/clang++'
 
+# IPP
+export IPPROOT=~/bin/intel_ipp/compilers_and_libraries_2018.3.222/linux/ipp
+export CPATH="$IPPROOT/include:$CPATH"
+export LD_LIBRARY_PATH="$IPPROOT/lib/intel64:${LD_LIBRARY_PATH}"
+export LIBRARY_PATH="$IPPROOT/lib/intel64:${LIBRARY_PATH}"
+
 # app alias
 alias code='~/bin/VSCode-linux-x64/bin/code'
 alias pycharm='~/bin/pycharm-community-2019.1.2/bin/pycharm.sh > /dev/null &'

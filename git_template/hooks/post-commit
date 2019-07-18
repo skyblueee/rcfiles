@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # git version_reversion
 # VERSION_REVISION=`git describe --abbrev=6 --always`
@@ -6,4 +6,4 @@
 # VERSION_MINOR=`grep VERSION_MINOR CMakeLists.txt | sed -r 's/set\((.+) (.+)\)/\2/'`
 # VERSION_PATCH=`grep VERSION_PATCH CMakeLists.txt | sed -r 's/set\((.+) (.+)\)/\2/'`
 # git tag v${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${VERSION_REVISION}
-echo "Have you checked the VERSION setting?"
+echo -e "\033[5;44;31m {{{\033[0m\033[41;33m Have you checked the VERSION setting? \033[5;44;31m}}} \033[0m"

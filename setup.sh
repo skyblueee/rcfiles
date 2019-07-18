@@ -1,6 +1,7 @@
 #!/bin/bash
-mkdir .pip; cp pip.conf ~root/.pip
-sudo mkdir ~root/.pip; sudo cp pip.conf ~root/.pip
+mkdir -p ~/.pip; cp pip.conf ~/.pip
+mkdir -p ~/.vim_undodir
+sudo mkdir -p ~root/.pip; sudo cp pip.conf ~root/.pip
 sudo apt install -y python-pip python3-pip
 sudo -H pip3 install cheat
 sudo -H pip3 install yapf
