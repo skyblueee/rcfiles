@@ -5,7 +5,7 @@ sudo mkdir -p ~root/.pip; sudo cp pip.conf ~root/.pip
 sudo apt install -y python-pip python3-pip
 sudo apt install -y clang-format clang-tidy cppman
 sudo apt install -y autojump ranger
-sudo apt install -y vim sdcv lftp
+sudo apt install -y vim sdcv lftp virtualbox virtualbox-guest-additions-iso
 sudo apt install -y silversearcher-ag terminator
 mkdir -p ~/.config/terminator; ln terminator.config ~/.config/terminator/config
 

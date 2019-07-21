@@ -115,7 +115,7 @@ fi
 export EDITOR='vim'
 bind 'set completion-ignore-case on'
 export HISTIGNORE='&:[ ]*:exit:ls:ll:cd*:bg:fg:history:clear:vim'
-export GIT_TEMPLATE_DIR='~/rcfiles/git_template'
+export GIT_TEMPLATE_DIR="$HOME/rcfiles/git_template"
 export CXX='/usr/bin/clang++'
 
 # IPP
@@ -127,10 +127,6 @@ export LIBRARY_PATH="$IPPROOT/lib/intel64:${LIBRARY_PATH}"
 # app alias
 alias code='~/bin/VSCode-linux-x64/bin/code'
 alias pycharm='~/bin/pycharm-community-2019.1.2/bin/pycharm.sh > /dev/null &'
-alias idea='~/.prog/JetBrains/idea/bin/idea.sh > /dev/null &'
-alias clion='~/.prog/JetBrains/clion/bin/clion.sh > /dev/null &'
-alias idaq='~/.prog/IDA_Pro_v6.4_Linux_and_Hex-Rays_Decompiler_ARM_x86_x64/idaq'
-alias idaq64='~/.prog/IDA_Pro_v6.4_Linux_and_Hex-Rays_Decompiler_ARM_x86_x64/idaq64'
 alias docx2txt='~/bin/docx2txt-1.4/docx2txt.sh'
 alias typora='typora_fun(){ ~/.prog/Typora-linux-x64/Typora $1 & }; typora_fun $1'
 alias gdb='gdb -q'
