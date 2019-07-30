@@ -148,6 +148,7 @@ alias no-aslr-run='setarch `arch` -R'
 alias open='xdg-open'
 alias john='~/bin/JohnTheRipper/run/john'
 alias ftpserver='python3 -m pyftpdlib -d . -w'
+alias httpserver='python3 -m http.server'
 
 # ctf tools
 alias ctf-str2hex='~/bin/ctf-tools/str2hex.py'

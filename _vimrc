@@ -705,6 +705,7 @@ nmap <silent> <leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <leader>j <Plug>(ale_next_wrap)
 
 "==|neoformat|=================================================================
+let g:neoformat_enabled_python = ['autopep8', 'yapf', 'docformatter']
 let g:neoformat_cpp_clangformat = {
         \ 'exe': 'clang-format',
         \ 'args': ['-style="{BasedOnStyle: WebKit,
