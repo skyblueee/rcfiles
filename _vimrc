@@ -21,7 +21,7 @@ Plug 'junegunn/fzf.vim'  " <leader>fl/ for file/line/ag
 Plug 'Yggdroot/LeaderF', {'on': ['LeaderfBufTagAll', 'LeaderfFunctionAll'], 'do': './install.sh'}
 Plug 'easymotion/vim-easymotion' " <leader><leader>swafFjk
 Plug 'justinmk/vim-sneak'  " sxx fx
-"Plug 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-multiple-cursors'
 Plug 'mg979/vim-visual-multi'  " <c-n>vii<c-f> for current indent, <c-n>maf for current function
 Plug 'terryma/vim-expand-region', {'for': ['python', 'c', 'cpp', 'sh', 'matlab', 'vim']} " v vv vvv
 Plug 'tpope/vim-repeat'
@@ -37,7 +37,8 @@ Plug 'sillybun/zytutil', {'on': ['REPLToggle']}  " required by vim-repl
 Plug 'jiangmiao/auto-pairs', {'for': ['python', 'c', 'cpp', 'sh', 'matlab', 'vim']}
 Plug 'honza/vim-snippets', {'for': ['python', 'c', 'cpp', 'sh']}
 Plug 'SirVer/ultisnips', {'for': ['python', 'c', 'cpp', 'sh']}  " must before CompleteParameter.vim
-Plug 'Valloric/YouCompleteMe', {'for': ['python', 'c', 'cpp'], 'do': 'python3 ./install.py --clang-completer'}
+Plug 'Valloric/YouCompleteMe', {'for': ['python', 'c', 'cpp'], 'do': 'python3 ./install.py --clangd-completer'}
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'tenfyzhong/CompleteParameter.vim'  ", {'for': ['c', 'cpp', 'python']}
 "---------------------------------------文本对象
 Plug 'wellle/targets.vim'  " i) a, i', i*, a_, a$
@@ -49,11 +50,10 @@ Plug 'jeetsukumaran/vim-pythonsense', {'for': ['python']}  " af, if, ac, ic, ad,
 Plug 'vim-scripts/DrawIt'
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'scrooloose/nerdcommenter', {'for': ['python', 'c', 'cpp', 'sh', 'matlab', 'vim', 'make', 'cmake']}
-"Plug 'vim-scripts/a.vim', {'for': ['c', 'cpp']}
 Plug 'ludovicchabant/vim-gutentags', {'for': ['python', 'c', 'cpp']}
 Plug 'skywind3000/asyncrun.vim', {'on': 'AsyncRun'}
 Plug 'fs111/pydoc.vim', {'for': 'python'}  " just press K(or <leader>pw) in python files
-Plug 'w0rp/ale', {'for': ['python', 'c', 'cpp', 'sh']}
+Plug 'w0rp/ale', {'for': ['python', 'sh']}
 Plug 'sbdchd/neoformat', {'on': ['Neoformat']}
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive', {'on': ['Gdiff', 'Gvdiff', 'Gstatus']}
@@ -63,7 +63,7 @@ Plug 'vimwiki/vimwiki', {'for': 'wiki'}
 Plug 'iamcco/mathjax-support-for-mkdp', {'for': 'markdown'}
 Plug 'iamcco/markdown-preview.vim', {'for': 'markdown'}  " MarkdownPreview
 Plug 'vim-scripts/DoxygenToolkit.vim', {'on': 'Dox'}
-"Plug 'vim-latex/vim-latex', {'for': 'tex'}
+Plug 'vim-latex/vim-latex', {'for': 'tex'}
 Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
 "---------------------------------------UI
@@ -471,29 +471,23 @@ vmap <c-v> <Plug>(expand_region_shrink)
 
 "==|YouCompleteMe|=============================================================
 let g:ycm_min_num_identifier_candidate_chars = 2
-let g:ycm_filetype_whitelist = {
-            \ 'c': 1,
-            \ 'cpp': 1,
-            \ 'python': 1,
-            \ 'perl': 1,
-            \ 'sh': 1,
-            \ }
-"let g:ycm_filetype_blacklist = { [see help file] }
-"let g:ycm_filetype_specific_completion_to_disable = { [see help file] }
-let g:ycm_show_diagnostics_ui = 0 " default 1
+let g:ycm_show_diagnostics_ui = 1 " default 1
 let g:ycm_complete_in_comments = 1 " default 0
 let g:ycm_collect_identifiers_from_comments_and_strings = 1 " default 0
 "let g:ycm_collect_identifiers_from_tags_files = 0 " default 0
 "let g:ycm_seed_identifiers_with_syntax = 0 " default 0
 "let g:ycm_extra_conf_vim_data = [] " default []
+let g:ycm_error_symbol = '✗✗' " '×•✹●' default '>>'
+let g:ycm_warning_symbol = '✭✭' " '▶' default '>>'
+let g:ycm_enable_diagnostic_signs = 1
+let g:ycm_enable_diagnostic_highlighting = 1
+let g:ycm_echo_current_diagnostic = 1
 let g:ycm_server_python_interpreter = '/usr/bin/python3'
 "let g:ycm_keep_logfiles = 0 " default 0
 "let g:ycm_log_level = 'debug' " debug/info(default)/warning/error/critical
 "let g:ycm_add_preview_to_completeopt = 1 " default 0
 let g:ycm_autoclose_preview_window_after_completion = 1 " default 0
 "let g:ycm_autoclose_preview_window_after_insertion = 1 " default 0
-"let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
-"let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>']
 "let g:ycm_key_list_stop_completion = ['<c-y>'] " default ['<c-y>']
 "let g:ycm_key_invoke_completion = '<c-z>' " default <c-Space>
 let g:ycm_global_ycm_extra_conf = '~/rcfiles/_ycm_extra_conf.py' " default ''
@@ -508,8 +502,12 @@ let g:ycm_semantic_triggers =  {
 "let g:ycm_use_ultisnips_completer = 1 " default 1
 "let g:ycm_goto_buffer_command = 'same-buffer' " default 'same-buffer'
 "let g:ycm_disable_for_files_larger_than_kb = 1000 " default 1000
+let g:ycm_clangd_uses_ycmd_caching = 0
 au BufEnter *.h,*.c,*.cpp,*.py nmap <c-]> :YcmCompleter GoTo<cr>
 au BufLeave *.h,*.c,*.cpp,*.py unmap <c-]>
+
+"==|Coc|=======================================================================
+"inoremap <expr> <tab> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 "==|CompleteParameter|=========================================================
 inoremap <silent><expr> ( complete_parameter#pre_complete("()")
@@ -639,13 +637,14 @@ call g:quickmenu#append("Undo Hunk", 'GitGutterUndoHunk',
             \ '<Leader>hp: Undo the hunk under the cursor.')
 "----------------------------------------
 call g:quickmenu#append("# YCM", '', '', 'c,cpp,python,java,js')
+call g:quickmenu#append("FixIt", 'YcmCompleter FixIt', "YcmCompleter FixIt", 'c,cpp,python')
 call g:quickmenu#append("GoTo", 'YcmCompleter GoTo', "GoToDefinition>>GoToDeclaration>>GoToInclude", 'c,cpp,python')
-call g:quickmenu#append("References", 'YcmCompleter GoToReferences', "finds all the references", 'c,cpp,python')
 call g:quickmenu#append("GetType", 'YcmCompleter GetType',
             \ "the type of the variable or method, and where it differs, the derived type", 'c,cpp,python')
 call g:quickmenu#append("GetParent", 'YcmCompleter GetParent', "the semantic parent", 'c,cpp,python')
 call g:quickmenu#append("GetDoc", 'YcmCompleter GetDoc',
             \ "displays type or declaration/Doxygen or javadoc/Python docstrings / etc.", 'c,cpp,python')
+call g:quickmenu#append("References", 'YcmCompleter GoToReferences', "finds all the references", 'c,cpp,python')
 
 noremap <silent><F12> :call quickmenu#toggle(0)<cr>
 
@@ -685,8 +684,6 @@ let g:ale_sign_warning = '✭' " '▶' default '--'
 "let g:ale_type_map = {} " default {}
 "let b:ale_type_map = {} " default {}
 let g:ale_linters = {
-            \ 'c': ['clang', 'gcc', 'cppcheck'],
-            \ 'cpp': ['clang++', 'g++', 'cppcheck'],
             \ 'python': ['flake8', 'pylint'],
             \ }
 let g:ale_python_pylint_executable = 'python3'
