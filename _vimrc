@@ -38,7 +38,7 @@ Plug 'jiangmiao/auto-pairs', {'for': ['python', 'c', 'cpp', 'sh', 'matlab', 'vim
 Plug 'honza/vim-snippets', {'for': ['python', 'c', 'cpp', 'sh']}
 Plug 'SirVer/ultisnips', {'for': ['python', 'c', 'cpp', 'sh']}  " must before CompleteParameter.vim
 Plug 'Valloric/YouCompleteMe', {'for': ['python', 'c', 'cpp'], 'do': 'python3 ./install.py --clangd-completer'}
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+"Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'tenfyzhong/CompleteParameter.vim'  ", {'for': ['c', 'cpp', 'python']}
 "---------------------------------------文本对象
 Plug 'wellle/targets.vim'  " i) a, i', i*, a_, a$
@@ -503,6 +503,8 @@ let g:ycm_semantic_triggers =  {
 "let g:ycm_goto_buffer_command = 'same-buffer' " default 'same-buffer'
 "let g:ycm_disable_for_files_larger_than_kb = 1000 " default 1000
 let g:ycm_clangd_uses_ycmd_caching = 0
+let g:ycm_clangd_binary_path = exepath("clangd")
+let g:ycm_clangd_args = []
 au BufEnter *.h,*.c,*.cpp,*.py nmap <c-]> :YcmCompleter GoTo<cr>
 au BufLeave *.h,*.c,*.cpp,*.py unmap <c-]>
 
