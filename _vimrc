@@ -507,6 +507,10 @@ au BufEnter *.h,*.c,*.cpp,*.py nmap <c-]> :YcmCompleter GoTo<cr>
 au BufLeave *.h,*.c,*.cpp,*.py unmap <c-]>
 
 "==|Coc|=======================================================================
+let g:coc_start_at_startup = 0
+let g:coc_snippet_next = '<tab>'
+let g:coc_snippet_prev = '<s-tab>'
+autocmd FileType tex let b:coc_pairs = [["$", "$"]]
 "inoremap <expr> <tab> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 "==|CompleteParameter|=========================================================
