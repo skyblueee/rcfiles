@@ -1,3 +1,8 @@
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
+add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
+
 # use_git_version
 function(use_git_version)
     find_package(Git)
@@ -6,14 +11,15 @@ function(use_git_version)
             WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
             OUTPUT_VARIABLE VERSION_REVISION
             OUTPUT_STRIP_TRAILING_WHITESPACE)
-        set(PROJECT_VERSION_REVISION ${VERSION_REVISION} PARENT_SCOPE)
         execute_process(COMMAND ${GIT_EXECUTABLE} log -1 --format=%cd --date=short
             WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
             OUTPUT_VARIABLE VERSION_DATE
             OUTPUT_STRIP_TRAILING_WHITESPACE)
-        set(PROJECT_VERSION_DATE ${VERSION_DATE} PARENT_SCOPE)
+        set(RELEASE_DIR ${PROJECT_BINARY_DIR}/${PROJECT_NAME}_v${PROJECT_VERSION}.${VERSION_REVISION}@${VERSION_DATE}
+            PARENT_SCOPE)
     else(GIT_FOUND)
         message("Git need to be installed")
+        set(RELEASE_DIR ${PROJECT_BINARY_DIR}/${PROJECT_NAME}_v${PROJECT_VERSION} PARENT_SCOPE)
     endif(GIT_FOUND)
 endfunction()
 
@@ -90,7 +96,7 @@ function(build_doc)
     find_package(Doxygen REQUIRED dot OPTIONAL_COMPONENTS mscgen dia)
     if(DOXYGEN_FOUND)
         set(DOXYGEN_PROJECT_NAME ${CMAKE_PROJECT_NAME})
-        set(DOXYGEN_PROJECT_BRIEF "")
+        set(DOXYGEN_PROJECT_BRIEF ${CMAKE_PROJECT_DESCRIPTION})
         set(DOXYGEN_PROJECT_NUMBER ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
         set(DOXYGEN_EXCLUDE ${PROJECT_SOURCE_DIR}/src/easylogging)
         set(DOXYGEN_EXCLUDE_SYMBOLS *::*Imp)
