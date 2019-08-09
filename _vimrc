@@ -30,15 +30,14 @@ Plug 'junegunn/vim-peekaboo'  " visual @ and registers and <c-r> for insert mode
 Plug 'kshenoy/vim-signature' " m<a-zA-Z> m/ m<space> | m<0-9> m? m<bs>
 Plug 't9md/vim-choosewin'  " press - to choose window
 "---------------------------------------REPL
-Plug 'sillybun/vim-repl', {'on':['REPLToggle'], 'do': './install.sh'}
-Plug 'sillybun/vim-async', {'on': ['REPLToggle'], 'do': './install.sh'}  " required by vim-repl
-Plug 'sillybun/zytutil', {'on': ['REPLToggle']}  " required by vim-repl
+Plug 'sillybun/vim-repl', {'on':['REPLToggle']}
+Plug 'sillybun/vim-async', {'on': ['REPLToggle']}  " required by vim-repl
 "---------------------------------------补全
 Plug 'jiangmiao/auto-pairs', {'for': ['python', 'c', 'cpp', 'sh', 'matlab', 'vim']}
 Plug 'honza/vim-snippets', {'for': ['python', 'c', 'cpp', 'sh']}
 Plug 'SirVer/ultisnips', {'for': ['python', 'c', 'cpp', 'sh']}  " must before CompleteParameter.vim
 Plug 'Valloric/YouCompleteMe', {'for': ['python', 'c', 'cpp'], 'do': 'python3 ./install.py --clangd-completer'}
-"Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', {'for':['nofile'], 'brach': 'release'}
 Plug 'tenfyzhong/CompleteParameter.vim'  ", {'for': ['c', 'cpp', 'python']}
 "---------------------------------------文本对象
 Plug 'wellle/targets.vim'  " i) a, i', i*, a_, a$
@@ -458,7 +457,8 @@ nmap  -  <Plug>(choosewin)
 let g:choosewin_overlay_enable = 1
 
 "==|vim-repl|==================================================================
-let g:repl_program = { "python": "python3", "default": "bash" }
+let g:repl_auto_sends = ['class ', 'def ', 'for ', 'if ', 'while ']
+let g:repl_program = { "python": "ipython3", "default": "bash" }
 let g:repl_exit_commands = { "python": "quit()", "default": "exit" }
 let g:repl_predefine_python = {
             \   'numpy': 'import numpy as np',
@@ -506,7 +506,7 @@ let g:ycm_clangd_uses_ycmd_caching = 0
 let g:ycm_clangd_binary_path = exepath("clangd")
 let g:ycm_clangd_args = []
 au BufEnter *.h,*.c,*.cpp,*.py nmap <c-]> :YcmCompleter GoTo<cr>
-au BufLeave *.h,*.c,*.cpp,*.py unmap <c-]>
+au BufLeave *.h,*.c,*.cpp,*.py silent! unmap <c-]>
 
 "==|Coc|=======================================================================
 let g:coc_start_at_startup = 0
@@ -617,7 +617,7 @@ call g:quickmenu#append("Run Matlab", "AsyncRun -raw octave %:p",
 call g:quickmenu#append("Term Matlab", "term octave --persist %:p",
             \ "run current script and persist octave. use <c-w>N to term-normal.", 'matlab')
 call g:quickmenu#append("add brkpoint", "exe 'normal! Oimport ipdb; ipdb.set_trace()\<Esc>'", "add brkpoint", 'python')
-call g:quickmenu#append("REPL Python", "REPLToggle", "REPL Python. use <c-w>N to term-normal.", 'python')
+call g:quickmenu#append("REPL Python", "REPLToggle", "<leader>w: send code; <c-w>N: back to term-normal.", 'python')
 call g:quickmenu#append("Run file", "let $PYTHONUNBUFFERED=1 | AsyncRun -raw %:p",
             \ "run current script. | Use `AsyncRun python` to run selected lines.", 'python,sh')
 call g:quickmenu#append("Run gnuplot", "AsyncRun gnuplot --persist %:p", "Run gnuplot script", 'gnuplot')
@@ -644,6 +644,11 @@ call g:quickmenu#append("Undo Hunk", 'GitGutterUndoHunk',
 "----------------------------------------
 call g:quickmenu#append("# YCM", '', '', 'c,cpp,python,java,js')
 call g:quickmenu#append("FixIt", 'YcmCompleter FixIt', "YcmCompleter FixIt", 'c,cpp,python')
+function! YcmRefactorRename()
+    let new_name = input("New Name: ")
+    exe "YcmCompleter RefactorRename " . new_name
+endfunction
+call g:quickmenu#append("RefactorRename", 'call YcmRefactorRename()', "YcmCompleter RefactorRename", 'c,cpp,python')
 call g:quickmenu#append("GoTo", 'YcmCompleter GoTo', "GoToDefinition>>GoToDeclaration>>GoToInclude", 'c,cpp,python')
 call g:quickmenu#append("GetType", 'YcmCompleter GetType',
             \ "the type of the variable or method, and where it differs, the derived type", 'c,cpp,python')
