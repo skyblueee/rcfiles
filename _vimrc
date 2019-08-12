@@ -471,21 +471,14 @@ vmap <c-v> <Plug>(expand_region_shrink)
 
 "==|YouCompleteMe|=============================================================
 let g:ycm_min_num_identifier_candidate_chars = 2
-let g:ycm_show_diagnostics_ui = 1 " default 1
 let g:ycm_complete_in_comments = 1 " default 0
 let g:ycm_collect_identifiers_from_comments_and_strings = 1 " default 0
 "let g:ycm_collect_identifiers_from_tags_files = 0 " default 0
 "let g:ycm_seed_identifiers_with_syntax = 0 " default 0
 "let g:ycm_extra_conf_vim_data = [] " default []
-let g:ycm_error_symbol = '✗✗' " '×•✹●' default '>>'
-let g:ycm_warning_symbol = '✭✭' " '▶' default '>>'
-let g:ycm_enable_diagnostic_signs = 1
-let g:ycm_enable_diagnostic_highlighting = 1
-let g:ycm_echo_current_diagnostic = 1
 let g:ycm_server_python_interpreter = '/usr/bin/python3'
 "let g:ycm_keep_logfiles = 0 " default 0
 "let g:ycm_log_level = 'debug' " debug/info(default)/warning/error/critical
-"let g:ycm_add_preview_to_completeopt = 1 " default 0
 let g:ycm_autoclose_preview_window_after_completion = 1 " default 0
 "let g:ycm_autoclose_preview_window_after_insertion = 1 " default 0
 "let g:ycm_key_list_stop_completion = ['<c-y>'] " default ['<c-y>']
@@ -494,19 +487,30 @@ let g:ycm_global_ycm_extra_conf = '~/rcfiles/_ycm_extra_conf.py' " default ''
 "let g:ycm_confirm_extra_conf = 1 " default 1
 "let g:ycm_extra_conf_globlist = [] " default []
 "let g:ycm_filepath_completion_use_working_dir = 0 " default 0
-let g:ycm_semantic_triggers =  {
-            \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-            \ 'cs,lua,javascript': ['re!\w{2}'],
-            \ }
 "let g:ycm_cache_omnifunc = 1 " default 0
 "let g:ycm_use_ultisnips_completer = 1 " default 1
 "let g:ycm_goto_buffer_command = 'same-buffer' " default 'same-buffer'
 "let g:ycm_disable_for_files_larger_than_kb = 1000 " default 1000
-let g:ycm_clangd_uses_ycmd_caching = 0
+let g:ycm_clangd_uses_ycmd_caching = 1 " 使用ycm会更加精准，但是如果没有触发语法补全，不能补全函数参数。
+let g:ycm_semantic_triggers =  {
+            \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{3}'],
+            \ 'cs,lua,javascript': ['re!\w{3}'],
+            \ } " 小trick，2个字符的时候已经触发了ycm精准补全，3个字符触发语法补全，不再精准但功能更强大。
 let g:ycm_clangd_binary_path = exepath("clangd")
-let g:ycm_clangd_args = []
+let g:ycm_clangd_args = ['-background-index'] " clangd-9 will automatically enable indexing, not 8
 au BufEnter *.h,*.c,*.cpp,*.py nmap <c-]> :YcmCompleter GoTo<cr>
 au BufLeave *.h,*.c,*.cpp,*.py silent! unmap <c-]>
+" use YCM rather than ale
+"let g:ycm_show_diagnostics_ui = 1 " default 1;
+"let g:ycm_echo_current_diagnostic = 1 " default 1;
+let g:ycm_key_detailed_diagnostics = ''
+let g:ycm_enable_diagnostic_highlighting = 1
+let g:ycm_error_symbol = '✗✗' " '×•✹●' default '>>'
+let g:ycm_warning_symbol = '✭✭' " '▶' default '>>'
+let g:ycm_enable_diagnostic_signs = 1
+" 1. 若使用了Python virtual environment或者非标准位置的第三方库，YCM可能不能正常功能，需在
+"    .ycm_extra_conf.py中额外配置。详情参见YCM说明文档"Working with virtual environment"
+" 2. YCM可以使用任意LSP服务器，详见help g:ycm_language_server
 
 "==|Coc|=======================================================================
 let g:coc_start_at_startup = 0
@@ -649,13 +653,15 @@ function! YcmRefactorRename()
     exe "YcmCompleter RefactorRename " . new_name
 endfunction
 call g:quickmenu#append("RefactorRename", 'call YcmRefactorRename()', "YcmCompleter RefactorRename", 'c,cpp,python')
-call g:quickmenu#append("GoTo", 'YcmCompleter GoTo', "GoToDefinition>>GoToDeclaration>>GoToInclude", 'c,cpp,python')
+call g:quickmenu#append("GoTo", 'YcmCompleter GoTo', "Definition, Declaration, Include", 'c,cpp,python')
+call g:quickmenu#append("GoToRef", 'YcmCompleter GoToReferences', "GoToReferences", 'python')
 call g:quickmenu#append("GetType", 'YcmCompleter GetType',
             \ "the type of the variable or method, and where it differs, the derived type", 'c,cpp,python')
 call g:quickmenu#append("GetParent", 'YcmCompleter GetParent', "the semantic parent", 'c,cpp,python')
 call g:quickmenu#append("GetDoc", 'YcmCompleter GetDoc',
             \ "displays type or declaration/Doxygen or javadoc/Python docstrings / etc.", 'c,cpp,python')
 call g:quickmenu#append("References", 'YcmCompleter GoToReferences', "finds all the references", 'c,cpp,python')
+call g:quickmenu#append("YcmDiags", 'YcmDiags', "YcmDiags", 'c,cpp,python')
 
 noremap <silent><F12> :call quickmenu#toggle(0)<cr>
 
