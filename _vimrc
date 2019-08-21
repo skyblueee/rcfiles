@@ -66,6 +66,7 @@ Plug 'vim-latex/vim-latex', {'for': 'tex'}
 Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
 "---------------------------------------UI
+Plug 'mhinz/vim-startify'
 Plug 'mh21/errormarker.vim', {'for': ['c', 'cpp', 'python']}
 Plug 'liuchengxu/space-vim-dark'
 Plug 'luochen1990/rainbow', {'for': ['python', 'c', 'cpp', 'sh', 'matlab', 'vim']}
@@ -573,8 +574,69 @@ let g:asyncrun_open = 9
 let g:quickmenu_options = "HL"
 let g:quickmenu_padding_left = 1
 let g:quickmenu_padding_right = 1
+"========================================
+noremap <silent><F12> :call quickmenu#toggle(0)<cr>
 call g:quickmenu#reset()
-call g:quickmenu#header('')
+call g:quickmenu#header('Code')
+"----------------------------------------
+call g:quickmenu#append("# CMake", '', '', 'c,cpp,python,cmake')
+call g:quickmenu#append("cmake ..", 'AsyncRun -cwd=<root>/build cmake ..', "*cmake ..* on project", 'c,cpp,cmake')
+call g:quickmenu#append("make", 'AsyncRun -auto=make -cwd=<root>/build make', "*make* on project", 'c,cpp,cmake')
+call g:quickmenu#append("run %{expand('%:t:r')}", 'AsyncRun -auto=make -cwd=<root>/build utest/%:t:r',
+            \ "%{expand('%:t:r')} on project", 'c,cpp,cmake')
+"----------------------------------------
+call g:quickmenu#append("# FMT", '', '', 'c,cpp,python,markdown')
+call g:quickmenu#append("NeoFormat", "Neoformat", "Neoformat")
+call g:quickmenu#append("Dox Class/Func", "Dox", ":Dox")
+call g:quickmenu#append("Dox File", "DoxAuthor", ":DoxAuthor")
+call g:quickmenu#append("MD pic", "exe 'normal! o![text]()\<left>./'", "insert picture in markdown", 'markdown')
+call g:quickmenu#append("MD link", "exe 'normal! o[text]()\<left>http://'", "insert link in markdown", 'markdown')
+"----------------------------------------
+call g:quickmenu#append("# AsyncRun", '', '', 'python,matlab,sh,gnuplot')
+call g:quickmenu#append("Run Matlab", "AsyncRun -raw octave %:p", "运行当前脚本后退出octave", 'matlab')
+call g:quickmenu#append("Term Matlab", "term octave --persist %:p", "运行当前脚本. <c-w>N: term-normal.", 'matlab')
+call g:quickmenu#append("add brkpoint", "exe 'normal! Oimport ipdb; ipdb.set_trace()\<Esc>'", "add brkpoint", 'python')
+call g:quickmenu#append("REPL Python", "REPLToggle", "<leader>w: send code; <c-w>N: back to term-normal.", 'python')
+call g:quickmenu#append("Run %{expand('%:t')}", "let $PYTHONUNBUFFERED=1 | AsyncRun -raw %:p",
+            \ "run current script. | Use `AsyncRun python` to run selected lines.", 'python,sh')
+call g:quickmenu#append("Run %{expand('%:t')}", "AsyncRun gnuplot --persist %:p", "Run gnuplot script", 'gnuplot')
+let g:next_py_version = 2
+function! TogglePy23()
+    if g:ale_python_pylint_executable == 'python3'
+        let g:ale_python_pylint_executable = 'python2'
+        let g:ale_python_flake8_executable = 'python2'
+        let g:pydoc_cmd = 'python2 -m pydoc'
+        let g:next_py_version = 2
+    else
+        let g:ale_python_pylint_executable = 'python3'
+        let g:ale_python_flake8_executable = 'python3'
+        let g:pydoc_cmd = 'python3 -m pydoc'
+        let g:next_py_version = 3
+    endif
+endfunction
+call g:quickmenu#append("切换到Python%{g:next_py_version}", 'call TogglePy23()', "切换ale/pydoc的python版本", 'python')
+"----------------------------------------
+call g:quickmenu#append("# YCM", '', '', 'c,cpp,python,java,js')
+call g:quickmenu#append("FixIt", 'YcmCompleter FixIt', "YcmCompleter FixIt", 'c,cpp,python')
+function! YcmRefactorRename()
+    let new_name = input("New Name: ")
+    exe "YcmCompleter RefactorRename " . new_name
+endfunction
+call g:quickmenu#append("RefactorRename", 'call YcmRefactorRename()', "YcmCompleter RefactorRename", 'c,cpp,python')
+call g:quickmenu#append("GoTo", 'YcmCompleter GoTo', "Definition, Declaration, Include", 'c,cpp,python')
+call g:quickmenu#append("GoToRef", 'YcmCompleter GoToReferences', "GoToReferences", 'python')
+call g:quickmenu#append("GetType", 'YcmCompleter GetType',
+            \ "the type of the variable or method, and where it differs, the derived type", 'c,cpp,python')
+call g:quickmenu#append("GetParent", 'YcmCompleter GetParent', "the semantic parent", 'c,cpp,python')
+call g:quickmenu#append("GetDoc", 'YcmCompleter GetDoc',
+            \ "displays type or declaration/Doxygen or javadoc/Python docstrings / etc.", 'c,cpp,python')
+call g:quickmenu#append("References", 'YcmCompleter GoToReferences', "finds all the references", 'c,cpp,python')
+call g:quickmenu#append("YcmDiags", 'YcmDiags', "YcmDiags", 'c,cpp,python')
+
+"========================================
+noremap <silent><F5> :call quickmenu#toggle(1)<cr>
+call g:quickmenu#current(1)
+call g:quickmenu#header('Gereral')
 "----------------------------------------
 call g:quickmenu#append('# Window', '')
 call g:quickmenu#append('NERDTreeToggle', 'NERDTreeToggle', '')
@@ -602,68 +664,12 @@ call g:quickmenu#append("BLines", 'BLines', "<leader>l: use fzf's *BLines* on cu
 call g:quickmenu#append("Lines", 'Lines', "use fzf's *Lines* on opened buffers")
 call g:quickmenu#append("Tags", 'LeaderfBufTagAll', "use *LeaderfBufTagAll* on opened buffers")
 call g:quickmenu#append("Functions", 'LeaderfFunctionAll', "use *LeaderfFunction* on opened buffers")
-"----------------------------------------
-call g:quickmenu#append("# CMake", '', '', 'c,cpp,python,cmake')
-call g:quickmenu#append("cmake ..", 'AsyncRun -cwd=<root>/build cmake ..', "*cmake ..* on project", 'c,cpp,cmake')
-call g:quickmenu#append("make", 'AsyncRun -auto=make -cwd=<root>/build make', "*make* on project", 'c,cpp,cmake')
-call g:quickmenu#append("make test", 'AsyncRun -cwd=<root>/build make test', "*make test* on project", 'c,cpp,cmake')
-"----------------------------------------
-call g:quickmenu#append("# FMT", '', '', 'c,cpp,python,markdown')
-call g:quickmenu#append("NeoFormat", "Neoformat", "Neoformat")
-call g:quickmenu#append("Dox Class/Func", "Dox", ":Dox")
-call g:quickmenu#append("Dox File", "DoxAuthor", ":DoxAuthor")
-call g:quickmenu#append("MD pic", "exe 'normal! o![text]()\<left>./'", "insert picture in markdown", 'markdown')
-call g:quickmenu#append("MD link", "exe 'normal! o[text]()\<left>http://'", "insert link in markdown", 'markdown')
-"----------------------------------------
-call g:quickmenu#append("# AsyncRun", '', '', 'python,matlab,sh,gnuplot')
-call g:quickmenu#append("Run Matlab", "AsyncRun -raw octave %:p",
-            \ "run current script and exit octave.", 'matlab')
-call g:quickmenu#append("Term Matlab", "term octave --persist %:p",
-            \ "run current script and persist octave. use <c-w>N to term-normal.", 'matlab')
-call g:quickmenu#append("add brkpoint", "exe 'normal! Oimport ipdb; ipdb.set_trace()\<Esc>'", "add brkpoint", 'python')
-call g:quickmenu#append("REPL Python", "REPLToggle", "<leader>w: send code; <c-w>N: back to term-normal.", 'python')
-call g:quickmenu#append("Run file", "let $PYTHONUNBUFFERED=1 | AsyncRun -raw %:p",
-            \ "run current script. | Use `AsyncRun python` to run selected lines.", 'python,sh')
-call g:quickmenu#append("Run gnuplot", "AsyncRun gnuplot --persist %:p", "Run gnuplot script", 'gnuplot')
-function! TogglePy23()
-    if g:ale_python_pylint_executable == 'python3'
-        let g:ale_python_pylint_executable = 'python2'
-        let g:ale_python_flake8_executable = 'python2'
-        let g:pydoc_cmd = 'python2 -m pydoc'
-    else
-        let g:ale_python_pylint_executable = 'python3'
-        let g:ale_python_flake8_executable = 'python3'
-        let g:pydoc_cmd = 'python3 -m pydoc'
-    endif
-endfunction
-call g:quickmenu#append("toggle python2/3", 'call TogglePy23()', "Toggle python2/3 in ale/pydoc", 'python')
-"----------------------------------------
 call g:quickmenu#append("# Git", '')
 call g:quickmenu#append("Diff", 'Gvdiff', "use fugitive's *Gvdiff* on current document")
 call g:quickmenu#append("Status", 'Gstatus', "use fugitive's *Gstatus* on current document")
 call g:quickmenu#append("Preview Hunk", 'GitGutterPreviewHunk',
-            \ '<Leader>hp: Preview the hunk under the cursor. :pc[lose] to close the preview window')
-call g:quickmenu#append("Undo Hunk", 'GitGutterUndoHunk',
-            \ '<Leader>hp: Undo the hunk under the cursor.')
-"----------------------------------------
-call g:quickmenu#append("# YCM", '', '', 'c,cpp,python,java,js')
-call g:quickmenu#append("FixIt", 'YcmCompleter FixIt', "YcmCompleter FixIt", 'c,cpp,python')
-function! YcmRefactorRename()
-    let new_name = input("New Name: ")
-    exe "YcmCompleter RefactorRename " . new_name
-endfunction
-call g:quickmenu#append("RefactorRename", 'call YcmRefactorRename()', "YcmCompleter RefactorRename", 'c,cpp,python')
-call g:quickmenu#append("GoTo", 'YcmCompleter GoTo', "Definition, Declaration, Include", 'c,cpp,python')
-call g:quickmenu#append("GoToRef", 'YcmCompleter GoToReferences', "GoToReferences", 'python')
-call g:quickmenu#append("GetType", 'YcmCompleter GetType',
-            \ "the type of the variable or method, and where it differs, the derived type", 'c,cpp,python')
-call g:quickmenu#append("GetParent", 'YcmCompleter GetParent', "the semantic parent", 'c,cpp,python')
-call g:quickmenu#append("GetDoc", 'YcmCompleter GetDoc',
-            \ "displays type or declaration/Doxygen or javadoc/Python docstrings / etc.", 'c,cpp,python')
-call g:quickmenu#append("References", 'YcmCompleter GoToReferences', "finds all the references", 'c,cpp,python')
-call g:quickmenu#append("YcmDiags", 'YcmDiags', "YcmDiags", 'c,cpp,python')
-
-noremap <silent><F12> :call quickmenu#toggle(0)<cr>
+            \ 'Preview the hunk under the cursor. :pc[lose] to close the preview window')
+call g:quickmenu#append("Undo Hunk", 'GitGutterUndoHunk', '<Leader>hp: Undo the hunk under the cursor.')
 
 "==|errormarker.vim|===========================================================
 let errormarker_disablemappings = 1

@@ -64,13 +64,12 @@ Press `<Ctrl-o>` to open ranger, and press `q` to leave you in the proper direct
 
 ### Completion
 #### Identifer Completion
-*YCM*, *cmp*, *UltiSnips* and *vim-snippets* are used for auto-completion in C-family and python files.
+*YCM*, *UltiSnips* and *vim-snippets* are used for auto-completion in C-family and python files.
 * just type to get hints and use `<TAB>`, `<C-p>`, `<C-n>` to circle among them.
 * use `<C-o>` to open a snip, and `<C-j>`, `<C-k>` to navigate in it.
 
 #### Pairs Completion
 *auto-pairs* is used for complete about paires (paretheses and quotations).  When you inside `()`/`[]`/`{}`/`''`/`""`, press the latter part to go out, and when you delete the former part you also delete the latter one.
-
 Use `<C-l>`/`<C-j>` in insert mode to move quickly right out of paires.
 
 ### Dictionary/Pydoc
@@ -79,10 +78,7 @@ Use `<C-l>`/`<C-j>` in insert mode to move quickly right out of paires.
 
 ### Go through a project
 #### QuickMenu
-<F12> to pop a menu to search/move/YCM/make/git in the project.
-* `<leader>f` to search files.
-* `<leader>l` to search lines in current buffer.
-* `<leader>a` to search contents.
+按 <F12>, <F5> 键唤出快捷菜单。
 * select certain item in the menu for others.
 
 ### Syntax check

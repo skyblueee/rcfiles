@@ -116,6 +116,7 @@ export EDITOR='vim'
 bind 'set completion-ignore-case on'
 export HISTIGNORE='&:[ ]*:exit:ls:ll:cd*:bg:fg:history:clear:vim'
 export GIT_TEMPLATE_DIR="$HOME/rcfiles/git_template"
+export LESSCHARSET=utf-8  # 解决git log/diff输出中文乱码
 export CXX='/usr/bin/clang++'
 
 # IPP
