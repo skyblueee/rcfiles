@@ -125,6 +125,13 @@ export CPATH="$IPPROOT/include:$CPATH"
 export LD_LIBRARY_PATH="$IPPROOT/lib/intel64:${LD_LIBRARY_PATH}"
 export LIBRARY_PATH="$IPPROOT/lib/intel64:${LIBRARY_PATH}"
 
+# QWT
+export QWT_ROOT=/usr/local/qwt-6.1.4
+export QT_PLUGIN_PATH="${QWT_ROOT}/plugins:$QT_PLUGIN_PATH"
+export CPATH="$QWT_ROOT/include:$CPATH"
+export LD_LIBRARY_PATH="$QWT_ROOT/lib:${LD_LIBRARY_PATH}"
+export LIBRARY_PATH="$QWT_ROOT/lib:${LIBRARY_PATH}"
+
 # app alias
 alias code='~/bin/VSCode-linux-x64/bin/code'
 alias pycharm='~/bin/pycharm-community-2019.1.2/bin/pycharm.sh > /dev/null &'
