@@ -1,0 +1,14 @@
+*.pyc
+*.out
+.root
+*.o
+*.so
+.idea
+*.swp
+.vscode
+build
+msbuild
+__pycache__
+.clangd
+.ccls-cache
+compile_commands.json

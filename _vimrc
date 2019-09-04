@@ -639,6 +639,7 @@ call g:quickmenu#current(1)
 call g:quickmenu#header('Gereral')
 "----------------------------------------
 call g:quickmenu#append('# Window', '')
+call g:quickmenu#append('Startify', 'Startify', '')
 call g:quickmenu#append('NERDTreeToggle', 'NERDTreeToggle', '')
 function! Ranger()
     silent !ranger --choosefile=/tmp/chosen
@@ -670,6 +671,9 @@ call g:quickmenu#append("Status", 'Gstatus', "use fugitive's *Gstatus* on curren
 call g:quickmenu#append("Preview Hunk", 'GitGutterPreviewHunk',
             \ 'Preview the hunk under the cursor. :pc[lose] to close the preview window')
 call g:quickmenu#append("Undo Hunk", 'GitGutterUndoHunk', '<Leader>hp: Undo the hunk under the cursor.')
+
+"==|startify|==================================================================
+let g:startify_change_to_vcs_root = 1
 
 "==|errormarker.vim|===========================================================
 let errormarker_disablemappings = 1
