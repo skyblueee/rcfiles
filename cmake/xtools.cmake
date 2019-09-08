@@ -5,6 +5,7 @@ enable_testing()  # 单元测试
 add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
 add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
 
+set(CMAKE_CXX_STANDARD 14)
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
         "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     set(CXX_FLAGS "-Wall -Wextra")
@@ -25,6 +26,7 @@ set(CMAKE_INSTALL_PREFIX ${XHOME}/bin)
 message("[XTOOLS] include_directories(${XHOME}/bin/include)")
 message("[XTOOLS] link_directories(${XHOME}/bin/lib)")
 message("[XTOOLS] set(CMAKE_INSTALL_PREFIX ${XHOME}/bin)")
+install(FILES CHANGELOG.md DESTINATION .)
 
 # 更改默认生成TARGET位置
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/arch)
@@ -50,6 +52,17 @@ else(GIT_FOUND)
 endif(GIT_FOUND)
 set(CPACK_PACKAGE_VERSION ${PACK_VERSION})
 set(CPACK_PACKAGE_DIRECTORY ${PROJECT_SOURCE_DIR}/pack)
+set(CPACK_SOURCE_IGNORE_FILES
+    ${PROJECT_SOURCE_DIR}/build
+    ${PROJECT_SOURCE_DIR}/msbuild
+    ${CPACK_PACKAGE_DIRECTORY}
+    ${PROJECT_SOURCE_DIR}/.idea
+    ${PROJECT_SOURCE_DIR}/.clangd
+    ${PROJECT_SOURCE_DIR}/.git
+    ${PROJECT_SOURCE_DIR}/.gitignore
+    ${PROJECT_SOURCE_DIR}/compile_commands.json
+    ${PROJECT_SOURCE_DIR}/.vscode)
+set(CPACK_SOURCE_GENERATOR "ZIP")
 set(CMAKE_INSTALL_UCRT_LIBRARIES TRUE)
 include(InstallRequiredSystemLibraries)
 if(WIN32)
@@ -166,10 +179,14 @@ endfunction(build_doc)
 # SYSLIBS: 系统库文件，不随打包一并发布。
 # USEQT: 开关参数，如果用到QT，要加这个参数，必须与QTCOMPONENTS同时设置。
 # QTCOMPONENTS: 用到的QT组件，如Widgets, Charts，必须同时设置USEQT。
+# 前面一般需要如下设置，否则cmake generate报错
+#   set(CMAKE_CONFIGURATION_TYPES "Release" CACHE STRING "" FORCE)
+#   set(CMAKE_BUILD_TYPE RELEASE)
 macro(add_bin_target)  # 不能是function，否则Qt找不到库
     cmake_parse_arguments(FUNCARGS "PTHREAD;USEQT" "TARGET" "SOURCES;SELFLIBS;SYSLIBS;QTCOMPONENTS" ${ARGN})
     if(${FUNCARGS_USEQT})
         set(CMAKE_AUTOMOC ON)
+        set(CMAKE_AUTORCC ON)
         cmake_policy(SET CMP0074 NEW)
         find_package(Qt5 COMPONENTS ${FUNCARGS_QTCOMPONENTS} REQUIRED)
         foreach(COM ${FUNCARGS_QTCOMPONENTS})
@@ -186,6 +203,9 @@ macro(add_bin_target)  # 不能是function，否则Qt找不到库
     endforeach()
     foreach(LIB0 ${FUNCARGS_SYSLIBS})
         list(APPEND ALLLIBS ${LIB0})
+    endforeach()
+    foreach(LIB0 ${ALLLIBS})
+        message("Link Libs: ${FUNCARGS_TARGET} - ${LIB0}")
     endforeach()
     target_link_libraries(${FUNCARGS_TARGET} ${ALLLIBS})
 

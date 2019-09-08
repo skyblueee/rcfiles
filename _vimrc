@@ -354,7 +354,7 @@ let g:Lf_WildIgnore = {
 
 "==|xtabline|==================================================================
 let g:xtabline_settings = {}
-let g:xtabline_settings.bufline_format = ' N: l +<'
+let g:xtabline_settings.buffer_filtering = 0
 "let g:xtabline_settings.override_airline = 0
 nmap <tab> <Plug>(XT-Next-Buffer)
 nmap <s-tab> <Plug>(XT-Prev-Buffer)

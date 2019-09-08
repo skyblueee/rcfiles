@@ -12,3 +12,4 @@ __pycache__
 .clangd
 .ccls-cache
 compile_commands.json
+pack
