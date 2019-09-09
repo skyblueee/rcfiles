@@ -354,10 +354,11 @@ let g:Lf_WildIgnore = {
 
 "==|xtabline|==================================================================
 let g:xtabline_settings = {}
+let g:xtabline_settings.tabline_modes = ['buffers', 'tabs', 'arglist']
 let g:xtabline_settings.buffer_filtering = 0
 "let g:xtabline_settings.override_airline = 0
-nmap <tab> <Plug>(XT-Next-Buffer)
-nmap <s-tab> <Plug>(XT-Prev-Buffer)
+nmap <tab> :XTabNextBuffer<cr>
+nmap <s-tab> :XTabPrevBuffer<cr>
 nmap <BS> <Plug>(XT-Select-Buffer)
 
 "==|vim-airline|===============================================================
