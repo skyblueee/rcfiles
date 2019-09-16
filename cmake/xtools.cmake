@@ -23,9 +23,9 @@ endif(WIN32)
 include_directories(${XHOME}/bin/include)
 link_directories(${XHOME}/bin/lib)
 set(CMAKE_INSTALL_PREFIX ${XHOME}/bin)
-message("[XTOOLS] include_directories(${XHOME}/bin/include)")
-message("[XTOOLS] link_directories(${XHOME}/bin/lib)")
-message("[XTOOLS] set(CMAKE_INSTALL_PREFIX ${XHOME}/bin)")
+message(STATUS "[XTOOLS] include_directories(${XHOME}/bin/include)")
+message(STATUS "[XTOOLS] link_directories(${XHOME}/bin/lib)")
+message(STATUS "[XTOOLS] set(CMAKE_INSTALL_PREFIX ${XHOME}/bin)")
 install(FILES CHANGELOG.md DESTINATION .)
 
 # 更改默认生成TARGET位置
@@ -41,14 +41,21 @@ if(GIT_FOUND)
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
         OUTPUT_VARIABLE VERSION_REVISION
         OUTPUT_STRIP_TRAILING_WHITESPACE)
+    set(PROJECT_VERSION_TWEAK ${VERSION_REVISION})
     # 获取最新 commit 日期，YYYY-MM-DD
     execute_process(COMMAND ${GIT_EXECUTABLE} log -1 --format=%cd --date=short
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
         OUTPUT_VARIABLE VERSION_DATE
         OUTPUT_STRIP_TRAILING_WHITESPACE)
-    set(PACK_VERSION ${PROJECT_VERSION}.${VERSION_REVISION}@${VERSION_DATE})
+    execute_process(COMMAND ${GIT_EXECUTABLE} branch --show-current
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        OUTPUT_VARIABLE VERSION_BRANCH
+        OUTPUT_STRIP_TRAILING_WHITESPACE)
+    set(PACK_VERSION ${VERSION_BRANCH}-${PROJECT_VERSION}.${PROJECT_VERSION_TWEAK}@${VERSION_DATE})
+    message(STATUS "[Git] Set PACK_VERSION to ${PACK_VERSION}")
 else(GIT_FOUND)
     set(PACK_VERSION ${PROJECT_VERSION})
+    message(WARNING "Git Not found. Set PACK_VERSION to ${PACK_VERSION}")
 endif(GIT_FOUND)
 set(CPACK_PACKAGE_VERSION ${PACK_VERSION})
 set(CPACK_PACKAGE_DIRECTORY ${PROJECT_SOURCE_DIR}/pack)
@@ -58,10 +65,12 @@ set(CPACK_SOURCE_IGNORE_FILES
     ${CPACK_PACKAGE_DIRECTORY}
     ${PROJECT_SOURCE_DIR}/.idea
     ${PROJECT_SOURCE_DIR}/.clangd
+    ${PROJECT_SOURCE_DIR}/.ccls-cache
     ${PROJECT_SOURCE_DIR}/.git
     ${PROJECT_SOURCE_DIR}/.gitignore
-    ${PROJECT_SOURCE_DIR}/compile_commands.json
-    ${PROJECT_SOURCE_DIR}/.vscode)
+    ${PROJECT_SOURCE_DIR}/.root
+    ${PROJECT_SOURCE_DIR}/.vscode
+    ${PROJECT_SOURCE_DIR}/compile_commands.json)
 set(CPACK_SOURCE_GENERATOR "ZIP")
 set(CMAKE_INSTALL_UCRT_LIBRARIES TRUE)
 include(InstallRequiredSystemLibraries)
