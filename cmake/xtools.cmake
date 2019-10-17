@@ -33,7 +33,41 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/arch)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
 
-# CPack
+# BUILD_DOC
+# 1. 工程源码位于工程根目录下的src文件夹
+# 2. 文档首页基于工程根目录下的README.md文件
+# 3. 文档中用到的图片位于工程根目录下的doc文件夹
+# 4. 生成的HTML文档位于构建目录下的html/doc文件夹
+# 5. 生成的HTML文档安装/打包在指定根目录下的doc文件夹
+function(build_doc)
+    find_package(Doxygen REQUIRED dot OPTIONAL_COMPONENTS mscgen dia)
+    if(DOXYGEN_FOUND)
+        set(DOXYGEN_PROJECT_NAME ${CMAKE_PROJECT_NAME})
+        set(DOXYGEN_PROJECT_BRIEF ${CMAKE_PROJECT_DESCRIPTION})
+        set(DOXYGEN_PROJECT_NUMBER ${PROJECT_VERSION})
+        set(DOXYGEN_EXCLUDE_SYMBOLS *::*Imp)
+        set(DOXYGEN_TOC_INCLUDE_HEADINGS 3)
+        set(DOXYGEN_ENABLE_PREPROCESSING YES)
+        set(DOXYGEN_MACRO_EXPANSION YES)
+        set(DOXYGEN_EXPAND_ONLY_PREDEF YES)
+        set(DOXYGEN_PREDEFINED __cplusplus)
+        set(DOXYGEN_DOT_FONTNAME Arial)
+        set(DOXYGEN_EXCLUDE ${PROJECT_SOURCE_DIR}/src/easylogging)
+        set(DOXYGEN_USE_MDFILE_AS_MAINPAGE ${PROJECT_SOURCE_DIR}/README.md)
+        doxygen_add_docs(doc_doxygen ${PROJECT_SOURCE_DIR}/README.md ${PROJECT_SOURCE_DIR}/src ALL
+            WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+            COMMENT "Generating API documentation with Doxygen")
+
+        file(GLOB images doc/*.png doc/*.gif)
+        file(COPY ${images} DESTINATION ${PROJECT_BINARY_DIR}/html/doc)
+
+        install(DIRECTORY ${PROJECT_BINARY_DIR}/html/ DESTINATION doc)
+    else(DOXYGEN_FOUND)
+        message("Doxygen need to be installed to generate the doxygen documentation")
+    endif(DOXYGEN_FOUND)
+endfunction(build_doc)
+
+# Git
 find_package(Git)
 if(GIT_FOUND)
     # 使用最新 commit Hash的前6位作为VERSION_REVISION
@@ -51,12 +85,20 @@ if(GIT_FOUND)
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
         OUTPUT_VARIABLE VERSION_BRANCH
         OUTPUT_STRIP_TRAILING_WHITESPACE)
+    if(${VERSION_BRANCH} EQUAL "master")
+        build_doc()
+        message(STATUS "[XTOOLS] Build Documentation: ON")
+    else(${VERSION_BRANCH} EQUAL "master")
+        message(STATUS "[XTOOLS] Build Documentation: OFF")
+    endif(${VERSION_BRANCH} EQUAL "master")
     set(PACK_VERSION ${VERSION_BRANCH}-${PROJECT_VERSION}.${PROJECT_VERSION_TWEAK}@${VERSION_DATE})
-    message(STATUS "[Git] Set PACK_VERSION to ${PACK_VERSION}")
+    message(STATUS "[XTOOLS] Set PACK_VERSION to ${PACK_VERSION}")
 else(GIT_FOUND)
     set(PACK_VERSION ${PROJECT_VERSION})
     message(WARNING "Git Not found. Set PACK_VERSION to ${PACK_VERSION}")
 endif(GIT_FOUND)
+
+# CPack
 set(CPACK_PACKAGE_VERSION ${PACK_VERSION})
 set(CPACK_PACKAGE_DIRECTORY ${PROJECT_SOURCE_DIR}/pack)
 set(CPACK_SOURCE_IGNORE_FILES
@@ -148,36 +190,6 @@ function(add_pytest)
 
     install(FILES ${OUT_FILES} DESTINATION demo)
 endfunction(add_pytest)
-
-# build_doc
-function(build_doc)
-    find_package(Doxygen REQUIRED dot OPTIONAL_COMPONENTS mscgen dia)
-    if(DOXYGEN_FOUND)
-        set(DOXYGEN_PROJECT_NAME ${CMAKE_PROJECT_NAME})
-        set(DOXYGEN_PROJECT_BRIEF ${CMAKE_PROJECT_DESCRIPTION})
-        set(DOXYGEN_PROJECT_NUMBER ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
-        set(DOXYGEN_EXCLUDE ${PROJECT_SOURCE_DIR}/src/easylogging)
-        set(DOXYGEN_EXCLUDE_SYMBOLS *::*Imp)
-        set(DOXYGEN_TOC_INCLUDE_HEADINGS 3)
-        set(DOXYGEN_ENABLE_PREPROCESSING YES)
-        set(DOXYGEN_MACRO_EXPANSION YES)
-        set(DOXYGEN_EXPAND_ONLY_PREDEF YES)
-        set(DOXYGEN_PREDEFINED __cplusplus)
-        set(DOXYGEN_DOT_FONTNAME Arial)
-        set(DOXYGEN_USE_MDFILE_AS_MAINPAGE ${PROJECT_SOURCE_DIR}/README.md)
-        doxygen_add_docs(doc_doxygen ${PROJECT_SOURCE_DIR}/README.md ${PROJECT_SOURCE_DIR}/src ALL
-            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-            COMMENT "Generating API documentation with Doxygen"
-            VERBATIM)
-
-        file(GLOB images *.png *.gif)
-        file(COPY ${images} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/html/doc)
-
-        install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/html/ DESTINATION doc)
-    else(DOXYGEN_FOUND)
-        message("Doxygen need to be installed to generate the doxygen documentation")
-    endif(DOXYGEN_FOUND)
-endfunction(build_doc)
 
 # add_bin_target 接收参数
 # add_bin_target(TARGET name SOURCES a.cpp b.cpp PTHREAD SYSLIBS m SELFLIBS my USEQT QTCOMPONENTS Widgets Charts)

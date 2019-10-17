@@ -19,8 +19,27 @@ Plug 'Shougo/denite.nvim', {'for': ''}
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 Plug 'junegunn/fzf.vim'  " <leader>fl/ for file/line/ag
 Plug 'Yggdroot/LeaderF', {'on': ['LeaderfBufTagAll', 'LeaderfFunctionAll'], 'do': './install.sh'}
+let g:Lf_ReverseOrder = 1
+let g:Lf_WildIgnore = {
+        \ 'dir': ['.svn','.git','.hg'],
+        \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
+        \}
+
 Plug 'easymotion/vim-easymotion' " <leader><leader>swafFjk
+" single character move
+nmap <leader><leader>s <Plug>(easymotion-s)
+" word move
+nmap <leader><leader>w <Plug>(easymotion-bd-w)
+" over window move
+nmap <leader><leader>a <Plug>(easymotion-overwin-w)
+
 Plug 'justinmk/vim-sneak'  " sxx fx
+let g:sneak#prompt = 'sneak..>'
+let g:sneak#target_labels = ";abcdefghigklmnopqrstuvwxyz/"
+let g:sneak#label = 1
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+
 Plug 'terryma/vim-multiple-cursors'
 Plug 'mg979/vim-visual-multi'  " <c-n>vii<c-f> for current indent, <c-n>maf for current function
 Plug 'terryma/vim-expand-region', {'for': ['python', 'c', 'cpp', 'sh', 'matlab', 'vim']} " v vv vvv
@@ -29,6 +48,9 @@ Plug 'tpope/vim-surround'  "ds/cs
 Plug 'junegunn/vim-peekaboo'  " visual @ and registers and <c-r> for insert mode pasting.
 Plug 'kshenoy/vim-signature' " m<a-zA-Z> m/ m<space> | m<0-9> m? m<bs>
 Plug 't9md/vim-choosewin'  " press - to choose window
+nmap  -  <Plug>(choosewin)
+let g:choosewin_overlay_enable = 1
+
 "---------------------------------------REPL
 Plug 'sillybun/vim-repl', {'on':['REPLToggle']}
 Plug 'sillybun/vim-async', {'on': ['REPLToggle']}  " required by vim-repl
@@ -36,9 +58,30 @@ Plug 'sillybun/vim-async', {'on': ['REPLToggle']}  " required by vim-repl
 Plug 'jiangmiao/auto-pairs', {'for': ['python', 'c', 'cpp', 'sh', 'matlab', 'vim']}
 Plug 'honza/vim-snippets', {'for': ['python', 'c', 'cpp', 'sh']}
 Plug 'SirVer/ultisnips', {'for': ['python', 'c', 'cpp', 'sh']}  " must before CompleteParameter.vim
+let g:UltiSnipsExpandTrigger = '<c-o>' " Open it! default '<TAB>'
+"let g:UltiSnipsListSnippets = '<c-TAB>' " default '<c-TAB>'
+"let g:UltiSnipsJumpForwardTrigger = '<c-j>' " default '<c-j>'
+"let g:UltiSnipsJumpBackwardTrigger = '<c-k>' " default '<c-k>'
+
+"==|auto-pairs|================================================================
+let g:AutoPairs = {'[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
+let g:AutoPairsShortcutJump = ''
+let g:AutoPairsMapCh = 0
+
 Plug 'Valloric/YouCompleteMe', {'for': ['python', 'c', 'cpp'], 'do': 'python3 ./install.py --clangd-completer'}
 Plug 'neoclide/coc.nvim', {'for':['nofile'], 'brach': 'release'}
+let g:coc_start_at_startup = 0
+let g:coc_snippet_next = '<tab>'
+let g:coc_snippet_prev = '<s-tab>'
+autocmd FileType tex let b:coc_pairs = [["$", "$"]]
+"inoremap <expr> <tab> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
 Plug 'tenfyzhong/CompleteParameter.vim'  ", {'for': ['c', 'cpp', 'python']}
+inoremap <silent><expr> ( complete_parameter#pre_complete("()")
+smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
 "---------------------------------------文本对象
 Plug 'wellle/targets.vim'  " i) a, i', i*, a_, a$
 Plug 'kana/vim-textobj-user', {'for': ['c', 'cpp', 'vim', 'java']} " Create your own objects, required by followings.
@@ -49,9 +92,20 @@ Plug 'jeetsukumaran/vim-pythonsense', {'for': ['python']}  " af, if, ac, ic, ad,
 Plug 'vim-scripts/DrawIt'
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'scrooloose/nerdcommenter', {'for': ['python', 'c', 'cpp', 'sh', 'matlab', 'vim', 'make', 'cmake']}
+let g:NERDDefaultAlign = 'left'
+map <m-/> mc:call NERDComment('n', 'toggle')<cr>'cj
+
 Plug 'ludovicchabant/vim-gutentags', {'for': ['python', 'c', 'cpp']}
 Plug 'skywind3000/asyncrun.vim', {'on': 'AsyncRun'}
+let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '.gitignore', 'build.xml']
+let g:asyncrun_bell = 1
+let g:asyncrun_trim = 1
+let g:asyncrun_open = 9
+
 Plug 'fs111/pydoc.vim', {'for': 'python'}  " just press K(or <leader>pw) in python files
+let g:pydoc_window_lines = 0.7
+let g:pydoc_cmd = 'python3 -m pydoc'
+
 Plug 'w0rp/ale', {'for': ['python', 'sh']}
 Plug 'sbdchd/neoformat', {'on': ['Neoformat']}
 Plug 'airblade/vim-gitgutter'
@@ -64,22 +118,54 @@ Plug 'iamcco/markdown-preview.vim', {'for': 'markdown'}  " MarkdownPreview
 Plug 'vim-scripts/DoxygenToolkit.vim', {'on': 'Dox'}
 Plug 'vim-latex/vim-latex', {'for': 'tex'}
 Plug 'lervag/vimtex', {'for': 'tex'}
+let g:tex_flavor = 'latex'
+
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
+let g:livepreview_engine = 'xelatex'
+let g:livepreview_cursorhold_recompile = 0
+
+Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
+set conceallevel=2
+let g:tex_conceal='abdmgs'
+
 "---------------------------------------UI
 Plug 'mhinz/vim-startify'
+let g:startify_change_to_vcs_root = 1
+
 Plug 'mh21/errormarker.vim', {'for': ['c', 'cpp', 'python']}
-Plug 'liuchengxu/space-vim-dark'
+let errormarker_disablemappings = 1
+
 Plug 'luochen1990/rainbow', {'for': ['python', 'c', 'cpp', 'sh', 'matlab', 'vim']}
 Plug 'Yggdroot/indentLine', {'for': ['python', 'c', 'cpp', 'sh', 'matlab', 'vim']}
+let g:indentLine_char_list = ['│', '|', '¦', '┆', '┊']
+let g:indentLine_char='¦'
+let g:indentLine_enabled = 1
+
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
 Plug 'Shougo/echodoc.vim', {'for': ['c', 'cpp', 'python']}
+set noshowmode
+let g:echodoc#enable_at_startup = 1
+
 Plug 'yianwillis/vimcdoc', {'for': ['help']}  " second help for chinese help
 Plug 'vim-airline/vim-airline' " show infos
 Plug 'tpope/vim-obsession'
 Plug 'mg979/vim-xtabline'
+let g:xtabline_settings = {}
+let g:xtabline_settings.tabline_modes = ['buffers', 'tabs', 'arglist']
+let g:xtabline_settings.buffer_filtering = 0
+"let g:xtabline_settings.override_airline = 0
+nmap <tab> :XTabNextBuffer<cr>
+nmap <s-tab> :XTabPrevBuffer<cr>
+nmap <BS> <Plug>(XT-Select-Buffer)
+
 Plug 'skyblueee/nerdtree', {'on': 'NERDTreeToggle'}
+let NERDTreeShowBookmarks = 1
+let NERDTreeCascadeSingleChildDir = 1
+let NERDTreeNaturalSort = 1
+
 Plug 'skywind3000/quickmenu.vim'  "<F12>
 Plug 'lilydjwg/colorizer', {'for': ['html', 'css', 'vim']}  " rgb(100, 2, 3), #0f0, #00f, #f00
+Plug 'liuchengxu/space-vim-dark'
 "---------------------------------------
 call plug#end()  " will execute 'filetype plugin indent on' and 'syntax enable'
 
@@ -303,11 +389,6 @@ function! MaximizeWindow()
     silent !wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
 endfunction
 
-"==|NERDTree|==================================================================
-let NERDTreeShowBookmarks = 1
-let NERDTreeCascadeSingleChildDir = 1
-let NERDTreeNaturalSort = 1
-
 "==|fzf|=======================================================================
 " mix exact search terms and fuzzy terms by prefixing each term with ' character
 command! -bang -nargs=? -complete=dir Files
@@ -344,22 +425,6 @@ endfunction
 nnoremap <leader>f :call SmartFiles()<cr>
 nnoremap <leader>/ :call SmartAg()<cr>
 nnoremap <leader>l :BLines<cr>
-
-"==|Leaderf|===================================================================
-let g:Lf_ReverseOrder = 1
-let g:Lf_WildIgnore = {
-        \ 'dir': ['.svn','.git','.hg'],
-        \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
-        \}
-
-"==|xtabline|==================================================================
-let g:xtabline_settings = {}
-let g:xtabline_settings.tabline_modes = ['buffers', 'tabs', 'arglist']
-let g:xtabline_settings.buffer_filtering = 0
-"let g:xtabline_settings.override_airline = 0
-nmap <tab> :XTabNextBuffer<cr>
-nmap <s-tab> :XTabPrevBuffer<cr>
-nmap <BS> <Plug>(XT-Select-Buffer)
 
 "==|vim-airline|===============================================================
 "nmap <tab> <Plug>AirlineSelectNextTab
@@ -416,26 +481,6 @@ let g:rainbow_conf = {
 	\}
 let g:rainbow_active = 1
 
-"==|indentLine|================================================================
-let g:indentLine_char_list = ['│', '|', '¦', '┆', '┊']
-let g:indentLine_char='¦'
-let g:indentLine_enabled = 1
-
-"==|vim-easymotion|============================================================
-" single character move
-nmap <leader><leader>s <Plug>(easymotion-s)
-" word move
-nmap <leader><leader>w <Plug>(easymotion-bd-w)
-" over window move
-nmap <leader><leader>a <Plug>(easymotion-overwin-w)
-
-"==|vim-sneak|=================================================================
-let g:sneak#prompt = 'sneak..>'
-let g:sneak#target_labels = ";abcdefghigklmnopqrstuvwxyz/"
-let g:sneak#label = 1
-map f <Plug>Sneak_f
-map F <Plug>Sneak_F
-
 "==|vim-visual-multi|==========================================================
 let g:VM_manual_infoline = 0
 let g:VM_default_mappings = 0
@@ -453,10 +498,6 @@ let g:VM_maps["Visual All"] = '<c-s-l>'
 let g:VM_maps["Visual Add"] = '<C-a>'
 let g:VM_maps["Visual Find"] = '<C-f>'
 let g:VM_maps["Visual Cursors"] = '<C-c>'
-
-"==|vim-choosewin|=============================================================
-nmap  -  <Plug>(choosewin)
-let g:choosewin_overlay_enable = 1
 
 "==|vim-repl|==================================================================
 let g:repl_auto_sends = ['class ', 'def ', 'for ', 'if ', 'while ']
@@ -514,39 +555,6 @@ let g:ycm_enable_diagnostic_signs = 1
 "    .ycm_extra_conf.py中额外配置。详情参见YCM说明文档"Working with virtual environment"
 " 2. YCM可以使用任意LSP服务器，详见help g:ycm_language_server
 
-"==|Coc|=======================================================================
-let g:coc_start_at_startup = 0
-let g:coc_snippet_next = '<tab>'
-let g:coc_snippet_prev = '<s-tab>'
-autocmd FileType tex let b:coc_pairs = [["$", "$"]]
-"inoremap <expr> <tab> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-"==|CompleteParameter|=========================================================
-inoremap <silent><expr> ( complete_parameter#pre_complete("()")
-smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
-imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
-smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
-imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
-
-"==|echodoc.vim|===============================================================
-set noshowmode
-let g:echodoc#enable_at_startup = 1
-
-"==|UltiSnips|=================================================================
-let g:UltiSnipsExpandTrigger = '<c-o>' " Open it! default '<TAB>'
-"let g:UltiSnipsListSnippets = '<c-TAB>' " default '<c-TAB>'
-"let g:UltiSnipsJumpForwardTrigger = '<c-j>' " default '<c-j>'
-"let g:UltiSnipsJumpBackwardTrigger = '<c-k>' " default '<c-k>'
-
-"==|auto-pairs|================================================================
-let g:AutoPairs = {'[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
-let g:AutoPairsShortcutJump = ''
-let g:AutoPairsMapCh = 0
-
-"==|Pydoc|=====================================================================
-let g:pydoc_window_lines = 0.7
-let g:pydoc_cmd = 'python3 -m pydoc'
-
 "==|Gutentags|=================================================================
 " 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
@@ -563,13 +571,6 @@ let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 if !isdirectory(s:vim_tags)
    silent! call mkdir(s:vim_tags, 'p')
 endif
-
-"==|AsyncRun|==================================================================
-let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '.gitignore', 'build.xml']
-let g:asyncrun_bell = 1
-let g:asyncrun_trim = 1
-let g:asyncrun_open = 9
-"command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ CFLAGS=-O2
 
 "==|quickmenu|==================================================================
 let g:quickmenu_options = "HL"
@@ -673,20 +674,6 @@ call g:quickmenu#append("Preview Hunk", 'GitGutterPreviewHunk',
             \ 'Preview the hunk under the cursor. :pc[lose] to close the preview window')
 call g:quickmenu#append("Undo Hunk", 'GitGutterUndoHunk', '<Leader>hp: Undo the hunk under the cursor.')
 
-"==|startify|==================================================================
-let g:startify_change_to_vcs_root = 1
-
-"==|errormarker.vim|===========================================================
-let errormarker_disablemappings = 1
-
-"==|space-vim-dark|============================================================
-let g:space_vim_dark_background = 233 " 233(darkest)-238(lightest)
-colorscheme space-vim-dark
-hi Comment cterm=italic
-hi LineNr  ctermfg=gray
-hi CursorLineNr	ctermfg=yellow ctermbg=235
-hi CursorLine	ctermbg=235
-
 "==|ale|=======================================================================
 "let g:ale_pattern_options_enabled " default !empty(g:ale_pattern_options)
 "let g:ale_pattern_options = {'\.min.js$': {'ale_enabled': 0}}
@@ -770,9 +757,13 @@ let g:neoformat_enabled_c = ['clangformat']
 "  autocmd BufWritePre * undojoin | Neoformat
 "augroup END
 
-"==|nerdcommenter|=============================================================
-let g:NERDDefaultAlign = 'left'
-map <m-/> mc:call NERDComment('n', 'toggle')<cr>'cj
+"==|space-vim-dark|============================================================
+let g:space_vim_dark_background = 233 " 233(darkest)-238(lightest)
+colorscheme space-vim-dark
+hi Comment cterm=italic
+hi LineNr  ctermfg=gray
+hi CursorLineNr	ctermfg=yellow ctermbg=235
+hi CursorLine	ctermbg=235
 
 "==|dict|======================================================================
 function! Mydict()
