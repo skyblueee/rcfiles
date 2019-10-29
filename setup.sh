@@ -7,8 +7,8 @@ sudo apt install -y clang-format clang-tidy cppman clangd-8 libclang-dev flake8
 sudo apt install -y autojump ranger ncdu
 sudo apt install -y vim sdcv lftp virtualbox virtualbox-guest-additions-iso
 sudo apt install -y silversearcher-ag terminator
-mkdir -p ~/.config/terminator; ln terminator.config ~/.config/terminator/config
-mkdir -p ~/.config/yapf; ln yapf.ini ~/.config/yapf/style
+mkdir -p ~/.config/terminator; ln -sf terminator.config ~/.config/terminator/config
+mkdir -p ~/.config/yapf; ln -sf yapf.ini ~/.config/yapf/style
 ln -sf ~/rcfiles/coc-settings.json ~/.vim/coc-settings.json
 
 sudo -H pip3 install cheat

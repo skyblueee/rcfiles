@@ -121,7 +121,7 @@ export CXX='/usr/bin/clang++'
 export QT_LOGGING_RULES="qt5ct.debug=false"  # 解决QT程序启动时显示"qt5ct: using qt5ct plugin"的问题
 
 # IPP
-export IPPROOT=~/bin/intel_ipp/compilers_and_libraries_2018.3.222/linux/ipp
+export IPPROOT='~/bin/intel_ipp/compilers_and_libraries/linux/ipp'
 export LD_LIBRARY_PATH="$IPPROOT/lib/intel64:${LD_LIBRARY_PATH}"
 export LIBRARY_PATH="$IPPROOT/lib/intel64:${LIBRARY_PATH}"
 

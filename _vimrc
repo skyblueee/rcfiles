@@ -112,7 +112,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive', {'on': ['Gdiff', 'Gvdiff', 'Gstatus']}
 "---------------------------------------
 Plug 'jceb/vim-orgmode', {'for': 'org'}
-Plug 'vimwiki/vimwiki', {'for': 'wiki'}
 Plug 'iamcco/mathjax-support-for-mkdp', {'for': 'markdown'}
 Plug 'iamcco/markdown-preview.vim', {'for': 'markdown'}  " MarkdownPreview
 Plug 'vim-scripts/DoxygenToolkit.vim', {'on': 'Dox'}
@@ -148,7 +147,6 @@ let g:echodoc#enable_at_startup = 1
 
 Plug 'yianwillis/vimcdoc', {'for': ['help']}  " second help for chinese help
 Plug 'vim-airline/vim-airline' " show infos
-Plug 'tpope/vim-obsession'
 Plug 'mg979/vim-xtabline'
 let g:xtabline_settings = {}
 let g:xtabline_settings.tabline_modes = ['buffers', 'tabs', 'arglist']
